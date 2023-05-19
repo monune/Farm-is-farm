@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="sign_in.css?ver=1.3">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>농장팜니다</title>    
+    <!-- add jquery plugin -->
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="sign.js?ver=1.1"></script>
+</head>
+
+<body>
+    <div class="unDrag infoBox">
+        <div class="wrap">
+            <h1 style="text-align: center;">회원가입</h1>
+            <!-- 회원가입 정보 입력 -->
+            <form action="account.php" method="post" onsubmit="return checkAccount()">
+                <!-- User Name -->
+                <input class="i-id i-text box" type="text" id="user_nm" name="name" onchange="outFocus()" placeholder="사용자 이름" autocomplete="off" maxlength="5" size="10"><br>
+                <p id="nm_res" class="i-comment" style="color: red;"></p>
+                <input type="hidden" name="checked_nm" value="">
+                <!-- User ID -->
+                <div>
+                    <input class="i-id i-text box" type="text" id="user_id" name="id" placeholder=" 아이디" autocomplete="off" maxlength="12"  size="28">
+                    <input class="compare" type="button" id="compareButton" onclick="checkID()" value="중복 확인"><br>
+                    <p id="i_res" class="i-comment"></p>
+                    <input type="hidden" name="checked_id" value="">
+                </div>
+                <!-- User Password & Password checking -->
+                <div>
+                    <!-- password input & changue _1 -->
+                    <input type="password" id="pw1" name="password1" class="checkPassword_1 i-id i-text box" placeholder=" 비밀번호" maxlength="16" size="28">
+                    <label for="checkObject" id="isOn" class="cb1" style="text-align: center;">켜기</label>
+                    <input style="display: none;"type="checkbox" id="checkObject" onclick="showPassword()">
+                    <!-- password input & changue _2 & password checking -->
+                    <input type="password" id="pw2" name="password2" class="checkPassword_2 i-id i-text box" placeholder=" 비밀번호 재확인" maxlength="16" size="28">
+                    <p id="pw_res" class="i-comment"></p>
+                    <input type="hidden" name="checked_pw" value="">
+                </div>
+                 <!-- Account information submit -->
+                <div class="row">
+                    <input type="submit" class="btn" onclick="checkPassword()" value="회원가입">
+                    <div class="back"><a href="../login.html">돌아가기</a></div>
+                </div>
+            </form>
+            
+            <div class="wave_1 wave"></div>
+            <div class="wave_2 wave"></div>
+            <div class="wave_3 wave"></div>
+        </div>
+        
+    </div>
+
+    <script>
+        // reset clipboard
+        window.addEventListener("copy", (e) => {
+            e.preventDefault();
+            e.clipboardData.setData("Text", "");
+            // e.clipboardData.getData("Text");
+            // e.clipboardData.clearData("Text"); // 클립보드에 저장된 컨텐츠 삭제
+        })
+        
+        // Toggle show Checkbox
+        function showPassword() {
+            let isChecked = document.getElementById('checkObject').checked;
+            let showsBtn = document.getElementById("isOn");
+            let showsPW1 = document.getElementsByClassName("checkPassword_1");
+            let showsPW2 = document.getElementsByClassName("checkPassword_2")
+            if (isChecked === true) {
+                showsBtn.innerText = "끄기";
+                showsPW1[0].setAttribute("type", "text");
+                showsPW2[0].setAttribute("type", "text");
+            }
+            else {
+                showsBtn.innerText = '켜기';
+                showsPW1[0].setAttribute("type", "password");
+                showsPW2[0].setAttribute("type", "password");
+            }
+        }
+    </script>
+</body>
+</html>

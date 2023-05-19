@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/index.css?12">
+    <script src="../js/select.js"></script>
+    <script src="index.js"></script>          <!-- JS -->
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>농장팜니다</title>
+</head>
+<body>
+    <!-- top -->
+    <div class="header">
+        <div class="title">
+            <h3 class="title-txt">재배 환경 데이터</h3>
+        </div>
+        <div class="infobox">
+            <a class="info" href="#" onclick="getBack()">돌아가기</a>
+            <a class="info" href="#" onclick="checkSession()">세션 확인</a>
+            <a class="info" href="#" >블루투스</a> <!-- none -->
+            <!-- test -->
+        </div>
+    </div>
+    <!-- mid -->
+    <div class="backgrounds">
+        <div class="container">
+            <div class="data-box">
+                <input type="text" class="data temp" value="온도 값: " readonly> <!-- 온도 -->
+                <input type="text" class="data hum" value="습도 값: " readonly> <!-- 습도 -->
+
+                <input type="text" class="data ph" value="PH 값: " readonly> <!-- PH -->
+                <div class="led">
+                    <div class="led-cnt">
+                        <input type="text" class="data led" id="led" value="LED 밝기:" readonly> <!-- LED -->
+                        <input type="button" class="cntr up" onclick="ledUp()" value="↑">
+                        <input type="button" class="cntr down" onclick="ledDown()" value="↓">
+                        <p id="lastvalue" class="last">last value: </p>
+                    </div>  
+                    <p id="er1" style="color: red;"></p>
+                </div>
+
+            </div>
+        </div>
+        <div class="control">
+            <input type="button" class="btn" value="적용">
+        </div>
+    </div>
+    <!-- bottom -->
+    <div class="btm-row">
+        <div class="softbox">
+            <p class="copyright">T.032-766-8425 </p>
+            <p class="copyright">인천광역시 남구 석정로 165 </p>
+            <p class="copyright">Copyright 2023. MDP(Meister Development Project). All rights reserved. </p>
+        </div>
+    </div>
+</body>
+</html>

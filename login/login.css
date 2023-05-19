@@ -1,0 +1,151 @@
+.unDrag{
+  user-select: none;
+}
+.btn{
+  background-color: rgb(191, 197, 193);
+  color: white;
+  top: 50%;
+  border: none;
+  border-radius: 15px;
+  padding: 8px;
+  min-height: 10px;
+  min-width: 150px;   
+  font-weight: 900;
+  font-size: x-large;
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn:hover {
+  background-color: #00e01a;
+  transition: 0.5s;
+}
+.btn:focus {
+  outline: transparent;
+  outline-style: solid;
+  box-shadow: 0 0 0 2px #7e7e7e;
+}
+.i-id {
+  margin-top: 50px;
+}
+.i-text {
+  border: solid;
+  position: static;
+  padding: 15px;
+  margin-top: 8px;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  border-bottom-width: 1px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 14px;
+  border-color: #7e7e7e;
+}
+.i-text:focus {
+  outline: none;
+}
+.cb {
+  cursor:pointer;
+  background-color: gray;
+  color: white;
+  margin-left: -65px;
+  border-radius: 10px;
+  padding-top: 2px;
+  padding-bottom: 4px;
+  padding-left: 13px;
+  padding-right: 15px;
+}
+.cb:hover {
+  background-color: rgb(206, 206, 206);
+}
+.loginBox {
+  position: static;
+  background-color: #6aff91;
+  border: 5px solid;
+  border-color: rgb(228, 228, 228);
+  margin-top: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 500px;
+  max-width: 500px;
+  max-height:550px;
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.5);
+}
+.i-comment {
+  font-size: 14px;
+  margin: 0px;
+}
+.wrap { 
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+  z-index: -0.5;
+}
+.wave {
+  width: 1000px;
+  height: 1025px;
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  margin-left: -500px;
+  margin-top: -500px;
+  border-radius: 35%;
+  z-index: -1;
+}
+.wave_1 {
+  background: rgb(255 255 255 / 41%);
+  animation: wave 15.6s infinite linear;
+  border: 1px solid #00ff1b24;
+}
+.wave_2 {
+  background: rgb(255 255 255 / 50%);
+  animation: wave 15.3s infinite linear;
+  border: 1px solid #00ff1b24;
+}
+.wave_3 {
+  background: rgb(255 255 255);
+  animation: wave 15s infinite linear;
+  border: 1px solid #00ff1b24;
+}
+@keyframes wave {
+  from { transform: rotate(0deg);}
+  from { transform: rotate(360deg);}
+}
+.tag {
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+span {
+  font-size: 110px;
+  font-weight: 540;
+  font-family: 'dokdo';
+}
+span.farm {
+  font-size: 100px;
+  font-weight: 550;
+  color: #6aff91;  
+  -webkit-text-stroke: 1px #008711;
+}
+.titlebox {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.subtitle {
+  position: absolute;
+  right: 32%;
+  top: 150px;
+  margin: 0px;
+  font-size: 30px;
+  font-family: 'dokdo';
+}
+
+@font-face {
+  font-family: 'dokdo';
+  src: url('../font/EastSeaDokdo-Regular.ttf') format('truetype');
+}

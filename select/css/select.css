@@ -1,0 +1,141 @@
+.flex-container {
+    display:flex;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+.contFrame {
+    background-color: rgba(27,27,27,0.6);
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    margin-right: 10px;
+    margin-left: 10px;
+    min-width: 200px;
+    min-height: 310px;
+}
+.contFrame:hover {
+    background-color: rgb(27 27 27 / 75%);
+}
+.backgrounds {
+    background-image:url(../../img/background/background_1.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-width: 1px 0px 1px 0px;
+    border-style: solid;
+    border-color: gray;
+}
+.header {
+    justify-content: center;
+    display: flex;
+    padding: 10px;
+    background-color: white
+}
+.infobox {
+    margin-top: 5px;
+    min-width: 220px;
+    float: left;
+}
+.info{
+    margin: 5px;
+    font-size: 16px;
+}
+.title-txt {
+    margin-top: 5px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    margin-right: 100px;
+    min-width: 300px;
+    left: 0;
+}
+.mainText {
+    max-width: 640px;
+    background-color: rgba(27,27,27,0.6);
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+.mainText:hover {
+    background-color: rgb(27 27 27 / 75%);
+}
+.mainTitle {
+    font-size: 40px;
+    margin-left: 10px;
+    margin-top: 10px;
+    color: white;
+}
+.subText {
+    margin-top: 5px;
+    margin-left: 10px;
+}
+.txt-basil {
+    color:rgb(17, 156, 98)
+}
+.txt-rosemary {
+    color: rgb(41, 178, 139)
+}
+.txt-lettuce {
+    color: rgb(137, 241, 139);
+}
+h1 {
+    margin: 0px; 
+    color: white;
+}
+h2 {
+    font-size: 30px;
+    margin: 15px 0 0 0;
+}
+p {
+    font-size: 12px;
+    margin: 8px 0 0 0;
+    color: #e5e5e5;
+}
+img {
+    margin-top: 46.5px;
+}
+button {
+    color: #e5e5e5;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    margin: 20px 0 16px 0;
+    padding: 1px 20px 1px 20px;
+}
+button:hover {
+    background-color: rgb(27 27 27 / 50%);
+    border: 1px solid rgb(0 0 0 / 0%);
+}
+html, body {
+    margin: 0px; 
+    padding: 0px;
+    user-select: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.btm-row {
+    background-color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.softbox {
+    background-color: white;
+    border: 1px solid gray;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 0px;
+    padding-right: 7px;
+    padding-left: 7px;
+    padding-bottom: 7px;
+    max-width: 600px;
+}
+p.copyright {
+    color: black;
+    font-size: 13px;
+    margin-top: 7px;
+}
