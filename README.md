@@ -6,11 +6,15 @@
 
 ## Display
 
-- **기능**
+- **Login Page**
 	- Login
-	- Register
-	- Session Check
 	- Select Data
+	- Page move
+
+- **Register Page**
+	- Compare ID & Password
+	- Register User Data
+
 - **seed**
 	- MDP
 
