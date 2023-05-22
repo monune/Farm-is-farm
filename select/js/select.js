@@ -127,5 +127,5 @@ function logOut() {
 
 function getBack() {
   alert("이전 화면으로 돌아갑니다.");
-  window.location.href = '../select.html';
+  window.location.href = '/src/select/select.html';
 }
