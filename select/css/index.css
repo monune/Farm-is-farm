@@ -2,7 +2,7 @@
     justify-content: center;
     display: flex;
     padding: 10px;
-    background-color: white
+    background-color: white;
 }
 
 .backgrounds {
@@ -126,6 +126,11 @@ p.last {
     margin-right: 5px;
 }
 
+input.data {
+    max-height: 25.6;
+    min-height: 25.6;
+}
+
 .control {
     text-align: center;
 }
@@ -135,6 +140,15 @@ p.last {
     border-radius: 45px;
     width: 200px;
     height: 50px;
+    background-color: white;
+}
+
+.btn:hover {
+    background-color: #eeeeee;
+}
+
+.btn.focus {
+
 }
 
 input {
@@ -144,7 +158,9 @@ input {
 .led-cnt {
     display: flex;
 }
+
 .last {
-    max-width: 200px;
+    width: 108px;
     margin-top: 13px;
+    overflow : hidden;
 }

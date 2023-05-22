@@ -63,8 +63,7 @@ function transPage() {
 
 var sessionTimeout;
 function startSession() {
-    // var sessionDuration = 3 * 24 * 60 * 60 * 1000; // 세션 유지 시간 3일 (밀리초 위)
-  var sessionDuration = 1000000 * 1000; // 세션 유지 시간 1000초 (밀리초 단위)
+    var sessionDuration = 3 * 24 * 60 * 60 * 1000; // 세션 유지 시간 3일 (밀리초 위)
   var currentTime = new Date().getTime();
   var sessionExpirationTime = currentTime + sessionDuration;
   var sessionExpirationUTCString = new Date(sessionExpirationTime).toUTCString();
