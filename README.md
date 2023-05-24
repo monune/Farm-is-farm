@@ -33,9 +33,7 @@
 ## 📚 MDP (Meister Development Project)
 명장 양성 프로젝트(MDP)는 실습 기반의 프로젝트 수업입니다.
 - 전공 동아리 활동
-- 문제해결능력 배양 중심
 - 프로젝트 팀 편성
-- 산업체 현장교육 조기 실시
 
 ## 🔖 Source
 - [MDP](http://intec.icehs.kr/sub/info.do?m=040101&s=intec)
