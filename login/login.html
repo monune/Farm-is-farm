@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- stylesheet -->
-    <link rel="stylesheet" href="login.css?ver=1.31">
-    <script src="login.js?ver=1"></script>
+    <link rel="stylesheet" href="login.css?ver=1.32">
+    <script src="login.js?ver=3.2"></script>
     <!-- add jquery plugin -->
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <title>농장팜니다</title>
 </head>
-<body class="frame">
+<body class="frame preload">
     <!-- main form -->
     <form action="../select/index.php" method="post" onsubmit="return transPage()">
         <div class="loginBox">
@@ -42,7 +42,7 @@
 
                 <!-- a말고 버튼으로 바꾸기 -->
                 <div style="text-align: center;" class="tag">
-                    <a href="sign_in/sign_in.html">회원가입</a>
+                    <a href="signup/signup.html">회원가입</a>
                 </div>
             
                 <div class="wave_1 wave"></div>
@@ -51,8 +51,7 @@
             </div>
         </div>
     </form>
-
-    <!-- JavaScript code -->
+    
     <script>
         // reset clipboard
         window.addEventListener("copy", (e) => {

@@ -1,9 +1,19 @@
 .unDrag {
   user-select: none;
 }
+
+.preload {
+  transition: none !important;
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+}
+
 .i-id {
   margin-top: 50px;
 }
+
 .i-text {
   border-style: solid;
   border-radius: 10px;
@@ -29,6 +39,7 @@
   padding-bottom: 5px;
   margin-top: 50px;
   margin-bottom: 30px;
+  transition-duration: 0.2s;
 }
 .btn:hover {
   background-color: #00e01a;
@@ -104,6 +115,7 @@ border: none;
 border-radius: 10px;
 padding: 8px;
 margin-bottom: -10px;
+transition-duration: 0.2s;
 }
 .compare:hover {
   background-color: #00e01a;
