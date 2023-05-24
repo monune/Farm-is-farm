@@ -5,6 +5,15 @@
     background-color: white;
 }
 
+/*  CSS Transition Only After Onload */ */
+.preload {
+    transition: none !important;
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+}
+
 .backgrounds {
     background-image:url(../../img/background/bg2.jpg);
     background-size: 100%;
@@ -101,9 +110,10 @@ p.last {
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 520px;
+    width: 520px;
+    height: 300px;
     margin: 30px auto 0 auto;
-    padding: 0 50px 0 0;
+    padding: 0 40px 0 0;
     background: white;
 }
 
@@ -141,11 +151,16 @@ input.data {
     border-radius: 45px;
     width: 200px;
     height: 50px;
-    background-color: white;
+    background: white;
+    transition-duration: 0.3s;
 }
 
 .btn:hover {
-    background-color: #eeeeee;
+    background: #eeeeee;
+}
+
+.btn:focus {
+    background: green;
 }
 
 input {
@@ -181,4 +196,20 @@ input {
     background: gainsboro;
     border-radius: 10px;
     cursor: pointer;
+    transition-duration: 0.3s;
+}
+
+.slider:hover::-webkit-slider-thumb {
+    background: grey;
+}
+
+.status {
+    margin-right: 200px;
+}
+
+.reset {
+    position: relative;
+    padding: 1px;
+    width: 30px;
+    height: 30px;
 }

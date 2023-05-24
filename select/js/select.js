@@ -11,8 +11,6 @@ window.onload = function() {
       if (currentTime < sessionExpirationTime) {
         // 세션 만료 시간까지 남은 시간 계산
         var timeRemaining = sessionExpirationTime - currentTime;
-        var seconds = Math.floor(timeRemaining / 1000);
-
         setTimeout(function() {
           alert("세션이 만료되었습니다. 로그인 화면으로 돌아갑니다.");
           window.location.href = 'http://211.254.214.74:8081';
@@ -93,7 +91,7 @@ function compareSession(buttonID) {
   window.location.href = 'http://211.254.214.74:8081';
 }
 
-// Check Client Cookies
+// ---------------- Check Client Cookies ----------------
 // function checkCookie() {
 //   var cookies = document.cookie.split(";");
 //   for (var i = 0; i < cookies.length; i++) {
@@ -120,12 +118,17 @@ function compareSession(buttonID) {
 // }
 
 function logOut() {
-        document.cookie = "sessionExpiration=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        alert("로그아웃 되었습니다. \n로그인 화면으로 돌아갑니다.");
-        window.location.href = 'http://211.254.214.74:8081';
+  deleteCookie('userID');
+  document.cookie = "sessionExpiration=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  alert("로그아웃 되었습니다. \n로그인 화면으로 돌아갑니다.");
+  window.location.href = 'http://211.254.214.74:8081';
 }
 
 function getBack() {
   alert("이전 화면으로 돌아갑니다.");
   window.location.href = '/src/select/select.html';
+}
+
+function deleteCookie(name) {
+  document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }

@@ -3,15 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../css/index.css?ver=1">
+    <link rel="stylesheet" href="../css/index.css?ver=1.2">
     <script src="../js/select.js"></script>
-    <script src="index.js"></script> <!-- JS -->
+    <script src="index.js?var=1.0"></script> <!-- JS -->
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>농장팜니다</title>
 </head>
 
-<body>
+<body class="preload">
     <!-- top -->
     <div class="header">
         <div class="title">
@@ -28,28 +28,30 @@
     <div class="backgrounds">
         <div class="container">
             <div class="data-box">
+                <div class="status">
+                    <input type="button" class="reset" onclick="callData()" value="set">
+                </div>
                 <div class="temp-cnt">
-                    <input type="text" class="data temp" value="온도 값: " readonly> <!-- 온도 -->
+                    <input type="text" class="data temp" id="temp" value="온도: null ℃" readonly> <!-- 온도 -->
                 </div>
                 <div class="hum-cnt">
-                    <input type="text" class="data hum" value="습도 값: " readonly> <!-- 습도 -->
+                    <input type="text" class="data hum" id="hum" value="습도: null %" readonly> <!-- 습도 -->
                 </div>
                 <div class="ph-cnt">
-                    <input type="text" class="data ph" value="PH 값: " readonly> <!-- PH -->
+                    <input type="text" class="data ph" id="ph" value="산성도: null pH" readonly> <!-- PH -->
                 </div>
                 <div class="led-cnt">
-                    <input type="text" class="data led" id="led" value="LED 밝기: " readonly> <!-- LED -->
-                    
-                    <input type="range" id="slider" class="slider" value="1" min="1" max="10">
-                    <p id="lastvalue" class="last"></span></p>
+                    <input type="text" class="data led" id="led" value="밝기: null %" readonly> <!-- LED -->
+
+                    <input type="range" id="slider" class="slider" oninput="Drag()" value="1" min="1" max="10">
+                    <p id="lastvalue" class="last">현재 LED 밝기: null %</p>
+                    <input type="hidden" id="set" value="N">
                 </div>
                 <p id="er1" style="color: red;"></p>
-
-
             </div>
         </div>
         <div class="control">
-            <input type="button" class="btn" value="적용">
+            <input type="button" class="btn" onclick="" value="적용">
         </div>
     </div>
     <!-- bottom -->
@@ -62,16 +64,21 @@
     </div>
     <script>
         var slider = document.getElementById('slider');
-        window.onload = function() {
-            var per = slider.value;
-            $("#lastvalue").html("현재 LED 밝기: " + per * 10 + "%");
-            $("#led").val("LED 밝기: " + per * 10 + "%");
+        var setBefore = document.getElementById('set');
+
+        window.onload = function () {
+            $("#er1").html("'set'버튼을 눌러 정보를 기록해주세요.");
         }
 
-        slider.oninput = function() {
+        function Drag() {
             var per = slider.value;
-            $("#led").val("LED 밝기: " + per * 10 + "%");
+            if (setBefore.value === 'Y') { // true
+                $("#led").val("밝기: " + per * 10 + "%");
+            } else { // setBefore.value = N(false)
+                $("#slider").val(1);
+            }
         }
     </script>
 </body>
+
 </html>
