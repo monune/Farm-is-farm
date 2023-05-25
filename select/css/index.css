@@ -16,7 +16,7 @@
 
 .backgrounds {
     background-image:url(../../img/background/bg2.jpg);
-    background-size: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     border-width: 1px 0px 1px 0px;

@@ -9,7 +9,7 @@
 function callData() {
   const id = getCookie("userID");
   $.ajax({
-    url: "../php/data_process.php",
+    url: "php/data_process.php",
     type: "POST",
     async: false,
     data: { id: id },
@@ -45,4 +45,8 @@ function getCookie(cookieName) {
     }
   }
   return null;
+}
+
+function dataTransmission() {
+  
 }

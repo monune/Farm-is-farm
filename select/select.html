@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/select.css?ver=1.11"> <!-- CSS -->
-    <script src="js/select.js?ver=1.22"></script>          <!-- JS -->
+    <link rel="stylesheet" href="css/select.css?ver=2.0"> <!-- CSS -->
+    <script src="js/select.js?ver=1.21"></script>          <!-- JS -->
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>농장팜니다</title>
@@ -11,7 +11,7 @@
 <body>
     <div class="header">
         <div class="title">
-            <h3 class="title-txt" onclick="location.href='/src/select/select.html'">재배 환경 데이터</h3>
+            <h3 class="title-txt" onclick="location.reload()">재배 환경 데이터</h3>
         </div>
         <div class="infobox">
             <a class="info" href="#" onclick="logOut() ">로그아웃</a>
@@ -23,32 +23,33 @@
 
     <div class="backgrounds">
             <div class="mainText" onclick="location.href='source.html'">
-                <h2 class="mainTitle">농장Farm니다.</h2>
+                <h2 class="mainTitle">농장팜니다.</h2>
                 <p class="subText">
-                    라즈베리파이 기반의 데이터 통신 웹 사이트. <br>
-                    <br>
-                    <br>
+                    웹 페이지로 라즈베리파이와 FPGA를 제어할 수 있습니다. <br>
+                    MariaDB, Rasberry Pi 4 foundation, FPGA EP4CE6E22C8N module.
                 </p>
             </div>
         
         <div class="flex-container">
-            <div class="contFrame" onclick="compareSession('basil')">
-                <img width="107" height="114" src="../img/icon/icon-basil.png" alt="Basil">
-                <h2 class="txt-basil">바질</h2>
-                <p>바질 페이지 이동</p>
-                <button type="button" onclick="compareSession('basil')">바로가기</button>
+            <!-- 데이터 제어 -->
+            <div class="contFrame" onclick="compareSession('control')">
+                <img width="107" height="114" src="../img/icon/icon-control.png" alt="contrl">
+                <h2 class="txt txt-basil">Control</h2> 
+                <p>데이터 제어 페이지 이동</p>
+                <button type="button" onclick="compareSession('control')">바로가기</button>
             </div>
-            <div class="contFrame" onclick="compareSession('rosemary')">
-                <img width="107" height="114" src="../img/icon/icon-rosemary.png" alt="Rosemary" >
-                <h2 class="txt-rosemary">로즈마리</h2>
-                <p>로즈마리 페이지 이동</p>
-                <button type="button" onclick="compareSession('rosemary')">바로가기</button>
+            <!-- 모터 제어 -->
+            <div class="contFrame" onclick="compareSession('motor')">
+                <img width="107" height="114" src="../img/icon/icon-water.png" alt="water" >
+                <h2 class="txt txt-rosemary">Motor</h2>
+                <p>모터 제어 페이지 이동</p>
+                <button type="button" onclick="compareSession('motor')">바로가기</button>
             </div>
             <div class="contFrame" onclick="compareSession('lettuce')">
-                <img width="107" height="114" src="../img/icon/icon-lettuce.png" alt="Lettuce">
-                <h2 class="txt-lettuce">상추</h2>
-                <p>상추 페이지 이동</p>
-                <!-- <button type="button" onclick="compareSession('lettuce')">바로가기</button> -->
+                <img width="107" height="114" src="../img/icon/icon-lettuce.png" alt="null">
+                <h2 class="txt txt-lettuce">Function 3</h2>
+                <p>기능 3</p>
+                <button type="button" onclick="compareSession('lettuce')">바로가기</button>
             </div>
         </div>
     </div>
@@ -58,6 +59,7 @@
             <p class="copyright">T.032-766-8425 </p>
             <p class="copyright">인천광역시 남구 석정로 165 </p>
             <p class="copyright">Copyright 2023. MDP(Meister Development Project). All rights reserved. </p>
+            <p class="copyright"><a href="https://www.flaticon.com/kr">Image copyright: Freepik</a></p>
         </div>
     </div>
 
