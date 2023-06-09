@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/select.css?ver=2.1">
+    <script src="js/session.js?ver=1.0"></script>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>농장팜니다</title>
@@ -10,12 +13,11 @@
 <body><!-- top -->
     <div class="header">
         <div class="title">
-            <h3 class="title-txt" onclick="location.href='../select.html'">재배 환경 데이터</h3>
+            <h3 class="title-txt" onclick="location.href='select.html'">재배 환경 데이터</h3>
         </div>
         <div class="infobox">
-            <a class="info" href="#" onclick="logOut()">돌아가기</a>
+            <a class="info" href="#" id="logout" onclick="getBack()">돌아가기</a>
             <a class="info" href="#" onclick="checkSession()">세션 확인</a>
-            <a class="info" href="#" >블루투스</a> <!-- none -->
             <!-- test -->
         </div>
     </div>
@@ -23,7 +25,7 @@
     <!-- mid -->
     <div class="backgrounds">
         <div class="setbox">
-            상추
+            로즈마리
         </div>
     </div>
 

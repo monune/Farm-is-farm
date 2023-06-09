@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/index.css?ver=1.2">
-    <script src="js/select.js?ver=1.0"></script>
-    <script src="js/index.js?var=1.1"></script> <!-- JS -->
+    <link rel="stylesheet" href="css/index.css?ver=1.0">
+    <link rel="stylesheet" href="css/func2.css?ver=1.0">
+    <script src="js/index.js?var=1.2"></script>
+    <script src="js/session.js?ver=1.0"></script>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>농장팜니다</title>
@@ -15,12 +16,11 @@
     <!-- top -->
     <div class="header">
         <div class="title">
-            <h3 class="title-txt" onclick="location.href='../select.html'">재배 환경 데이터</h3>
+            <h3 class="title-txt" onclick="location.href='select.html'">재배 환경 데이터</h3>
         </div>
         <div class="infobox">
             <a class="info" href="#" onclick="getBack()">돌아가기</a>
             <a class="info" href="#" onclick="checkSession()">세션 확인</a>
-            <a class="info" href="#">블루투스</a> <!-- none -->
             <!-- test -->
         </div>
     </div>
@@ -28,8 +28,8 @@
     <div class="backgrounds">
         <div class="container">
             <div class="data-box">
-                <div class="status">
-                    <input type="button" class="reset" onclick="callData()" value="set">
+                <div class="title">
+                    <h2>환경 데이터 현황</h2>
                 </div>
                 <div class="temp-cnt">
                     <input type="text" class="data temp" id="temp" value="온도: null ℃" readonly> <!-- 온도 -->
@@ -45,13 +45,14 @@
 
                     <input type="range" id="slider" class="slider" oninput="Drag()" value="1" min="1" max="10">
                     <p id="lastvalue" class="last">현재 LED 밝기: null %</p>
-                    <input type="hidden" id="set" value="N">
+                    <input type="hidden" id="set" value="N"> <!-- 데이터 비교 -->
                 </div>
-                <p id="er1" style="color: red;"></p>
+                <p id="er1 msg" style="color: red;"></p>
+                <p id="suc1 msg" style="color: green;"></p>
             </div>
         </div>
         <div class="control">
-            <input type="button" class="btn" onclick="dataTransmission()" value="적용">
+            <input type="button" onclick="dataTransmission()" class="btn" value="적용">
         </div>
     </div>
     <!-- bottom -->
@@ -63,21 +64,25 @@
         </div>
     </div>
     <script>
+        window.onload = function () {
+            callData();
+        }
+
         var slider = document.getElementById('slider');
         var setBefore = document.getElementById('set');
-
-        window.onload = function () {
-            $("#er1").html("'set'버튼을 눌러 정보를 기록해주세요.");
-        }
+        var time = 1000 * 3; // 5sec count
 
         function Drag() {
             var per = slider.value;
             if (setBefore.value === 'Y') { // true
-                $("#led").val("밝기: " + per * 10 + "%");
+                $("#led").val("밝기: " + per * 10 + " %");
             } else { // setBefore.value = N(false)
                 $("#slider").val(1);
             }
         }
+
+        // Called Data every 'time' 
+        setInterval(callBack, time);
     </script>
 </body>
 

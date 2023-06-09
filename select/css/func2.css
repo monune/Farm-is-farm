@@ -1,0 +1,138 @@
+.backgrounds {
+    background-image:url(../../img/background/bg2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-width: 1px 0px 1px 0px;
+    border-style: solid;
+    border-color: gray;
+    min-height: 300px;
+}
+
+.title-txt {
+    margin: 5px 110px 0 0;
+    min-width: 300px;
+    left: 0;
+}
+
+h1 {
+    margin: 0px; 
+    color: white;
+}
+
+h2 {
+    font-size: 30px;
+    margin: 0;
+}
+
+p {
+    font-size: 12px;
+    margin: 8px 0 0 0;
+    color: #6a6a6ad1;
+}
+
+button {
+    padding: 0px;
+}
+
+p.last {
+    position: relative;
+    top: 6px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid gray;
+    border-radius: 10px;
+    width: 550px;
+    height: 300px;
+    margin: 30px auto 0 auto;
+    padding: 0 40px 0 0;
+    background: white;
+}
+
+.data-box {
+    /* display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; */
+    width: 440px;
+    margin: 10px 10px 15px 0;
+}
+
+.cntr {
+    margin-right: 5px;
+}
+
+.data {
+    outline: none;
+    border: 1px solid;
+    padding: 4px 50px 4px 10px;
+    margin-right: 5px;
+}
+
+input.data {
+    height: 25.6px;
+    margin-right: 10px;
+}
+
+.control {
+    margin: 10px 0 10px 0;
+    text-align: center;
+}
+
+.btn {
+    border: 1px solid ;
+    border-radius: 45px;
+    margin: 20px;
+    width: 170px;
+    height: 50px;
+    background: white;
+    transition-duration: 0.3s;
+}
+
+.btn:hover {
+    background: gainsboro;
+}
+
+input {
+    margin-top: 10px;
+}
+
+.led-cnt {
+    width: 590px;
+    display: flex;
+}
+
+.last {
+    width: 200px;
+    margin-top: 13px;
+    overflow : hidden;
+}
+
+/* slider bar */
+.slider {
+    -webkit-appearance: none;
+    width: 130px;
+    height: 15px;
+    margin: 20px 10px 0 0;
+    background: whitesmoke;
+    border: 1px solid gainsboro;
+    border-radius: 10px;
+}
+/* slider handle*/
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 15px;
+    background: gainsboro;
+    border-radius: 10px;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
+.slider:hover::-webkit-slider-thumb {
+    background: gray;
+}

@@ -1,11 +1,4 @@
-/**
- * - 페이지 로드 >> 쿠키 검색 >> DB에서 temp, humi, ph, led 호출
- * >> n값에 호출한 값 출력 (로드 완료)
- *
- * - 적용 >> DB에 temp, humi, ph, led 저장 및 호출
- * >> n값에 호출한 값 출력 (리로드) >> 동작 종료
- */
-
+// 데이터 호출
 function callData() {
   const id = getCookie("userID");
   $.ajax({
@@ -18,16 +11,68 @@ function callData() {
       var hum = data.hum;
       var ph = data.ph;
       var led = data.light;
-      var value = (led%100)/10;
-
       $("#temp").val("온도: " + temp + "℃");
       $("#hum").val("습도: " + hum + " %");
       $("#ph").val("산성도: " + ph + " pH");
       $("#led").val("밝기: " + led + " %");
-      $("#slider").val(value);
-      $("#lastvalue").html("현재 LED 밝기: " + value*10 + " %");
+      $("#slider").val(led/10);
+      $("#lastvalue").html("현재 LED 밝기: " + led + " %");
       $("#er1").html("");
       $("#set").val("Y");
+    },
+    error: function () {
+      console.log("error");
+    },
+  });
+}
+
+
+function callBack() {
+  const id = getCookie("userID");
+  $.ajax({
+    url: "php/data_process.php",
+    type: "POST",
+    async: false,
+    data: { id: id },
+    success: function (data) {
+      var temp = data.temp;
+      var hum = data.hum;
+      var ph = data.ph;
+      var led = data.light;
+      $("#temp").val("온도: " + temp + "℃");
+      $("#hum").val("습도: " + hum + " %");
+      $("#ph").val("산성도: " + ph + " pH");
+      $("#lastvalue").html("현재 LED 밝기: " + led + " %");
+      $("#er1").html("");
+      $("#set").val("Y");
+    },
+    error: function () {
+      console.log("error");
+    },
+  });
+}
+
+// 변경 데이터 저장
+function dataTransmission() {
+  const id = getCookie("userID");
+  var per = (slider.value)*10;
+  $.ajax({
+    url: "php/data_submit.php",
+    type: "POST",
+    async: false,
+    data: { 
+      id: id,
+      led: per
+    },
+    success: function (data) {
+      if (data == "access") {
+        console.log("can");
+        $("#suc1").html("수정된 정보가 저장되었습니다.");
+      }
+      else {
+        console.log(data);
+        console.log(per);
+      }
     },
     error: function () {
       console.log("error");
@@ -45,8 +90,4 @@ function getCookie(cookieName) {
     }
   }
   return null;
-}
-
-function dataTransmission() {
-  
 }

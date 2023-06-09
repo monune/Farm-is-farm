@@ -73,12 +73,12 @@ function compareSession(buttonID) {
       var currentTime = new Date().getTime();
 
       if (currentTime < sessionExpirationTime) { // 세션이 존재할 경우
-        if (buttonID === "control") {
-          window.location.href = "control.html";
-        } else if (buttonID === "motor") {
-          window.location.href = "motor.html";
-        } else if (buttonID === "") {
-          window.location.href = "";
+        if (buttonID === "f1") {
+          window.location.href = "function_1.html";
+        } else if (buttonID === "f2") {
+          window.location.href = "function_2.html";
+        } else if (buttonID === "f3") {
+          window.location.href = "function_3.html";
         }
       } else {
         alert("세션이 만료되었습니다. \n로그인 화면으로 돌아갑니다.");
@@ -90,32 +90,6 @@ function compareSession(buttonID) {
   alert("세션이 존재하지 않습니다. \n로그인 화면으로 돌아갑니다.");
   window.location.href = 'http://211.254.214.74:8081';
 }
-
-// ---------------- Check Client Cookies ----------------
-// function checkCookie() {
-//   var cookies = document.cookie.split(";");
-//   for (var i = 0; i < cookies.length; i++) {
-//     var cookie = cookies[i].trim();
-//     if (cookie.indexOf("sessionExpiration=") === 0) {
-//       var sessionExpirationUTCString = cookie.substring(
-//         "sessionExpiration=".length
-//       );
-//       var sessionExpirationTime = new Date(
-//         sessionExpirationUTCString
-//       ).getTime();
-//       var currentTime = new Date().getTime();
-
-//       if (currentTime < sessionExpirationTime) {
-//         alert("세션이 쿠키에 저장되어 있습니다.");
-//         alert("세션 만료 시간: " + sessionExpirationUTCString);
-//       } else {
-//         alert("세션이 쿠키에 저장되어 있지 않습니다.");
-//       }
-//       return;
-//     }
-//   }
-//   alert("세션이 쿠키에 저장되어 있지 않습니다.");
-// }
 
 function logOut() {
   deleteCookie('userID');

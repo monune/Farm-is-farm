@@ -1,0 +1,169 @@
+.backgrounds {
+    background-image: url(../../img/background/bg3.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid black;
+}
+
+.box {
+    border-radius: 10px;
+    border: 1px solid transparent;
+    margin: 50px auto 50px auto;
+    width: 900px;
+    height: 400px;
+    background: #ffffffc5;
+}
+
+.circle {
+    transform: translate3d(0, 0, 0);
+    border: 1px solid black;
+    border-radius: 100%;
+    margin: 50px 0 0 50px;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    opacity: 70%;
+    background: url('/src/img/water_wave.png');
+    background-size: 100px;
+    background-repeat: repeat-x;
+    background-position: 0 200px;
+}
+
+.type {
+    animation: three 4s linear infinite;
+}
+
+@keyframes one {
+    0% {
+        background-position: 100px 250px;
+    }
+
+    50% {
+        background-position: 400px 230px;
+    }
+
+    100% {
+        background-position: 800px 250px;
+    }
+}
+
+@keyframes two {
+    0% {
+        background-position: 100px 180px;
+    }
+
+    50% {
+        background-position: 400px 160px;
+    }
+
+    100% {
+        background-position: 700px 180px;
+    }
+}
+
+@keyframes three {
+    0% {
+        background-position: 0 110px;
+    }
+
+    50% {
+        background-position: 400px 70px;
+    }
+
+    100% {
+        background-position: 800px 110px;
+    }
+}
+
+@keyframes four {
+    0% {
+        background-position: 0 10px;
+    }
+
+    50% {
+        background-position: 600px -10px;
+    }
+
+    100% {
+        background-position: 1200px 10px;
+    }
+}
+
+.step {
+    position: relative;
+    left: 400px;
+    bottom: 75%;
+    width: 500px;
+    height: 100px;
+    margin: 0px;
+}
+
+input {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 0px;
+    margin: 0 40px 0 0;
+    width: 80px;
+    height: 80px;
+    font-size: 40px;
+    background: transparent;
+}
+
+p {
+    margin: 0px;
+    padding: 0px;
+}
+
+p.temps {
+    text-align: center;
+    margin: 85px auto 0 auto;
+    font-weight: 800;
+    font-size: 90px;
+    color: white;
+    text-shadow: 1px 1px 0 black, -1px 1px 0 black, 1px -1px 0 black, -1px -1px 0 black;
+}
+
+input {
+    transition: 0.5s;
+}
+
+input:hover {
+    background: yellow;
+}
+
+/* hov로 시작하는 input을 hover시 block */
+input[class^="hov"]:hover + .hov-text {
+    display: block;
+}
+
+input:focus {
+    outline: none;
+}
+
+.t {
+    margin: 10px 0 0 10px;
+    color: black;
+    font-size: 20px;
+}
+
+.hov-text {
+    display: none;
+    position: absolute;
+    border-radius: 10px;
+    top: 100px;
+    width: 460px;
+    min-height: 50px;
+    padding: 0 0 10px 0;
+    background: #ffffff8e;
+    border: 1px solid gray;
+    transition: 0.5s;
+}
+
+/* 
+각 index값을 data-z-index로 지정 가능 
+ex) <div class="ht4" data-z-index="4"></div> 
+[class^="ht"] {
+    z-index: attr(data-z-index);
+} 
+*/
