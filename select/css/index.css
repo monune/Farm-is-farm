@@ -41,20 +41,16 @@ a {
 
 /* bottom row */
 .btm-row {
-    background-color: white;
+    background: white;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
 .softbox {
-    background-color: white;
+    background: white;
     border: 1px solid gray;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 0px;
-    padding-right: 7px;
-    padding-left: 7px;
-    padding-bottom: 7px;
+    margin: 0 auto 0 auto;
+    padding: 0 7px 7px 7px;
     max-width: 600px;
 }
 

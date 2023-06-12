@@ -1,5 +1,5 @@
 .backgrounds {
-    background-image:url(../../img/background/bg2.jpg);
+    background-image: url(../../img/background/bg2.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -8,8 +8,8 @@
     border-color: gray;
     min-height: 300px;
 }
-
-.title-txt {
+ 
+ .title-txt {
     margin: 5px 110px 0 0;
     min-width: 300px;
     left: 0;
@@ -54,9 +54,6 @@ p.last {
 }
 
 .data-box {
-    /* display: flex;
-    flex-direction: row;
-    flex-wrap: wrap; */
     width: 440px;
     margin: 10px 10px 15px 0;
 }

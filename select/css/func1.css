@@ -1,0 +1,150 @@
+.backgrounds {
+    background-image: url(../../img/background/bg4.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-width: 1px 0px 1px 0px;
+    border-style: solid;
+    border-color: gray;
+    min-height: 300px;
+}
+
+.container {
+    position: relative;
+    border: 1px solid gray;
+    border-radius: 10px;
+    width: 700px;
+    height: 470px;
+    margin: 30px auto 30px auto;
+    background: white;
+}
+
+.select-box {
+    position: relative;
+    margin: 40px 40px 0 auto;
+    width: 230px; /* cont-select와 동일 */
+    height: 130px;
+}
+
+h2 {
+    position: absolute;
+    top: 38px;
+    left: 40px;
+    font-size: 30px;
+    margin: 0;
+}
+
+p.txt {
+    position: absolute;
+    left: 40px;
+    top: 70px;
+    font-size: 16px;
+    font-weight: 500;
+    color: green;
+}
+
+/* select */
+.cont-select {
+    position: absolute;
+    display: block;
+    border: none;
+    width: 230px;
+}
+
+.btn-select {   
+    text-align: left;
+    margin: 0 auto 0 auto;
+    padding-left: 20px;
+    display: block;
+    width: 230px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background: white;
+    color: gray;
+}
+
+.btn-select:hover {
+    background: whitesmoke;
+}
+
+.list-member {
+    display: none;  
+    border: 1px solid black;
+    border-radius: 10px;
+    margin: 3px auto 0 auto;
+    width: 230px;
+    height: 80px;
+    background: white;
+}
+
+.options {
+    text-align: left;
+    margin: 5px 0 0 20px;
+    width: 100px;
+    border: 0 solid black;
+    border-radius: 3px;
+    background: white;
+}
+
+.options:hover {
+    background: whitesmoke;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+li {
+    width: 100px;
+}
+
+/* input */
+.infomation {
+    margin: 0 auto 0 auto;
+    border-bottom: 3px solid green;
+    width: 488px;
+}
+
+.flexible {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+input.value {
+    pointer-events: none;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px 20px 10px 10px;
+    margin: 0 25px 25px 25px;
+    background: white;
+}
+
+input.value:focus {
+    outline: none;
+}
+
+/* button row */
+.btn-row {
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    transform: translateX(50%);
+}
+
+.btn {
+    border: 1px solid;
+    border-radius: 45px;
+    margin: 10px auto 50px auto;
+    display: block;
+    width: 170px;
+    height: 50px;
+    background: white;
+    transition-duration: 0.3s;
+}
+
+.btn:hover {
+    background: gainsboro;
+}

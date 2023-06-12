@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/select.css?ver=2.1">
+    <link rel="stylesheet" href="css/func1.css?ver=1.0">
+    <link rel="stylesheet" href="css/index.css?ver=2.1">
     <script src="js/session.js?ver=1.0"></script>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>농장팜니다</title>
 </head>
-<body><!-- top -->
+
+<body>
+    <!-- top -->
     <div class="header">
         <div class="title">
             <h3 class="title-txt" onclick="location.href='select.html'">재배 환경 데이터</h3>
@@ -21,11 +24,42 @@
             <!-- test -->
         </div>
     </div>
-    
+
     <!-- mid -->
     <div class="backgrounds">
-        <div class="setbox">
-            로즈마리
+        <div class="container">
+            <div class="title">
+                <h2>식물 정보 선택</h2>
+                <p class="txt">키울 식물을 선택하고 장치 설정을 변경하세요.</p>
+            </div>
+
+            <!-- select bar -->
+            <div class="select-box">
+                <article class="cont-select">
+                    <button class="btn-select">식물을 선택하세요.</button>
+                    <input type="hidden" id="select-value" value="N">
+                    <ul class="list-member" id="list">
+                        <li><button type="button" class="options" onclick="Select('lettuce')">상추</button></li>
+                        <li><button type="button" class="options" onclick="Select('basil')">바질</button></li>
+                        <li><button type="button" class="options" onclick="Select('rose')">로즈마리</button></li>
+                    </ul>
+                </article>
+            </div>
+
+            <!-- value row -->
+            <div class="infomation">
+                <div class="flexible">
+                    <input type="text" class="value" id="temp" readonly value="온도: n ℃"> 
+                    <input type="text" class="value" id="humi" readonly value="습도: n %">
+                    <input type="text" class="value" id="led" readonly value="LED 밝기: n 단계">
+                    <input type="text" class="value" id="light" readonly value="성장등: ON or OFF">
+                </div>
+            </div>
+
+            <!-- botton row -->
+            <div class="btn-row">
+                <button type="button" class="btn">적용</button>
+            </div>
         </div>
     </div>
 
@@ -37,5 +71,24 @@
             <p class="copyright">Copyright 2023. MDP(Meister Development Project). All rights reserved. </p>
         </div>
     </div>
+
+    <script>
+        const cont = document.querySelector('.cont-select');
+        cont.addEventListener('mouseover', function (event) {
+            $('.list-member').show();
+        });
+        cont.addEventListener('mouseout', function (event) {
+            $('.list-member').hide();
+        });
+
+        function Select(num) {
+	        $(".btn-select").css("color","black");
+            $('.list-member').hide();
+            if (num == "lettuce")  $('.btn-select').html("상추");
+            else if (num == "basil") $('.btn-select').html("바질");
+            else if (num == "rose") $('.btn-select').html("로즈마리");
+        }
+    </script>
 </body>
+
 </html>
