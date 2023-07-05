@@ -21,11 +21,12 @@
 }
 
 .backgrounds {
-    background-image:url(../../img/background/bg1.jpg);
+    background-image:url("../background/bg1.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     border: 1px solid black;
+    min-height: 560px;
 }
 
 .mainText {

@@ -1,9 +1,11 @@
-window.onload = function() {
+window.onload = function () {
   var cookies = document.cookie.split(";");
   for (var i = 0; i < cookies.length; i++) {
     var cookie = cookies[i].trim();
     if (cookie.indexOf("sessionExpiration=") === 0) {
-      var sessionExpirationString = cookie.substring("sessionExpiration=".length);
+      var sessionExpirationString = cookie.substring(
+        "sessionExpiration=".length
+      );
       var sessionExpirationTime = new Date(sessionExpirationString).getTime();
       var currentTime = new Date().getTime();
 
@@ -11,9 +13,9 @@ window.onload = function() {
       if (currentTime < sessionExpirationTime) {
         // 세션 만료 시간까지 남은 시간 계산
         var time = sessionExpirationTime - currentTime;
-        setTimeout(function() {
+        setTimeout(function () {
           alert("세션이 만료되었습니다. 로그인 화면으로 돌아갑니다.");
-          window.location.href = 'http://211.254.214.74:8081';
+          window.location.href = "http://211.254.214.74:8081";
         }, time);
       }
       break;
@@ -29,18 +31,18 @@ function checkSession() {
       var sessionExpirationString = cookie.substring(
         "sessionExpiration=".length
       );
-      var sessionExpirationTime = new Date(
-        sessionExpirationString
-      ).getTime();
+      var sessionExpirationTime = new Date(sessionExpirationString).getTime();
       var currentTime = new Date().getTime();
 
       if (currentTime < sessionExpirationTime) {
         var time = sessionExpirationTime - currentTime;
         var days = Math.floor(time / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var hours = Math.floor(
+          (time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
         var min = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
         var sec = Math.floor((time % (1000 * 60)) / 1000);
-      
+
         var remainingTime = "";
         if (days > 0) {
           remainingTime += days + "일 ";
@@ -68,11 +70,14 @@ function compareSession(buttonID) {
   for (var i = 0; i < cookies.length; i++) {
     var cookie = cookies[i].trim();
     if (cookie.indexOf("sessionExpiration=") === 0) {
-      var sessionExpirationString = cookie.substring("sessionExpiration=".length);
+      var sessionExpirationString = cookie.substring(
+        "sessionExpiration=".length
+      );
       var sessionExpirationTime = new Date(sessionExpirationString).getTime();
       var currentTime = new Date().getTime();
 
-      if (currentTime < sessionExpirationTime) { // 세션이 존재할 경우
+      if (currentTime < sessionExpirationTime) {
+        // 세션이 존재할 경우
         if (buttonID === "f1") {
           window.location.href = "function_1.html";
         } else if (buttonID === "f2") {
@@ -82,27 +87,40 @@ function compareSession(buttonID) {
         }
       } else {
         alert("세션이 만료되었습니다. \n로그인 화면으로 돌아갑니다.");
-        window.location.href = 'http://211.254.214.74:8081';
+        window.location.href = "http://211.254.214.74:8081";
       }
       return;
     }
   }
   alert("세션이 존재하지 않습니다. \n로그인 화면으로 돌아갑니다.");
-  window.location.href = 'http://211.254.214.74:8081';
+  window.location.href = "http://211.254.214.74:8081";
 }
 
 function logOut() {
-  deleteCookie('userID');
-  document.cookie = "sessionExpiration=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  deleteCookie("userID");
+  document.cookie =
+    "sessionExpiration=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
   alert("로그아웃 되었습니다. \n로그인 화면으로 돌아갑니다.");
-  window.location.href = 'http://211.254.214.74:8081';
+  window.location.href = "http://211.254.214.74:8081";
 }
 
 function getBack() {
   alert("이전 화면으로 돌아갑니다.");
-  window.location.href = '/src/select/select.html';
+  window.location.href = "/src/select/select.html";
 }
 
 function deleteCookie(name) {
   document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+function checkPlant() {
+  $.ajax({
+    url: "php/data_callWater.php",
+    type: "POST",
+    async: false,
+    data: { id: id },
+    success: function (data) {
+      
+    }
+  });
 }

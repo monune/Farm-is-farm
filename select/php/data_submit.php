@@ -2,15 +2,17 @@
 require_once('../../server/db_conn.php');
 
 $id = $_POST["id"];
-$light = $_POST["led"];
+$led = $_POST["led"];
 
-if (empty($id)) 
+if (empty($id) || empty($led)) 
 {
     echo "false"; 
 } 
 else
 {
-    $sql = "UPDATE iemh_team1.sett SET light = '$light'";
+    if ($led)
+
+    $sql = "UPDATE iemh_team1.sett SET light = '$led'";
     
     $result = mysqli_query($conn, $sql);
     

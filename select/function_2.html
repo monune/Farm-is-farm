@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<!-- 너무 못만드러땅. -->
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/index.css?ver=1.0">
-    <link rel="stylesheet" href="css/func2.css?ver=1.0">
+    <link rel="stylesheet" href="css/index.css?ver=1.1">
+    <link rel="stylesheet" href="css/func2.css?ver=1.2">
     <script src="js/index.js?var=1.2"></script>
     <script src="js/session.js?ver=1.0"></script>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -15,7 +15,7 @@
 <body class="preload">
     <!-- top -->
     <div class="header">
-        <div class="title">
+        <div class="title-row">
             <h3 class="title-txt" onclick="location.href='select.html'">재배 환경 데이터</h3>
         </div>
         <div class="infobox">
@@ -27,10 +27,13 @@
     <!-- mid -->
     <div class="backgrounds">
         <div class="container">
+            <!-- top row -->
+            <div class="title">
+                <h2>환경 데이터 현황</h2>
+                <p class="txt">센서 값과 데이터를 실시간으로 확인할 수 있습니다.</p>
+            </div>
+            <!-- middle data row -->
             <div class="data-box">
-                <div class="title">
-                    <h2>환경 데이터 현황</h2>
-                </div>
                 <div class="temp-cnt">
                     <input type="text" class="data temp" id="temp" value="온도: null ℃" readonly> <!-- 온도 -->
                 </div>
@@ -38,22 +41,22 @@
                     <input type="text" class="data hum" id="hum" value="습도: null %" readonly> <!-- 습도 -->
                 </div>
                 <div class="ph-cnt">
-                    <input type="text" class="data ph" id="ph" value="산성도: null pH" readonly> <!-- PH -->
+                    <input type="text" class="data ph" id="ph" value="수소 이온: null pH" readonly> <!-- PH -->
+                    <span class="ph-txt">pH는 수내 이온 농도 지수입니다.</span>
                 </div>
                 <div class="led-cnt">
-                    <input type="text" class="data led" id="led" value="밝기: null %" readonly> <!-- LED -->
-
-                    <input type="range" id="slider" class="slider" oninput="Drag()" value="1" min="1" max="10">
-                    <p id="lastvalue" class="last">현재 LED 밝기: null %</p>
-                    <input type="hidden" id="set" value="N"> <!-- 데이터 비교 -->
+                    <input type="text" class="data led" id="led" value="빛의 밝기: null %" readonly> <!-- LED -->
+                    <input type="hidden" id="led_grade" value="1">
                 </div>
-                <p id="er1 msg" style="color: red;"></p>
-                <p id="suc1 msg" style="color: green;"></p>
+            </div>
+            <div class="btn-row">
+                <button class="btn-grade red" onclick="gradeUp()">△</button>
+                <button class="btn-grade blue" onclick="gradeDown()">▽</button>
             </div>
         </div>
-        <div class="control">
-            <input type="button" onclick="dataTransmission()" class="btn" value="적용">
-        </div>
+        <!-- <div class="control">
+            <input type="button" onclick="dataTransmission()" class="btn-apply" value="적용">
+        </div> -->
     </div>
     <!-- bottom -->
     <div class="btm-row">
@@ -68,21 +71,10 @@
             callData();
         }
 
-        var slider = document.getElementById('slider');
-        var setBefore = document.getElementById('set');
-        var time = 1000 * 3; // 5sec count
+        var led_grade = document.getElementById("led_grade");
+        var AutoSetTime = 1000; // 3sec count
+        setInterval(callBack, AutoSetTime);
 
-        function Drag() {
-            var per = slider.value;
-            if (setBefore.value === 'Y') { // true
-                $("#led").val("밝기: " + per * 10 + " %");
-            } else { // setBefore.value = N(false)
-                $("#slider").val(1);
-            }
-        }
-
-        // Called Data every 'time' 
-        setInterval(callBack, time);
     </script>
 </body>
 

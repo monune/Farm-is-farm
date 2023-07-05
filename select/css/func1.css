@@ -1,12 +1,12 @@
 .backgrounds {
-    background-image: url(../../img/background/bg4.jpg);
+    background-image: url(../background/bg4.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     border-width: 1px 0px 1px 0px;
     border-style: solid;
     border-color: gray;
-    min-height: 300px;
+    min-height: 560px;
 }
 
 .container {
@@ -15,15 +15,15 @@
     border-radius: 10px;
     width: 700px;
     height: 470px;
-    margin: 30px auto 30px auto;
+    margin: 43px auto 43px auto;
     background: white;
 }
 
 .select-box {
     position: relative;
-    margin: 40px 40px 0 auto;
+    margin: 45px 40px 0 auto;
     width: 230px; /* cont-select와 동일 */
-    height: 130px;
+    height: 81px;
 }
 
 h2 {
@@ -81,7 +81,7 @@ p.txt {
 .options {
     text-align: left;
     margin: 5px 0 0 20px;
-    width: 100px;
+    width: 150px;
     border: 0 solid black;
     border-radius: 3px;
     background: white;
@@ -100,33 +100,75 @@ li {
     width: 100px;
 }
 
-/* input */
+/* img row */
+.picture {
+    position: absolute;
+    top: 20px;
+    right: 50%;
+    margin: 0;
+    transform: translateX(50%);
+}
+
+.img-box {
+    position: absolute;
+    border: 1px solid gray;
+    border-radius: 10px;
+    left: 30px;
+    width: 330px;
+    height: 280px;
+    bottom: 63px;
+}
+
+.img-textbox {
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin: 160px auto 0 auto;
+    padding: 5px 10px 0 10px;
+    width: 280px;
+    height: 100px;
+}
+.red {
+    color: red;
+}
+.img-text {
+    color: black;
+    font-size: 14.5px;
+}
+
+/* information row */
 .infomation {
-    margin: 0 auto 0 auto;
-    border-bottom: 3px solid green;
-    width: 488px;
+    float: right;
+    margin: 0 40px 0 0;
+    border: 1px solid gray;
+    border-radius: 10px;
+    /* border-bottom: 3px solid green; */
+    padding: 30px 20px 20px 20px;
+    width: 230px;
+    height: 200px;
+    /* background: green; */
 }
 
 .flexible {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    width: 200px;
 }
 
-input.value {
+.value {
     pointer-events: none;
     border: 1px solid black;
     border-radius: 5px;
+    padding: 0;
     padding: 10px 20px 10px 10px;
-    margin: 0 25px 25px 25px;
+    margin: 0 0 10px 0;
+    width: 198.4px;
+    font-size: 16px;
     background: white;
 }
 
-input.value:focus {
+.value:focus {
     outline: none;
 }
 
-/* button row */
+/* btn row */
 .btn-row {
     position: absolute;
     bottom: 0;
@@ -142,9 +184,8 @@ input.value:focus {
     width: 170px;
     height: 50px;
     background: white;
-    transition-duration: 0.3s;
 }
 
-.btn:hover {
-    background: gainsboro;
+.btn:active {
+    background: ghostwhite;
 }

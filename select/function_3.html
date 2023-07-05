@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/index.css?ver=1.1">
-    <link rel="stylesheet" href="css/func3.css?ver=1.1">
+    <link rel="stylesheet" href="css/index.css?ver=1.2">
+    <link rel="stylesheet" href="css/func3.css?ver=1.2">
     <script src="js/session.js?ver=1.0"></script>
     <script src="js/index.js?var=1.1"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,61 +13,47 @@
 </head>
 
 <body>
-    <!-- top -->
     <div class="header">
-        <div class="title">
+        <div class="title-row">
             <h3 class="title-txt" onclick="location.href='select.html'">재배 환경 데이터</h3>
         </div>
         <div class="infobox">
             <a class="info" href="#" onclick="getBack()">돌아가기</a>
             <a class="info" href="#" onclick="checkSession()">세션 확인</a>
-            <!-- test -->
         </div>
     </div>
 
     <!-- mid -->
     <div class="backgrounds">
         <div class="box">
-            <div class="circle type">
-                <p class="temps">100%</p> <!-- 백분율 -->
-            </div>
-            <div class="step">
-                <input type="button" value="1" class="hov1">
-                <div class="hov-text">
-                    <p class="t">수중 모터의 세기를 확인할 수 있습니다.</p>
-                    <p class="t">총 4단계로 나뉘어져 있으며, </p>
-                    <p class="t">0% ~ 10%는 <span style="color: blue">1단계</span>입니다.</p>
-                    <p class="t">가장 약한 세기의 물이 흐르고 있습니다.</p>
-                </div>
-                <input type="button" value="2" class="hov2">
-                <div class="hov-text">
-                    <p class="t">수중 모터의 세기를 확인할 수 있습니다.</p>
-                    <p class="t">총 4단계로 나뉘어져 있으며, </p>
-                    <p class="t">11% ~ 33%는 <span style="color: blueviolet">2단계</span>입니다.</p>
-                    <p class="t">조금 부족한 세기의 물이 흐르고 있습니다.</p>
-                </div>
-                <input type="button" value="3" class="hov3">
-                <div class="hov-text">
-                    <p class="t">수중 모터의 세기를 확인할 수 있습니다.</p>
-                    <p class="t">총 4단계로 나뉘어져 있으며, </p>
-                    <p class="t">34% ~ 66%는 <span style="color: purple">3단계</span>입니다.</p>
-                    <p class="t">적절한 세기의 물이 흐르고 있습니다.</p>
-                </div>
-                <input type="button" value="4" class="hov4">
-                <div class="hov-text">
-                    <p class="t">수중 모터의 세기를 확인할 수 있습니다.</p>
-                    <p class="t">총 4단계로 나뉘어져 있으며, </p>
-                    <p class="t">67% ~ 100%는 <span style="color: red">4단계</span>입니다.</p>
-                    <p class="t">가장 강한 세기의 물이 흐르고 있습니다.</p>
-                </div>
-            </div>
-            <div class="text">
 
+            <!-- top row -->
+            <div class="title">
+                <h2>수중 모터 작동 현황</h2>
+                <p class="txt">습도에 따라서 공급하는 수분의 양을 조절합니다.</p>
+            </div>
+
+            <!-- middle row -->
+            <div class="pillar type">
+                <p class="grade-txt">n 단계</p> <!-- 백분율 -->
+
+            </div>
+            
+            <div class="arrow">
+                <div class="line arw1">
+
+                </div>
+                <div class="line arw2">
+
+                </div>
+                <div class="line arw3">
+
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- bottom -->
+    <!-- bottom row -->
     <div class="btm-row">
         <div class="softbox">
             <p class="copyright">T.032-766-8425 </p>

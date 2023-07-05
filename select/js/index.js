@@ -7,18 +7,11 @@ function callData() {
     async: false,
     data: { id: id },
     success: function (data) {
-      var temp = data.temp;
-      var hum = data.hum;
-      var ph = data.ph;
-      var led = data.light;
-      $("#temp").val("온도: " + temp + "℃");
-      $("#hum").val("습도: " + hum + " %");
-      $("#ph").val("산성도: " + ph + " pH");
-      $("#led").val("밝기: " + led + " %");
-      $("#slider").val(led/10);
-      $("#lastvalue").html("현재 LED 밝기: " + led + " %");
-      $("#er1").html("");
-      $("#set").val("Y");
+      $("#temp").val("온도: " + data.temp + "℃");
+      $("#hum").val("습도: " + data.hum + " %");
+      $("#ph").val("수소 이온: " + data.ph + " pH");
+      $("#led").val("빛의 밝기: " + data.light + " 단계"); // 1 ~ 3
+      $("#led_grade").val(data.light);
     },
     error: function () {
       console.log("error");
@@ -26,7 +19,7 @@ function callData() {
   });
 }
 
-
+// 실시간 호출
 function callBack() {
   const id = getCookie("userID");
   $.ajax({
@@ -35,44 +28,10 @@ function callBack() {
     async: false,
     data: { id: id },
     success: function (data) {
-      var temp = data.temp;
-      var hum = data.hum;
-      var ph = data.ph;
-      var led = data.light;
-      $("#temp").val("온도: " + temp + "℃");
-      $("#hum").val("습도: " + hum + " %");
-      $("#ph").val("산성도: " + ph + " pH");
-      $("#lastvalue").html("현재 LED 밝기: " + led + " %");
-      $("#er1").html("");
-      $("#set").val("Y");
-    },
-    error: function () {
-      console.log("error");
-    },
-  });
-}
-
-// 변경 데이터 저장
-function dataTransmission() {
-  const id = getCookie("userID");
-  var per = (slider.value)*10;
-  $.ajax({
-    url: "php/data_submit.php",
-    type: "POST",
-    async: false,
-    data: { 
-      id: id,
-      led: per
-    },
-    success: function (data) {
-      if (data == "access") {
-        console.log("can");
-        $("#suc1").html("수정된 정보가 저장되었습니다.");
-      }
-      else {
-        console.log(data);
-        console.log(per);
-      }
+      $("#temp").val("온도: " + data.temp + "℃");
+      $("#hum").val("습도: " + data.hum + " %");
+      $("#ph").val("수소 이온: " + data.ph + " pH");
+      $("#led").val("빛의 밝기: " + data.light + " 단계");
     },
     error: function () {
       console.log("error");
@@ -90,4 +49,67 @@ function getCookie(cookieName) {
     }
   }
   return null;
+}
+
+// 변경 데이터 저장
+function dataTransmission() {
+  const id = getCookie("userID");
+  const led = led_grade.value;
+  $.ajax({
+    url: "php/data_submit.php",
+    type: "POST",
+    async: false,
+    data: {
+      id: id,
+      // change value:
+      led: led,
+    },
+    success: function (data) {
+      if (data == "access") {
+        console.log("Data transmission was successful.");
+      } else {
+        console.log("Data transfer failed. Error: " + data);
+      }
+    },
+    error: function () {
+      console.log("error");
+    },
+  });
+}
+
+// function 2 LED 밝기 단계 상승
+function gradeUp() {
+  if (led_grade.value === "1") {
+    led_grade.value = "2";
+  } else if (led_grade.value === "2") {
+    led_grade.value = "3";
+  } else if (led_grade.value === "3") {
+    led_grade.value = led_grade.value;
+    console.log("이미 3단계 입니다.");
+  }
+  dataTransmission();
+}
+// function 2 LED 밝기 단계 하강
+function gradeDown() {
+  if (led_grade.value === "3") {
+    led_grade.value = "2";
+  } else if (led_grade.value === "2") {
+    led_grade.value = "1";
+  } else if (led_grade.value === "1") {
+    led_grade.value = led_grade.value;
+    console.log("이미 1단계 입니다.");
+  }
+  dataTransmission();
+}
+
+// function 3 물 세기 호출
+function callWater() {
+  const id = getCookie("userID");
+  $.ajax({
+    url: "php/data_callWater.php",
+    type: "POST",
+    async: false,
+    data: { id: id },
+    success: function (data) {},
+  });
 }

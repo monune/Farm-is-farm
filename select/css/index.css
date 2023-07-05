@@ -38,6 +38,9 @@ a {
 }
 
 /* middle row */
+img {
+    pointer-events: none;
+}
 
 /* bottom row */
 .btm-row {

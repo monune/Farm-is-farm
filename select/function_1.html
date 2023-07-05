@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/func1.css?ver=1.0">
-    <link rel="stylesheet" href="css/index.css?ver=2.1">
+    <link rel="stylesheet" href="css/func1.css?ver=2.1">
+    <link rel="stylesheet" href="css/index.css?ver=3.0">
     <script src="js/session.js?ver=1.0"></script>
+    <script src="js/plant.js?ver=1.1"></script>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,8 +30,8 @@
     <div class="backgrounds">
         <div class="container">
             <div class="title">
-                <h2>식물 정보 선택</h2>
-                <p class="txt">키울 식물을 선택하고 장치 설정을 변경하세요.</p>
+                <h2>식물 정보 탐색</h2>
+                <p class="txt">선택한 식물의 환경정보를 탐색할 수 있습니다.</p>
             </div>
 
             <!-- select bar -->
@@ -39,26 +40,32 @@
                     <button class="btn-select">식물을 선택하세요.</button>
                     <input type="hidden" id="select-value" value="N">
                     <ul class="list-member" id="list">
-                        <li><button type="button" class="options" onclick="Select('lettuce')">상추</button></li>
-                        <li><button type="button" class="options" onclick="Select('basil')">바질</button></li>
-                        <li><button type="button" class="options" onclick="Select('rose')">로즈마리</button></li>
+                        <li><button type="b utton" class="options" onclick="Select('basil')">바질</button></li>
+                        <li><button type="button" class="options" onclick="Select('lettuce')">버터헤드(상추)</button></li>
+                        <li><button type="button" class="options" onclick="Select('rosemary')">로즈마리</button></li>
                     </ul>
                 </article>
             </div>
 
-            <!-- value row -->
-            <div class="infomation">
-                <div class="flexible">
-                    <input type="text" class="value" id="temp" readonly value="온도: n ℃"> 
-                    <input type="text" class="value" id="humi" readonly value="습도: n %">
-                    <input type="text" class="value" id="led" readonly value="LED 밝기: n 단계">
-                    <input type="text" class="value" id="light" readonly value="성장등: ON or OFF">
+            <!-- plant infomation row -->
+            <div class="img-box">
+                <img id="img" src="icon/close.png" alt="img is null" class="picture" widht="120" height="120">
+                <div class="img-textbox">
+                    <p id="text" class="img-text">
+                        식물 설명란.
+                    </p>
                 </div>
             </div>
 
-            <!-- botton row -->
-            <div class="btn-row">
-                <button type="button" class="btn">적용</button>
+
+            <!-- value row -->
+            <div class="infomation">
+                <div class="flexible">
+                    <input type="text" class="value" id="temp" readonly value="적정 온도: {n℃ ~ n℃}">
+                    <input type="text" class="value" id="humi" readonly value="적정 습도: {n% ~ n%}">
+                    <input type="text" class="value" id="ph" readonly value="적정 산성도: {n pH}">
+                    <input type="text" class="value" id="light" readonly value="적정 밝기: {n 단계}">
+                </div>
             </div>
         </div>
     </div>
@@ -80,14 +87,6 @@
         cont.addEventListener('mouseout', function (event) {
             $('.list-member').hide();
         });
-
-        function Select(num) {
-	        $(".btn-select").css("color","black");
-            $('.list-member').hide();
-            if (num == "lettuce")  $('.btn-select').html("상추");
-            else if (num == "basil") $('.btn-select').html("바질");
-            else if (num == "rose") $('.btn-select').html("로즈마리");
-        }
     </script>
 </body>
 
