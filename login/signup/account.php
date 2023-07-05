@@ -1,6 +1,7 @@
 <?php
 require_once('../../server/db_conn.php');
 ob_start();
+
 $id = $_POST["id"];
 $password = $_POST["password1"];
 $name = $_POST["name"];
@@ -12,20 +13,24 @@ if (empty($id) || empty($password) || empty($name)) {
     echo "nm: ".$name."<br>";
 } 
 else {
-    $sql = "INSERT INTO login (user_id, user_password, user_name) VALUES ('$id', '$password', '$name')";
-    if (mysqli_query($conn, $sql)) {
-        $user_id = mysqli_insert_id($conn); // Get the auto-generated user ID
+    /** regist Account
+     *  'water' table in 'grade' value defalt is '1'
+     */
+    $sqls = array(
+        "INSERT INTO login (user_id, user_password, user_name) VALUES ('$id', '$password', '$name')",
+        "INSERT INTO sett (user_id) VALUES ('$id')",
+        "INSERT INTO water (user_id, grade) VALUES ('$id', 1)"
+    );
 
-        $sql = "INSERT INTO sett (user_id) VALUES ('$id')";
-        if (mysqli_query($conn, $sql)) {
-            echo "회원 정보가 등록되었습니다.";
+    foreach ($sqls as $sql) {
+        if ($conn->query($sql) === TRUE) {
+            echo "SQL 실행 성공: " . $sql . "<br>";
         } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            echo "SQL 실행 실패: " . $sql . "<br>" . $conn->error;
         }
-    } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
+    
     header('Location: ../login.html');
 }
-
+$conn->close();
 ?>
