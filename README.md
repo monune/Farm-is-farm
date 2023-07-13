@@ -5,33 +5,30 @@
 <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=PHP&logoColor=white"> </a>
 
 ## 📖 Explanation
-웹 제어 기구 '농장팜니다' 입니다.
-* 세션 로그인
-* 세션 로그아웃
-* 데이터 전송 및 적용
+**농장팜니다 (Farm-is-Farm)** is a web service that allows you to control hydroponic smart farms.
+* Hardware connection
+* Login system using Session
+* Receive and transmit data
 * Database
-
 
 ## 💻 Display
 
 - **Login Page**
-	- Login
-	- Select Data
-	- Page move
-
-- **Register Page**
-	- Compare ID & Password
-	- Register User Data
-
-- **Function Page**
-	- Data Apply
-	- Data Transmit
-
-- **seed**
-	- MDP
+	- Compare login information in PHP.
+- **Sign Up**
+	- Compare user_id and user_password with login data in Database.
+	- User Information Registration Procedure.
+- **SELECT Page**
+	- Call up information about plants to use.
+	- Tempature, Humidity, pH, LightRequirement.
+- **CONTROL Page**
+	- Change real-time data
+	- Brightness control
+- **MOTOR Page**
+	- Function to measure water pump strength
 
 ## 📚 MDP (Meister Development Project)
-명장 양성 프로젝트(MDP)는 실습 기반의 프로젝트 수업입니다.
+**'Meister Development Project'** is an annual team project at school.
 - 전공 동아리 활동
 - 프로젝트 팀 편성
 
