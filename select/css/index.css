@@ -7,10 +7,14 @@ html, body {
 
 /* top row */
 .header {
-    justify-content: center;
+    position: fixed;
     display: flex;
+    border: 1px solid black;
+    justify-content: center;
     padding: 10px;
     background: white;
+    width: 100%;
+    z-index: 100;   
 }
 
 .title-txt {
@@ -58,7 +62,6 @@ img {
 }
 
 p {
-    font-size: 12px;
     margin: 8px 0 0 0;
     color: #e5e5e5;
 }

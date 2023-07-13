@@ -1,54 +1,48 @@
-/* select.html
- * 
- */
-
-.flex-container {
-    display:flex;
-    justify-content: center;
-    margin: 0 0 20px 0;
-}
-
-.contFrame {
-    background-color: rgba(27,27,27,0.6);
-    text-align: center;
-    margin: 20px 10px 0 10px;
-    min-width: 200px;
-    min-height: 310px;
-}
-
-.contFrame:hover {
-    background-color: rgb(27 27 27 / 75%);
-}
-
 .backgrounds {
     background-image:url("../background/bg1.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     border: 1px solid black;
-    min-height: 560px;
+    padding-bottom: 20px;
+    min-height: 630px;
 }
 
-.mainText {
-    max-width: 640px;
-    background-color: rgba(27,27,27,0.6);
-    margin: 20px auto 0 auto;
-    padding: 10px 0 10px 0;
+.sub-title {
+    display: none;
 }
 
-.mainText:hover {
-    background-color: rgb(27 27 27 / 75%);
-}
-
-.mainTitle {
-    font-size: 45px;
-    margin: 10px 0 0 10px;
-    color: white;
-}
-.subText {
-    margin-top: 5px;
-    margin-left: 10px;
-    font-size: 15px;
+@media (min-width: 900px) {
+    .sub-title {
+        display: block;
+        margin: 74px auto 0 auto;
+        padding: 10px 0 10px 0;
+        width: 1420px;
+        background-color: rgba(27,27,27,0.6);
+    }
+    
+    .sub-title:hover {
+        background-color: rgb(27 27 27 / 75%);
+    }
+    
+    .sub-title-txt {
+        margin: 5px 0 0 10px;
+        font-size: 45px;
+        color: white;
+    }
+    
+    .sub-title-txt > span {
+        font-size: 50px;
+        font-weight: bold;
+        color: #22ff00;
+    }
+    
+    .sub-text {
+        margin: 0 0 0 12px;
+        font-size: 15px;
+        font-weight: bold;
+        color: white;
+    }
 }
 
 .txt {
@@ -61,24 +55,95 @@ h1 {
 }
 
 h2 {
-    font-size: 30px;
     margin: 15px 0 0 0;
+    font-size: 30px;
 }
-
 
 img {
     margin-top: 46.5px;
 }
 
-button {
-    color: #e5e5e5;
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.2);
-    margin: 20px 0 16px 0;
-    padding: 1px 20px 1px 20px;
+.flex-container {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto 20px auto;
+    width: 100%;
 }
 
-button:hover {
-    background-color: rgb(27 27 27 / 50%);
+[class^="slider"] {
+    display: flex;
+    padding: 30px 0 0 0;
+    margin-top: 40px;
+}
+
+@media (max-width: 900px) {
+    .slider-a {
+        padding-top: 62px;
+    }
+}
+
+.contFrame {
+    text-align: center;
+    padding: 0 10px 10px 10px;
+    margin: 0 10px 4px 10px;
+    min-width: 200px;
+    min-height: 310px;
+    background-color: rgba(27,27,27,0.6);
+}
+
+.contFrame:hover {
+    background-color: rgb(27 27 27 / 75%);
+}
+
+.contFrame > p {
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+}
+
+.contFrame > button {
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 1px 20px 1px 20px;
+    margin: 20px 0 16px 0;
+    color: #e5e5e5;
+    background: transparent;
+}
+
+.contFrame > button:hover {
     border: 1px solid rgb(0 0 0 / 0%);
+    background-color: rgb(27 27 27 / 50%);
+}
+
+[class^="scroll"] {
+    position: absolute;
+    border-radius: 5px;
+    width: 70px;
+    height: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 15px;
+    font-weight: bolder;
+    background: #0000005b;
+}
+
+[class^="scroll"]:focus {
+    outline: none;
+}
+
+.scroll-up {
+    position: fixed;
+    top: 62px;
+}
+
+.scroll-down {
+    position: fixed;
+    bottom: 2px;
+}
+
+@media (min-width: 1024px) {
+    [class^="scroll"] {
+        display: none;
+    }
 }

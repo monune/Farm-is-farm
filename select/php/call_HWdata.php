@@ -9,7 +9,7 @@ if (empty($id))
 } 
 else
 {
-    $sql = "SELECT temp, hum, ph, light FROM iemh_team1.sett WHERE user_id = '$id'";
+    $sql = "SELECT * FROM iemh_team1.hardware_infomation WHERE user_id = '$id'";
     $result = $conn->query($sql);
     
     $response = array();
@@ -17,10 +17,10 @@ else
     if ($result->num_rows > 0) {
       $row = $result->fetch_assoc();
       $response["exists"] = true;
-      $response["temp"] = $row["temp"];
-      $response["hum"] = $row["hum"];
-      $response["ph"] = $row["ph"];
-      $response["light"] = $row["light"];
+      $response["temp"] = $row["temperature"];
+      $response["hum"] = $row["humidity"];
+      $response["ph"] = $row["pH"];
+      $response["light"] = $row["light_grade"];
     } else {
       $response["exists"] = false;
     }

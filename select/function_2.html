@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- 너무 못만드러땅. -->
+
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/index.css?ver=1.1">
-    <link rel="stylesheet" href="css/func2.css?ver=1.2">
-    <script src="js/index.js?var=1.2"></script>
-    <script src="js/session.js?ver=1.0"></script>
+    <link rel="shortcut icon" href="/src/ico/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon-precomposed" href="/src/ico/android-chrome-192x192.png">
+    <link rel="stylesheet" href="css/index.css?ver=7">
+    <link rel="stylesheet" href="css/func2.css?ver=7">
+    <script src="js/index.js?var=3"></script>
+    <script src="js/chart.js?var=3"></script>
+    <script src="js/session.js?ver=3"></script>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>농장팜니다</title>
+    <title>농장팜니다 CONTROL</title>
 </head>
 
 <body class="preload">
@@ -21,7 +25,6 @@
         <div class="infobox">
             <a class="info" href="#" onclick="getBack()">돌아가기</a>
             <a class="info" href="#" onclick="checkSession()">세션 확인</a>
-            <!-- test -->
         </div>
     </div>
     <!-- mid -->
@@ -29,52 +32,70 @@
         <div class="container">
             <!-- top row -->
             <div class="title">
-                <h2>환경 데이터 현황</h2>
-                <p class="txt">센서 값과 데이터를 실시간으로 확인할 수 있습니다.</p>
+                <h2>하드웨어 동작 현황</h2>
+                <p class="txt">실시간으로 하드웨어 동작 상태를 모니터링할 수 있는 기능을 제공합니다.</p>
             </div>
-            <!-- middle data row -->
-            <div class="data-box">
-                <div class="temp-cnt">
-                    <input type="text" class="data temp" id="temp" value="온도: null ℃" readonly> <!-- 온도 -->
-                </div>
-                <div class="hum-cnt">
-                    <input type="text" class="data hum" id="hum" value="습도: null %" readonly> <!-- 습도 -->
-                </div>
-                <div class="ph-cnt">
-                    <input type="text" class="data ph" id="ph" value="수소 이온: null pH" readonly> <!-- PH -->
-                    <span class="ph-txt">pH는 수내 이온 농도 지수입니다.</span>
-                </div>
-                <div class="led-cnt">
-                    <input type="text" class="data led" id="led" value="빛의 밝기: null %" readonly> <!-- LED -->
+            <div class="flexible">
+                <!-- Chart row -->
+                <canvas id="myChart" class="myChart" width="300" height="270"></canvas>
+                <!-- middle data row -->
+                <div class="value-box">
+                    <input type="text" class="value" id="temp" value="온도: 로딩중..." readonly><br>
+                    <input type="text" class="value" id="hum" value="습도: 로딩중..." readonly><br>
+                    <input type="text" class="value" id="ph" value="수내 산성도: 로딩중..." readonly><br>
+                    <input type="text" class="value led-value" id="led" value="밝기: 로딩중..." readonly>
                     <input type="hidden" id="led_grade" value="1">
                 </div>
             </div>
-            <div class="btn-row">
-                <button class="btn-grade red" onclick="gradeUp()">△</button>
-                <button class="btn-grade blue" onclick="gradeDown()">▽</button>
-            </div>
-        </div>
-        <!-- <div class="control">
-            <input type="button" onclick="dataTransmission()" class="btn-apply" value="적용">
-        </div> -->
-    </div>
-    <!-- bottom -->
-    <div class="btm-row">
-        <div class="softbox">
-            <p class="copyright">T.032-766-8425 </p>
-            <p class="copyright">인천광역시 남구 석정로 165 </p>
-            <p class="copyright">Copyright 2023. MDP(Meister Development Project). All rights reserved. </p>
+            <progress id="prg" class="progress" value="0" min="0" max="3"></progress>
         </div>
     </div>
+    
     <script>
-        window.onload = function () {
-            callData();
-        }
-
         var led_grade = document.getElementById("led_grade");
         var AutoSetTime = 1000; // 3sec count
         setInterval(callBack, AutoSetTime);
 
+        // chart js Code
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['온도(℃)', '습도(%)', 'pH'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [0, 0, 0],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 60, 102)',
+                        'rgb(23, 100, 215)',
+                        'rgb(255, 165, 20)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                responsive: false,
+                scales: {
+                    y: {
+                        ticks: {
+                            precision: 0, // 소수점 자릿수를 0으로 설정하여 소수점 없이 출력
+                            stepSize: 1, // 간격을 1로 설정 (예시)
+                            beginAtZero: true
+                        }
+                    }
+                }
+            }
+        });
     </script>
 </body>
 

@@ -3,14 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/func1.css?ver=2.1">
-    <link rel="stylesheet" href="css/index.css?ver=3.0">
-    <script src="js/session.js?ver=1.0"></script>
-    <script src="js/plant.js?ver=1.1"></script>
+    <link rel="shortcut icon" href="/src/ico/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon-precomposed" href="/src/ico/android-chrome-192x192.png">
+    <link rel="stylesheet" href="css/func1.css?ver=5">
+    <link rel="stylesheet" href="css/index.css?ver=5">
+    <script src="js/session.js?ver=1"></script>
+    <script src="js/plant.js?ver=2"></script>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>농장팜니다</title>
+    <title>농장팜니다 SELECT</title>
 </head>
 
 <body>
@@ -31,33 +33,30 @@
         <div class="container">
             <div class="title">
                 <h2>식물 정보 탐색</h2>
-                <p class="txt">선택한 식물의 환경정보를 탐색할 수 있습니다.</p>
+                <p class="txt">선택한 식물의 정보를 데이터베이스에서 조회하여 확인할 수 있는 기능을 제공합니다.</p>
             </div>
-
-            <!-- select bar -->
+            <!-- plant select bar -->
             <div class="select-box">
                 <article class="cont-select">
                     <button class="btn-select">식물을 선택하세요.</button>
                     <input type="hidden" id="select-value" value="N">
                     <ul class="list-member" id="list">
-                        <li><button type="b utton" class="options" onclick="Select('basil')">바질</button></li>
-                        <li><button type="button" class="options" onclick="Select('lettuce')">버터헤드(상추)</button></li>
                         <li><button type="button" class="options" onclick="Select('rosemary')">로즈마리</button></li>
+                        <li><button type="button" class="options" onclick="Select('basil')">바질</button></li>
+                        <li><button type="button" class="options" onclick="Select('lettuce')">버터헤드(상추)</button></li>
+                        <li><button type="button" class="options" onclick="Select('show')">+ 새로운 식물 등록하기</button></li>
                     </ul>
                 </article>
             </div>
-
-            <!-- plant infomation row -->
+            <!-- plant infomation -->
+            <!-- 검색 & 등록 방법은 API사용으로 해결해보기 -->
+            <!-- 확장성을 위한 개발 요소 🔔 -->
             <div class="img-box">
                 <img id="img" src="icon/close.png" alt="img is null" class="picture" widht="120" height="120">
                 <div class="img-textbox">
-                    <p id="text" class="img-text">
-                        식물 설명란.
-                    </p>
+                    <p id="text" class="img-text">식물 설명란.</p>
                 </div>
             </div>
-
-
             <!-- value row -->
             <div class="infomation">
                 <div class="flexible">
@@ -68,16 +67,19 @@
                 </div>
             </div>
         </div>
+
+        <!-- default hide -->
+        <!-- plant infomation registration row -->
+        <div class="add-container">
+            <div class="add-box">
+                <button class="close" onclick="Select('hide')">×</button>
+                <h2 class="add-title">식물 정보 등록</h2> 
+                <input type="text" id="p_name" class="value regist-value" autocomplete="off" placeholder="식물 명">
+            </div>
+        </div>
     </div>
 
     <!-- bottom -->
-    <div class="btm-row">
-        <div class="softbox">
-            <p class="copyright">T.032-766-8425 </p>
-            <p class="copyright">인천광역시 남구 석정로 165 </p>
-            <p class="copyright">Copyright 2023. MDP(Meister Development Project). All rights reserved. </p>
-        </div>
-    </div>
 
     <script>
         const cont = document.querySelector('.cont-select');

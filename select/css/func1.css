@@ -1,11 +1,11 @@
 .backgrounds {
-    background-image: url(../background/bg4.jpg);
+    position: relative;
+    background-image: url(../background/bg5.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     border-width: 1px 0px 1px 0px;
     border-style: solid;
-    border-color: gray;
     min-height: 560px;
 }
 
@@ -13,17 +13,17 @@
     position: relative;
     border: 1px solid gray;
     border-radius: 10px;
+    padding: 0;
+    margin: 100px auto 40px auto;
     width: 700px;
-    height: 470px;
-    margin: 43px auto 43px auto;
+    height: 455px;
     background: white;
 }
 
 .select-box {
     position: relative;
-    margin: 45px 40px 0 auto;
+    margin: 135px 45px 0 auto;
     width: 230px; /* cont-select와 동일 */
-    height: 81px;
 }
 
 h2 {
@@ -47,21 +47,20 @@ p.txt {
 .cont-select {
     position: absolute;
     display: block;
-    border: none;
     width: 230px;
 }
 
 .btn-select {   
-    text-align: left;
-    margin: 0 auto 0 auto;
-    padding-left: 20px;
     display: block;
+    text-align: left;
+    border: 3px solid darkcyan;
+    border-radius: 5px;
+    padding-left: 20px;
+    margin: 10px auto 0 auto;
     width: 230px;
     height: 40px;
-    border: 1px solid black;
-    border-radius: 10px;
+    font-size: 14px;
     background: white;
-    color: gray;
 }
 
 .btn-select:hover {
@@ -70,20 +69,22 @@ p.txt {
 
 .list-member {
     display: none;  
-    border: 1px solid black;
-    border-radius: 10px;
+    border: 3px solid darkcyan;
+    border-radius: 5px;
+    padding-bottom: 5px;
     margin: 3px auto 0 auto;
-    width: 230px;
-    height: 80px;
+    width: 226px;
     background: white;
 }
 
 .options {
     text-align: left;
-    margin: 5px 0 0 20px;
-    width: 150px;
     border: 0 solid black;
     border-radius: 3px;
+    margin: 5px 0 0 15px;
+    padding: 5px 0 5px 3px;
+    width: 170px;
+    font-size: 15px;
     background: white;
 }
 
@@ -113,6 +114,7 @@ li {
     position: absolute;
     border: 1px solid gray;
     border-radius: 10px;
+    top: 135px;
     left: 30px;
     width: 330px;
     height: 280px;
@@ -121,7 +123,7 @@ li {
 
 .img-textbox {
     border: 1px solid gray;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     margin: 160px auto 0 auto;
     padding: 5px 10px 0 10px;
     width: 280px;
@@ -138,17 +140,16 @@ li {
 /* information row */
 .infomation {
     float: right;
-    margin: 0 40px 0 0;
-    border: 1px solid gray;
-    border-radius: 10px;
-    /* border-bottom: 3px solid green; */
-    padding: 30px 20px 20px 20px;
+    border: 1px solid gainsboro;
+    border-width: 0 0 0 3px;
+    padding: 50px 45px 0 30px;
+    margin: 0;
     width: 230px;
-    height: 200px;
-    /* background: green; */
+    height: 232px;
 }
 
 .flexible {
+    margin-top: 30px;
     width: 200px;
 }
 
@@ -160,32 +161,52 @@ li {
     padding: 10px 20px 10px 10px;
     margin: 0 0 10px 0;
     width: 198.4px;
-    font-size: 16px;
-    background: white;
+    font-size: 16px;    
 }
 
-.value:focus {
+input:focus {
     outline: none;
 }
 
-/* btn row */
-.btn-row {
+.add-container {
+    display:none;
     position: absolute;
-    bottom: 0;
-    right: 50%;
-    transform: translateX(50%);
+    top: 51px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.btn {
-    border: 1px solid;
-    border-radius: 45px;
-    margin: 10px auto 50px auto;
-    display: block;
-    width: 170px;
+.add-box {
+    position: relative;
+    border: 3px solid darkcyan;
+    border-radius: 10px;
+    top: 65px;
+    width: 1000px;
+    height: 420px;
+    background-color: white;
+    box-shadow : rgba(0,0,0,0.5) 0 0 0 9999px;
+    z-index : 100;
+}
+
+.add-title {
+    top: 20.5px;
+    left: 20px;
+}
+
+.close {
+    position: absolute;
+    border: none;
+    top: 3px;
+    right: 8px;
+    width: 60px;
+    padding-bottom: 10px;
     height: 50px;
-    background: white;
+    font-size: 50px;
+    color: #000000be;
+    background: transparent;
 }
 
-.btn:active {
-    background: ghostwhite;
+.regist-value {
+    pointer-events: all;
+    margin: 70px 0 0 20px;
 }

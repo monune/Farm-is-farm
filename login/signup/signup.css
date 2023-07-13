@@ -15,14 +15,12 @@
 }
 
 .i-text {
+  position: static;
   border-style: solid;
   border-radius: 10px;
   border-width: 2px 2px 2px 2px;
-  position: static;
   padding: 10px;
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 10px auto 0 auto;
 }
 .i-text:focus {
   outline: auto;
@@ -86,9 +84,7 @@
   border-color: rgb(228, 228, 228);
   max-width: 450px;
   max-height: 700px;
-  margin-top: 60px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 10px auto 0 auto;
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.5);
 }
 form {
@@ -96,8 +92,7 @@ margin-left: 50px;
 }
 h1 {
   position: static;
-  margin-top: 40px;
-  margin-bottom: 30px;
+  margin: 30px 0 10px 0;
   font-size: 100px;
   font-weight: 540;
   font-family: 'dokdo';

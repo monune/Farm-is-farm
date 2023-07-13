@@ -18,8 +18,8 @@ else {
      */
     $sqls = array(
         "INSERT INTO login (user_id, user_password, user_name) VALUES ('$id', '$password', '$name')",
-        "INSERT INTO sett (user_id) VALUES ('$id')",
-        "INSERT INTO water (user_id, grade) VALUES ('$id', 1)"
+        "INSERT INTO hardware_infomation (user_id) VALUES ('$id')",
+        "INSERT INTO water (user_id, water_grade) VALUES ('$id', 1)"
     );
 
     foreach ($sqls as $sql) {

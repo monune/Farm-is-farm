@@ -3,13 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="css/index.css?ver=1.2">
-    <link rel="stylesheet" href="css/func3.css?ver=1.2">
-    <script src="js/session.js?ver=1.0"></script>
-    <script src="js/index.js?var=1.1"></script>
+    <link rel="shortcut icon" href="/src/ico/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon-precomposed" href="/src/ico/android-chrome-192x192.png">
+    <link rel="stylesheet" href="css/index.css?ver=8">
+    <link rel="stylesheet" href="css/func3.css?ver=8">
+    <script src="js/session.js?ver=3"></script>
+    <script src="js/index.js?var=31"></script>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>농장팜니다</title>
+    <title>농장팜니다 WATER</title>
 </head>
 
 <body>
@@ -25,42 +28,70 @@
 
     <!-- mid -->
     <div class="backgrounds">
-        <div class="box">
-
-            <!-- top row -->
+        <div class="conatiner">
+            <!-- title row -->
             <div class="title">
                 <h2>수중 모터 작동 현황</h2>
-                <p class="txt">습도에 따라서 공급하는 수분의 양을 조절합니다.</p>
+                <p class="txt">습도 값에 따라서 수중 모터를 제어하는 기능입니다.</p>
             </div>
-
             <!-- middle row -->
             <div class="pillar type">
-                <p class="grade-txt">n 단계</p> <!-- 백분율 -->
-
+                <p id="w_value" class="grade-txt">로딩중...</p> <!-- 백분율 -->
             </div>
-            
-            <div class="arrow">
-                <div class="line arw1">
+            <!-- 습도의 최저와 최고를 구할 수 있다. 세로 슬라이드 바.
+                이걸로 사용자가 원하는 습도값 조절 가능
+            -->
+            <!-- 너무 많은 차이가 벌어지면 습도 재 조절 경고 -->
 
+            <!-- min-max slider -->
+            <div class="middle">
+                <div class="multi-range-slider">
+                    <input type="range" id="input-left" min="0" max="100" value="20">
+                    <input type="range" id="input-right" min="0" max="100" value="80">
+                    <div class="slider">
+                        <div class="track"></div>
+                        <div class="range"></div>
+                        <div class="thumb left thumb-bottom"></div>
+                        <div class="thumb right thumb-top"></div>
+                    </div>
                 </div>
-                <div class="line arw2">
+            </div>
 
-                </div>
-                <div class="line arw3">
-
+            <!-- changed data row -->
+            <div class="value-box">
+                <!-- Reset slider reset -->
+                <div class="button">
+                    <button class="ctr-btn maxt" onclick="incrementRightSliderValue(10)">+10</button>
+                    <button class="ctr-btn maxt" onclick="incrementRightSliderValue(-10)">-10</button>
+                    <button class="ctr-btn maxd" onclick="incrementRightSliderValue(1)">+1</button>
+                    <button class="ctr-btn maxd" onclick="incrementRightSliderValue(-1)">-1</button>
+                    <button class="ctr-btn mint" onclick="incrementLeftSliderValue(10)">+10</button>
+                    <button class="ctr-btn mint" onclick="incrementLeftSliderValue(-10)">-10</button>
+                    <button class="ctr-btn mind" onclick="incrementLeftSliderValue(1)">+1</button>
+                    <button class="ctr-btn mind" onclick="incrementLeftSliderValue(-1)">-1</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- bottom row -->
-    <div class="btm-row">
-        <div class="softbox">
-            <p class="copyright">T.032-766-8425 </p>
-            <p class="copyright">인천광역시 남구 석정로 165 </p>
-            <p class="copyright">Copyright 2023. MDP(Meister Development Project). All rights reserved. </p>
-        </div>
-    </div>
+    <script>
+        window.onload = function () {
+
+        }
+
+        var element = document.querySelector('.type');
+        var animationValue = 'stop';
+        var AutoSetTime = 1000; // 3sec count
+        setInterval(callWater, AutoSetTime);
+
+        // function 3 듀얼 슬라이더
+        var inputLeft = document.getElementById("input-left");
+        var inputRight = document.getElementById("input-right");
+
+        var thumbLeft = document.querySelector(".slider > .thumb.left");
+        var thumbRight = document.querySelector(".slider > .thumb.right");
+        var range = document.querySelector(".slider > .range");
+    </script>
 </body>
 
 </html>
