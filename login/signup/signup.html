@@ -1,57 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="shortcut icon" href="/src/ico/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon-precomposed" href="/src/ico/android-chrome-192x192.png">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="signup.css?ver=2">
+    <link rel="stylesheet" href="signup.css?ab">
+    <link rel="stylesheet" href="../login.css?a">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>농장팜니다 SIGN_UP</title>    
+    <title>회원가입</title>
     <!-- add jquery plugin -->
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="signup.js?ver=1.1"></script>
+    <script src="signup.js?11"></script>
 </head>
 
-<body class="preload">
-    <div class="unDrag infoBox">
-        <div class="wrap">
-            <h1 style="text-align: center;">회원가입</h1>
-            <!-- 회원가입 정보 입력 -->
-            <form action="account.php" method="post" onsubmit="return checkAccount()">
-                <!-- User Name -->
-                <input class="i-id i-text box" type="text" id="user_nm" name="name" onchange="outFocus()" placeholder="사용자 이름" autocomplete="off" maxlength="5" size="10"><br>
-                <p id="nm_res" class="i-comment" style="color: red;"></p>
-                <input type="hidden" name="checked_nm" value="">
-                <!-- User ID -->
-                <div>
-                    <input class="i-id i-text box" type="text" id="user_id" name="id" placeholder=" 아이디" autocomplete="off" maxlength="12"  size="28">
+<body>
+    <div class="container">
+        <h1 style="text-align: center;">회원<span class="farm">가입</span></h1>
+        <form action="account.php" method="post" onsubmit="return checkAccount()">
+            <div class="input-row2">
+                <!-- USER NAME -->
+                    <input class="" type="text" id="user_nm" name="name" onchange="outFocus()"
+                        placeholder="사용자 이름*" autocomplete="off" maxlength="5" size="10"><br>
+                    <p id="nm_res" class="i-comment" style="color: red; display: none;">*사용자 명은 최소 3글자 이상, 12글자 미만입니다.</p>
+                    <input type="hidden" name="checked_nm" value="">
+                <!-- USER ID -->
+                    <input type="text" id="user_id" name="id" placeholder=" 아이디*" autocomplete="off"
+                        maxlength="12" size="28">
                     <input class="compare" type="button" id="compareButton" onclick="checkID()" value="중복 확인"><br>
                     <p id="i_res" class="i-comment"></p>
                     <input type="hidden" name="checked_id" value="">
-                </div>
-                <!-- User Password & Password checking -->
-                <div>
-                    <!-- password input & changue _1 -->
-                    <input type="password" id="pw1" name="password1" class="checkPassword_1 i-id i-text box" placeholder=" 비밀번호" maxlength="16" size="28">
-                    <label for="checkObject" id="isOn" class="cb1" style="text-align: center;">켜기</label>
-                    <input style="display: none;"type="checkbox" id="checkObject" onclick="showPassword()">
-                    <!-- password input & changue _2 & password checking -->
-                    <input type="password" id="pw2" name="password2" class="checkPassword_2 i-id i-text box" placeholder=" 비밀번호 재확인" maxlength="16" size="28">
+                <!-- 비밀번호 확인 -->
+                    <input type="password" id="pw1" name="password1" class="checkPassword_1"
+                        placeholder=" 비밀번호*" maxlength="16" size="28">
+                    <label for="checkObject" id="isOn" class="checkbox" style="text-align: center;">켜기</label>
+                    <input style="display: none;" type="checkbox" id="checkObject" onclick="showPassword()">
+                <!-- 비밀번호 재확인 --><br>
+                    <input type="password" id="pw2" name="password2" class="checkPassword_2"
+                        placeholder=" 비밀번호 재확인*" maxlength="16" size="28">
                     <p id="pw_res" class="i-comment"></p>
                     <input type="hidden" name="checked_pw" value="">
-                </div>
-                 <!-- Account information submit -->
-                <div class="row">
-                    <input type="submit" class="btn" onclick="checkPassword()" value="회원가입">
-                    <div class="back"><a href="../login.html">돌아가기</a></div>
-                </div>
-            </form>
-            
-            <div class="wave_1 wave"></div>
-            <div class="wave_2 wave"></div>
-            <div class="wave_3 wave"></div>
-        </div>
-        
+            </div>
+            <!-- SUBMIT BUTTON -->
+            <div class="btn-row">
+                <input type="submit" class="btn" onclick="checkPassword()" value="회원가입">
+                <a id="back" href="../login.html">돌아가기</a>
+            </div>
+        </form>
+        <div class="w wave"></div>
     </div>
 
     <script>
@@ -62,7 +58,7 @@
             // e.clipboardData.getData("Text");
             // e.clipboardData.clearData("Text"); // 클립보드에 저장된 컨텐츠 삭제
         })
-        
+
         // Toggle show Checkbox
         function showPassword() {
             let isChecked = document.getElementById('checkObject').checked;
@@ -82,4 +78,5 @@
         }
     </script>
 </body>
+
 </html>

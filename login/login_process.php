@@ -5,7 +5,8 @@ $id = $_POST["id"];
 $pw = $_POST["pw"];
 if (empty($id) || empty($pw)) 
 {
-    echo "none"; 
+    if(empty($id) && empty($pw)) echo "none"; 
+    else echo "release"; 
 } 
 else
 {

@@ -1,59 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="shortcut icon" href="/src/ico/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon-precomposed" href="/src/ico/android-chrome-192x192.png">
-    <link rel="stylesheet" href="login.css?ver=4">
-    <script src="login.js?ver=3.2"></script>
+    <link rel="stylesheet" href="login.css?ab">
+    <script src="login.js?a"></script>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="discription" content="no sold, right farm.">
     <meta name="robots" content="농장팜니다, 농장, 팜니다, sold farm, no sold, right farm">
-    <title>농장팜니다 LOGIN</title>
+    <title>로그인</title>
 </head>
-<body class="frame preload">
+
+<body>
     <!-- main form -->
     <form action="index.php" method="post" onsubmit="return transPage()">
-        <div class="loginBox">
-            <div class="wrap">
-                <div class="titlebox">
-                    <span>농장</span>
-                    <span class="farm">팜</span>
-                    <span>니다</span>
-                    <p class="subtitle">no sold, right farm.</p>
-                </div>
-                <div style="text-align: center;">
-                    <!-- id input -->
-                    <input type="text" name="id" id="login_id" class="i-text i-id" placeholder=" 아이디" autocomplete="off" maxlength="12" size="30"><br>
-
-                    <!-- password input & changue -->
-                    <input type="password" name="password" id="login_pw" class="checkPassword i-text i-pw" placeholder=" 비밀번호" maxlength="16" size="30">
-
-                    <!-- Checkbox & Changue attrubute -->
-                    <label for="checkObject" id="isOn" class="cb" style="text-align: center;">켜기</label>
-                    <input style="display: none;" type="checkbox" id="checkObject" onclick="showPassword()"><br>
-                </div>
-
-                <div style="text-align: center;">
-                    <!-- Account information submit -->
-                    <input type="submit" class="btn" onclick="LoginToMain()" value="로그인"><br>
-                    <p id="login_res" class="i-comment" style="color: red;"></p>
-                    <input type="hidden" name="cnt" value="N">
-                </div>
-
-                <!-- a말고 버튼으로 바꾸기 -->
-                <div style="text-align: center;" class="tag">
-                    <a href="signup/signup.html">회원가입</a>
-                </div>
-            
-                <div class="wave_1 wave"></div>
-                <div class="wave_2 wave"></div>
-                <div class="wave_3 wave"></div>
+        <div class="container">
+            <!-- TITLE -->
+            <div class="title-row">
+                <span>농장</span>
+                <span class="farm">팜</span>
+                <span>니다</span>
+                <p class="subtitle">- no sold, right farm. -</p>
+            </div>
+            <!-- INPUT -->
+            <div style="text-align: center;" class="input-row">
+                <!-- ID -->
+                <input type="text" name="id" id="login_id" placeholder=" 아이디" autocomplete="off"
+                    maxlength="20" size="30"><br>
+                <!-- PW -->
+                <input type="password" name="password" id="login_pw" class="checkPassword"
+                    placeholder=" 비밀번호" maxlength="20" size="30">
+                <!-- TURN PW-->
+                <label for="checkObject" id="isOn" style="text-align: center;">켜기</label>
+                <input style="display: none;" type="checkbox" id="checkObject" onclick="showPassword()"><br>
+            </div>
+            <!-- BOTTOM -->
+            <div style="text-align: center; position: relative;">
+                <input type="submit" class="btn" onclick="LoginToMain()" value="로그인">
+                <input type="hidden" name="cnt" value="N">
+                <p id="login_txt" style="position: absolute; display: none; color: red;"></p>
+                <a href="signup/signup.html" style="display: block;">회원가입</a>
             </div>
         </div>
     </form>
-    
+
     <script>
         // reset clipboard
         window.addEventListener("copy", (e) => {

@@ -35,14 +35,18 @@ function LoginToMain() {
         },
         success: function(response) {
             if (response == "access"){
-                $("#login_res").html("");
+                $("#login_txt").html("로그인 성공!");
+                $("#login_txt").css({"display":"block", "color":"green"});
                 $("input[name=cnt]").val('possible');
             } else {
                 if (response == "release") {
+                    $("#login_txt").html("로그인 정보가 올바르지 않습니다.");
+                    $("#login_txt").css("display", "block");
                     $("input[name=cnt]").val('impossible');
                 }
-                else {
-                    $("#login_res").html("로그인 정보를 입력해주세요.");
+                else { // none
+                    $("#login_txt").html("로그인 정보를 입력해주세요.");
+                    $("#login_txt").css("display", "block");
                     $("input[name=cnt]").val('impossible');
                 }
             }
@@ -59,7 +63,6 @@ function transPage() {
     var uid = document.getElementById("login_id").value;
     if (cnt !== "possible") {
         console.log("Error(login connecting): " + cnt);
-        $("#login_res").html("로그인 정보가 올바르지 않습니다.");
         clearTimeout(sessionTimeout); // 세션 제거
         document.cookie = "sessionExpiration=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         return false;
@@ -69,8 +72,6 @@ function transPage() {
         $("#login_res").html("");
         startSession(); // 세션 생성
         setCookie("userID", uid); // 쿠키 저장
-        const id = getCookie('userID');
-        console.log(id);
         return true;
     }
 } 

@@ -1,169 +1,85 @@
-.unDrag {
-  user-select: none;
-}
 
-.preload {
-  transition: none !important;
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
-  -ms-transition: none !important;
-  -o-transition: none !important;
-}
-
-.i-id {
-  margin-top: 50px;
-}
-
-.i-text {
-  position: static;
-  border-style: solid;
-  border-radius: 10px;
-  border-width: 2px 2px 2px 2px;
-  padding: 10px;
-  margin: 10px auto 0 auto;
-}
-.i-text:focus {
-  outline: auto;
-}
-.btn {
-  border: none;
-  border-radius: 10px;
-  background-color: #F0F0F0;
-  font-size: 23px;
-  font-weight: 300;
-  height: 60px;
-  width: 150px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin-top: 50px;
-  margin-bottom: 30px;
-  transition-duration: 0.2s;
-}
-.btn:hover {
-  background-color: #00e01a;
-  color:white;
-  transition: 0.5s;
-}
-.btn:focus {
-  outline: transparent;
-  outline-style: solid;
-  box-shadow: 0 0 0 1.5px black;
-}
-.cb1 {
-  cursor:pointer;
-  border-radius: 7px;
-  font-weight: bold;
-  color: black;
-  margin-top: 5px;
-  margin-left: -65px;
-  margin-bottom: 100px;
-  padding-top: 7px;
-  padding-bottom: 5.5px;
-  padding-left: 13px;
-  padding-right: 11.5px;
-  vertical-align: middle;
-}
-.cb2 {
-  cursor:pointer;
-  border-radius: 7px;
-  font-weight: bold;
-  color: black;
-  margin-top: 5px;
-  margin-left: -65px;
-  margin-bottom: 100px;
-  padding-top: 7px;
-  padding-bottom: 6px;
-  padding-left: 13px;
-  padding-right: 11.5px;
-  vertical-align: middle;
-}
-.infoBox {
-  background-color: #19b2ff;
-  border: 5px solid;
-  border-color: black;
-  border-color: rgb(228, 228, 228);
-  max-width: 450px;
-  max-height: 700px;
-  margin: 10px auto 0 auto;
-  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.5);
-}
-form {
-margin-left: 50px;
-}
 h1 {
-  position: static;
-  margin: 30px 0 10px 0;
-  font-size: 100px;
-  font-weight: 540;
-  font-family: 'dokdo';
+  user-select: none;
+  padding-top: 70px;
+  font-size: 80px;
+  font-family: 'maru';
 }
-input {
-  font-size: 16px;
+
+a#back {
+  text-align: center;
+  display: block;
+  margin: 20px auto 0;
 }
+
+p {
+  min-width: 220px;
+  font-size: 13px;
+}
+
+.input-row2 {
+  padding-left: 50px;
+}
+
+.input-row2 > input {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 22px;
+  width: 250px;
+  font-size: 15px;
+  background: white;
+}
+
+input#pw2 {
+  margin-top: 5px;
+}
+
+input#user_nm {
+  margin-top: 20px;
+  width: 190px;
+}
+
+input.compare {
+  padding: 8px;
+  width: 100px;
+}
+
+input.compare:active, #isOn:active {
+  box-shadow: 5px 5px 10px gainsboro  inset;
+}
+
 .i-comment {
-font-size: 14px;
-margin: 0px;
-margin-top: 5px;
+  position: absolute;
 }
-.compare {
-border: none;
-border-radius: 10px;
-padding: 8px;
-margin-bottom: -10px;
-transition-duration: 0.2s;
+
+#isOn {
+  position: static;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 7px 32px;
+  top: 170px;
+  right: 170px;
+  width: 85px;
+  background: white;
 }
-.compare:hover {
-  background-color: #00e01a;
-  color: white;
-  transition: 0.3s;
+
+input.btn {
+  display: block;
+  margin: 30px auto 0;
 }
-.compare:hover::before {
-  background-color: #F0F0F0;
-}
-.wrap { 
-position: relative;
-overflow: hidden;
-transform: translate3d(0, 0, 0);
-z-index: -0.5;
-}
-.wave {
-width: 1000px;
-height: 1025px;
-position: absolute;
-top: -20%;
-left: 50%;
-margin-left: -500px;
-margin-top: -500px;
-border-radius: 35%;
-z-index: -1;
-}
-.wave_1 {
-background: rgb(255 255 255 / 41%);
-animation: wave 15.6s infinite linear;
-border: 1px solid #004fff24;
-}
-.wave_2 {
-background: rgb(255 255 255 / 50%);
-animation: wave 15.3s infinite linear;
-border: 1px solid #004fff24;
-}
-.wave_3 {
-background: rgb(255 255 255);
-animation: wave 15s infinite linear;
-border: 1px solid #004fff24;
-}
+
 @keyframes wave {
-from { transform: rotate(0deg);}
-from { transform: rotate(-360deg);}
+  from { transform: rotate(0deg); }
+  from { transform: rotate(-360deg); }
 }
-.back {
-  margin-bottom: 20px;
-}
-a {
-  text-decoration: none;
-  color: black;
-}
+
 @font-face {
-    font-family: 'dokdo';
-    src: url('../../font/EastSeaDokdo-Regular.ttf') format('truetype');
+  font-family: 'dokdo';
+  src: url('../../font/EastSeaDokdo-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'maru';
+  src: url('../../font/MaruBuri-Bold.ttf') format('truetype');
 }

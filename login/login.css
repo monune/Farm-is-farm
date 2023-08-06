@@ -1,146 +1,130 @@
-.unDrag{
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  display: block;
+  text-decoration: none;
+  margin: 50px auto 0;
+  font-size: 20px;
+  font-family: 'maru';
+  color: gray;
+  transition-duration: 0.3s;
+}
+a:hover {
+  color: #008711;
+}
+
+.title-row {
   user-select: none;
+  text-align: center;
+  padding: 70px 0;
 }
 
-.preload {
-  transition: none !important;
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
-  -ms-transition: none !important;
-  -o-transition: none !important;
+span {
+  font-size: 80px;
+  font-family: 'maru';
 }
 
-.btn{
-  background-color: rgb(191, 197, 193);
-  color: white;
+.farm {
+  color: #6aff91;         
+  -webkit-text-stroke: 1px #006e0f;
+}
+
+.subtitle {
+  position: absolute;
+  top: 195px;
+  left: 50%;
+  font-size: 20px;
+  font-family: 'maru';
+  transform: translateX(-50%);
+}
+
+.input-row, .input-row2{
+  position: relative;
+}
+
+.input-row > input {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 15px;
+  font-size: 15px;
+  background: white;
+}
+
+input {
+  width: 350px;
+  margin: 8px auto 0;
+}
+
+.input-row > input:focus {
+  outline: none;
+}
+
+#login_res {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+}
+
+label {
+  user-select: none;
+  cursor: pointer;
+  position: absolute;
+  padding: 10px;
+  top: 68px;
+  right: 112px;
+  color: black;
+}
+
+.container {
+  position: absolute;
+  border: 2px solid gray;
+  border-radius: 15px;
+  margin: 0 auto;
   top: 50%;
+  left: 50%;
+  width: 600px;
+  height: 600px;
+  background: white;
+  transform: translate(-50%, -50%);
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.5);
+}
+
+.btn {
   border: none;
   border-radius: 15px;
   padding: 8px;
-  min-height: 10px;
-  min-width: 150px;   
+  margin: 60px auto 0 auto;
+  width: 150px;
+  height: 50px;
   font-weight: 900;
   font-size: x-large;
-  margin: 60px auto 0 auto;
+  color: white;
+  background: gainsboro;
   transition-duration: 0.3s;
 }
+
 .btn:hover {
   background-color: #00e01a;
 }
+
 .btn:focus {
-  outline: transparent;
-  outline-style: solid;
-  box-shadow: 0 0 0 2px #7e7e7e;
-}
-.i-id {
-  margin-top: 50px;
-}
-.i-text {
-  border: solid;
-  position: static;
-  padding: 15px;
-  margin-top: 8px;
-  border-width: 0 0 1px 0;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 14px;
-  border-color: #7e7e7e;
-}
-.i-text:focus {
   outline: none;
 }
-.cb {
-  cursor:pointer;
-  background-color: gray;
-  color: white;
-  margin-left: -65px;
-  border-radius: 10px;
-  padding: 2px 15px 4px 13px;
-  transition-duration: 0.2s;
-}
-.cb:hover {
-  background-color: rgb(206, 206, 206);
-}
-.loginBox {
-  position: static;
-  background-color: #6aff91;
-  border: 5px solid;
-  border-color: rgb(228, 228, 228);
-  margin: 25px auto 0 auto;
-  width: 450px;
-  max-height:550px;
-  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.5);
-}
-.i-comment {
-  font-size: 14px;
-  margin: 0px;
-}
-.wrap { 
-  position: relative;
-  overflow: hidden;
-  transform: translate3d(0, 0, 0);
-  z-index: -0.5;
-}
-.wave {
-  position: absolute;
-  border-radius: 35%;
-  width: 1000px;
-  height: 1025px;
-  top: -20%;
+
+#login_txt {
+  padding-top: 5px;
   left: 50%;
-  margin: -500px 0 0 -500px;
-  z-index: -1;
+  transform: translateX(-50%);
 }
-.wave_1 {
-  background: rgb(255 255 255 / 41%);
-  animation: wave 15.6s infinite linear;
-  border: 1px solid #00ff1b24;
-}
-.wave_2 {
-  background: rgb(255 255 255 / 50%);
-  animation: wave 15.3s infinite linear;
-  border: 1px solid #00ff1b24;
-}
-.wave_3 {
-  background: rgb(255 255 255);
-  animation: wave 15s infinite linear;
-  border: 1px solid #00ff1b24;
-}
-@keyframes wave {
-  from { transform: rotate(0deg);}
-  from { transform: rotate(360deg);}
-}
-.tag {
-  margin-top: 60px;
-  margin-bottom: 40px;
-}
-a {
-  text-decoration: none;
-  color: black;
-}
-span {
-  font-size: 110px;
-  font-weight: 540;
-  font-family: 'dokdo';
-}
-span.farm {
-  font-size: 100px;
-  font-weight: 550;
-  color: #6aff91;  
-  -webkit-text-stroke: 1px #008711;
-}
-.titlebox {
-  text-align: center;
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
-.subtitle {
-  position: absolute;
-  right: 32%;
-  top: 150px;
-  margin: 0px;
-  font-size: 30px;
-  font-family: 'dokdo';
+
+/* FONT */
+@font-face {
+  font-family: 'maru';
+  src: url('../font/MaruBuri-Bold.ttf') format('truetype');
 }
 
 @font-face {
