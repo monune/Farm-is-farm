@@ -1,6 +1,11 @@
 * {
   margin: 0;
   padding: 0;
+  user-select: none;
+}
+
+body {
+  background: #e8fffd;
 }
 
 a {
@@ -28,8 +33,8 @@ span {
 }
 
 .farm {
-  color: #6aff91;         
-  -webkit-text-stroke: 1px #006e0f;
+  color: #3cff56;
+  -webkit-text-stroke: 1px #44e56f;
 }
 
 .subtitle {
@@ -81,7 +86,6 @@ label {
 
 .container {
   position: absolute;
-  border: 2px solid gray;
   border-radius: 15px;
   margin: 0 auto;
   top: 50%;
@@ -90,7 +94,7 @@ label {
   height: 600px;
   background: white;
   transform: translate(-50%, -50%);
-  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.5);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 .btn {
