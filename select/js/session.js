@@ -85,7 +85,7 @@ function compareSession(buttonID) {
         } else if (buttonID === "f3") {
           window.location.href = "function_3.html"; // 수중 모터 작동 현황
         } else if (buttonID === "f4") {
-          // window.location.href = "function_4.html";
+          window.location.href = "function_4.html";
         } else if (buttonID === "f5") {
           // window.location.href = "function_5.html";
         } else if (buttonID === "f6") {

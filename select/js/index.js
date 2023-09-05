@@ -1,4 +1,4 @@
-// 데이터 호출
+// 데이터 호출 - 아직 쓸 일 없음
 function callData() {
   const id = getCookie("userID");
   $.ajax({
@@ -31,28 +31,25 @@ function getCookie(cookieName) {
   return null;
 }
 
-// function 3 물 세기 표시 변경
-function callWater() {
+/**
+ * 온습도 센서 값 가져오는 함수
+ * @param {*} decide 새로고침 후 콘솔없이 활성화 'Y' or 'N'
+ */
+function callChart(decide) {
   const id = getCookie("userID");
   $.ajax({
-    url: "php/call_waterData.php",
+    url: "php/call_HWdata.php",
     type: "POST",
     async: false,
     data: { id: id },
     success: function (data) {
-      // water grade
-      if (data.water == 1) animationValue = "one";
-      else if (data.water == 2) animationValue = "two";
-      else if (data.water == 3) animationValue = "three";
-      $("#w_value").html(data.water + " 단계");
-      element.style.animation = animationValue + " 4s linear infinite";
-      // slider value
-      thumbLeft.style.left = data.min_hum + "%";
-      range.style.left = data.min_hum + "%";
-      thumbRight.style.right = 100 - data.max_hum + "%";
-      range.style.right = 100 - data.max_hum + "%";
-      inputLeft.value = data.min_hum;
-      inputRight.value = data.max_hum;
+      if (decide === 'Y') console.log(data);
+      $("#c-temp").val("Temperature: " + data.temp + " ℃");
+      $("#c-hum").val("Humidity: " + data.hum + " %");
+
+      $("#prg").val(data.light);
+      const newData = [data.temp, data.hum];
+      updateChart(myChart, newData);
     },
     error: function () {
       console.log("error");
@@ -60,75 +57,57 @@ function callWater() {
   });
 }
 
-// 초기 슬라이더 (하단) 값 설정
-function setLeftValue() {
-  var _this = inputLeft;
-  var min = parseInt(_this.min);
-  var max = parseInt(_this.max);
-  _this.value = Math.min(parseInt(_this.value), parseInt(inputRight.value) - 1);
-  var percent = ((_this.value - min) / (max - min)) * 100;
-  thumbLeft.style.left = percent + "%";
-  range.style.left = percent + "%";
-} 
+const selectors = ['#w-ftp', '#w-wtr', '#w-hum', '#w-dir_spd', '#w-fd', '#w-sfd', '#w-uv', '#-ss'];
+const dataKeys = ['ftemp', 'mtr_water', 'hum', 'wind', 'fine', 'sp_fine', 'uvrays', 'sunset'];
 
-// 초기 슬라이더 (상단) 값 설정
-function setRightValue() {
-  var _this = inputRight;
-  var min = parseInt(_this.min);
-  var max = parseInt(_this.max);
-  _this.value = Math.max(parseInt(_this.value), parseInt(inputLeft.value) + 1);
-  var percent = ((_this.value - min) / (max - min)) * 100;
-  thumbRight.style.right = 100 - percent + "%";
-  range.style.right = 100 - percent + "%";
-}
-
-// 죄측 (하단) 슬라이더 증감
-function incrementLeftSliderValue(increment) {
-  var currentValue = parseInt(inputLeft.value);
-  var newValue = currentValue + increment;
-  var min = parseInt(inputLeft.min);
-  var max = parseInt(inputLeft.max);
-  newValue = Math.min(Math.max(newValue, min), parseInt(inputRight.value) - 1);
-  var percent = ((newValue - min) / (max - min)) * 100;
-  inputLeft.value = newValue;
-  thumbLeft.style.left = percent + "%";
-  range.style.left = percent + "%";
-  console.log("left value: " + inputLeft.value); // 검사
-  uploadSliderValue(); // 데이터 업데이트
-  console.log("ok");
-}
-
-// 오른쪽 (상단) 슬라이더 증감
-function incrementRightSliderValue(increment) {
-  var currentValue = parseInt(inputRight.value);
-  var newValue = currentValue + increment;
-  var min = parseInt(inputRight.min);
-  var max = parseInt(inputRight.max);
-  newValue = Math.max(Math.min(newValue, max), parseInt(inputLeft.value) + 1);
-  var percent = ((newValue - min) / (max - min)) * 100;
-  inputRight.value = newValue;
-  thumbRight.style.right = 100 - percent + "%";
-  range.style.right = 100 - percent + "%";
-  console.log("right value: " + inputRight.value); // 검사
-  uploadSliderValue(); // 데이터 업데이트
-  console.log("ok");
-}
-
-// 변경된 최소 습도와 최대 습도를 water 데이터베이스에 저장
-function uploadSliderValue() {
-  const id = getCookie("userID");
+/**
+ * Node.js에서 받아온 날씨 정보 사용
+ * @param {string} decide console 출력 사용 여부
+ */
+function callWeather(decide) {
   $.ajax({
-    url: "php/save_waterValue.php",
-    type: "POST",
-    async: false,
-    data: {
-      id: id,
-      min: inputLeft.value,
-      max: inputRight.value,
-    },
-    // 성공시 아무 동작 없음
-    error: function () {
-      console.log("error: 저장하지 못했습니다.");
-    },
-  });
+  url: "php/call_nodeWeather.php",
+  type: "POST",
+  async: false,
+  success: function (data) {
+    if(decide === 'Y') console.log(data);
+    $("#w-tp").html(data.temp);
+    $('#img_w').attr("src", "svg/icon_flat_" + data.class + ".svg"); 
+
+    for (let i = 0; i < selectors.length; i++) {
+      if (selectors[i] == '#w-dir_spd') $(selectors[i]).val(data.wind_dir + " " + data.wind_spd);
+      else if (isEmpty(data[dataKeys[i]])) {
+        $(selectors[i]).css('display', 'none');
+      } else {
+        $(selectors[i]).val(data[dataKeys[i]]);
+        $(selectors[i]).css('display', 'block');
+      }
+    }
+  },
+  error: function (err) {
+    console.log("Err: " + err);
+  },
+});
+}
+
+/**
+ * @param {*} value 빈값 체크 
+ * @returns 
+ */
+var isEmpty = function(value){
+  if( value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){
+    return true
+  }else{
+    return false
+  }
+};
+
+/**
+* Chart.js 업데이트 해주는 함수
+* @param {string} selectChart 변경할 차트 선택
+* @param {array} newData 변경할 배열 정보
+*/
+function updateChart(selectChart, newData) {
+   selectChart.data.datasets[0].data = newData;
+   selectChart.update();
 }
