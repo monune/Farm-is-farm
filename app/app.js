@@ -36,15 +36,15 @@ const parsing = async (keyword) => {
   const summaryList = $weather.find(".summary_list .sort").text();
   const weatherData = [];
 
-  const img = $weather.find("._today .weather_graphic .weather_main i").attr('class');
-  const textArray = img.split(" ");  // 공백 제거
+  const img = $weather.find("._today .weather_graphic .weather_main i").attr("class");
+  const textArray = img.split(" "); // 공백 제거
   const imgClass = textArray[1].split("_"); // _ 제거
 
   for (let i = 0; i < 4; i++) {
     const today = $weather.find(`li.item_today a:eq(${i})`).text().trim().split(" ");
     weatherData.push(today[1]);
   }
-  
+
   const splitSummry = summaryList.trim().split(" ");
   const splitTemp = temperature.trim().split(" ");
   const tempReplace = String(splitTemp[1]).replace(/^온도/, "");
@@ -60,36 +60,36 @@ const parsing = async (keyword) => {
     }
   }
 
-  // console.log("온도: " + tempReplace);
-  // --° --mm --% --풍 --m/s
-  // console.log(Summary); 
-  // 미세먼지, 초미세먼지, 자외선, 일몰
-  // console.log("기타: " + weatherData);
-
-  // 데이터 갱신
-  let sql = `UPDATE iemh_team1.weather 
-  SET temperature = ? ,
-      filling_temperature = ?, 
-      meteoric_water = ?, 
-      humidity = ?, 
-      wind_direction = ?, 
-      wind_speed = ? ,
-      fine_dust = ?,
-      super_fine_dust = ?,
-      ultraviolet_rays = ?,
-      sunset = ?,
-      class = ?
-  `;
+  // 습도 크롤링 / 나는 건들여서는 안되는걸 건들인게 아닐까? 이 문제가 나의 발목을 잡는다...
   
-  const values = [tempReplace, Summary[0], Summary[1], Summary[2], Summary[3], Summary[4], weatherData[0], weatherData[1], weatherData[2], weatherData[3], imgClass[1]];
-
-  connection.query(sql, values, (error, results) => {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log(results);
+  const arr = [];
+  const $dataItems = $("div.open .content_area .inner .forecast_wrap .hourly_forecast .humidity_graph_box div.scroll_box._horizontal_scroll._hourly_humidity .climate_box div.graph_wrap ul");
+  for (let i = 0; i < 24; i++) {
+    const today = $dataItems.find(`li.data .data_inner span.base_bar:eq(${i})`).attr('style');
+    arr.push(today);
+    if (today >= 10) {
     }
-  });
+  }
+  console.log(arr);
+  
+
+
+  // 날씨 데이터 갱신
+  const weatherColumns = [
+    'temperature', 'filling_temperature', 'meteoric_water', 'humidity',
+    'wind_direction', 'wind_speed', 'fine_dust', 'super_fine_dust',
+    'ultraviolet_rays', 'sunset', 'class'
+  ];
+  const weatherValues = [tempReplace, ...Summary.slice(0, 5), ...weatherData.slice(0, 4), imgClass[1]];
+  updateDatabase('iemh_team1.weather', weatherColumns, weatherValues);
+  
+  // 습도 데이터 갱신
+  const humiColumns = [
+    'am12', 'am1', 'am2', 'am3', 'am4', 'am5', 'am6', 'am7', 'am8', 'am9', 'am10', 'am11',
+    'pm12', 'pm1', 'pm2', 'pm3', 'pm4', 'pm5', 'pm6', 'pm7', 'pm8', 'pm9', 'pm10', 'pm11'
+  ];
+  // const humiValues = TimeArray.slice(0, 24);
+  // updateDatabase('iemh_team1.live_humidity', humiColumns, humiValues);
 };
 
 // 데이터 조회
@@ -107,8 +107,30 @@ const retrieveData = () => {
   });
 };
 
+/**
+ * 데이터베이스 업데이트하는  함수
+ * @param {database_table} table 
+ * @param {array} columns 
+ * @param {value} values 
+ * @param {*} callback 
+ */
+function updateDatabase(table, columns, values, callback) {
+  const placeholders = columns.map(column => `${column} = ?`).join(', ');
+  const sql = `UPDATE ${table} SET ${placeholders}`;
+  connection.query(sql, values, (error, results) => {
+    if (error) {
+      console.log(error);
+    } else {
+      // console.log("success Table: " + table + ", Values: " + values);
+    }
+    if (typeof callback === 'function') {
+      callback(error, results);
+    }
+  });
+}
+
 setInterval(async () => {
   const data = await retrieveData();
   const address = data[0].address;
   parsing(`${address} 날씨`);
-}, 3000);
+}, 5000);
