@@ -18,18 +18,20 @@ const puppeteer = require('puppeteer'); // 아아 나의 구원자
 const cheerio = require('cheerio');     // 
 const axios = require('axios');
 
+const using_url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query="; // naver
+
 const getHTML = async (keyword) => {
   try {
-    return await axios.get("https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=" + encodeURI(keyword));
+    return await axios.get(using_url + encodeURI(keyword));
   } catch (err) {
     console.log(err);
   }
 };
 
 // parsing 성공 
-const parsing = async (keyword) => {
+const parsing = async (serchKeyword) => {
 
-  const html = await getHTML(keyword);
+  const html = await getHTML(serchKeyword);
   const $ = cheerio.load(html.data);
 
   // Query 설정
@@ -66,18 +68,18 @@ const parsing = async (keyword) => {
 
   // 예상 습도 (시간) 가져오기
   const today = new Date();
-  const timeArray = [];
+  const soltArray = [];
   const $dataItems = $(".humidity_graph_box .climate_box ");
   for (let i = 0; i < 24 + (24 - today.getHours()); i++) {
     const tarr = $dataItems.find(`.time_wrap .time span.text:eq(${i})`).text();
     timeArray.push(tarr);
   }
-  const Hpup_1 = await pup();
+  
+  const puppeteerResult = await callPuppetter(serchKeyword, "li.data .num");
   console.log("---------------------------------------")
-  console.log(timeArray);
-  console.log(Hpup_1);
+  console.log(soltArray); // 시간대 나열
+  console.log(puppeteerResult); // 예상 습도 값
 
-  //
   const weatherValues = [tempReplace, ...Summary.slice(0, 5), ...weatherData.slice(0, 4), imgClass[1]];
   const weatherColumns = [ 
     'temperature', 'filling_temperature', 'meteoric_water', 'humidity',
@@ -85,21 +87,13 @@ const parsing = async (keyword) => {
     'ultraviolet_rays', 'sunset', 'class' 
   ];
   
-  //
-  const jsonData = JSON.stringify({ data: Hpup_1 });
-  const humidityColumns = ['docs'];
-  const humidityValues = [jsonData];
+  const humidityJsonData = JSON.stringify({ data: puppeteerResult });
+  const soltJsonData = JSON.stringify({ data: soltArray });
   
-  //
-  const jsonData2 = JSON.stringify({ data: timeArray });
-  const timesColums = ['times'];
-  const timeValues = [jsonData2];
-  
-  // DB 갱신
+  // update Database
   updateDatabase('iemh_team1.weather', weatherColumns, weatherValues);
-  updateDatabase('iemh_team1.realtime_humidity', humidityColumns, humidityValues);
-  updateDatabase('iemh_team1.realtime_humidity', timesColums, timeValues);
-  
+  updateDatabase('iemh_team1.realtime_humidity', ['docs'], [humidityJsonData]);
+  updateDatabase('iemh_team1.realtime_humidity', ['times'], [soltJsonData]);
 };
 
 setInterval(() => {
@@ -109,9 +103,9 @@ setInterval(() => {
 /**
  * 데이터베이스 업데이트하는  함수
  * @param {database_table} table 
- * @param {array} columns 
- * @param {value} values 
- * @param {*} callback 
+ * @param {Array} columns 
+ * @param {value} values 업데이트할 데이터
+ * @param {boolean} callback 
  */
  function updateDatabase(table, columns, values, callback) {
   const placeholders = columns.map(column => `${column} = ?`).join(', ');
@@ -120,7 +114,7 @@ setInterval(() => {
     if (error) {
       console.log(error);
     } else {
-      // console.log("success Table: " + table + ", Values: " + values);
+      // success messege
     }
     if (typeof callback === 'function') {
       callback(error, results);
@@ -129,36 +123,30 @@ setInterval(() => {
 }
 
 /**
- * puppetter 노드 라이브러리를 이용한 크롤링 함수
- * @returns {array} 필터링된 배열 값
+ * 원하는 정보를 검색하고 배열로 반환하는 함수입니다
+ * @param {string} serchKeyword 검색할 키워드
+ * @param {string} classKeyword 찾고싶은 클래스
+ * @returns 
  */
-const pup = async () => {  
+const callPuppetter = async (serchKeyword, classKeyword) => {  
   const browser = await puppeteer.launch({ headless: "new" });
   const page = await browser.newPage();
-  const url = 'https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=%EB%82%A0%EC%94%A8';
-  await page.goto(url);
-  
-  const PuppteerArray = page.evaluate(() => {
-    const numElements = Array.from(document.querySelectorAll('li.data .num'));
+  await page.goto(using_url + encodeURI(serchKeyword));
+
+  const PuppteerArray = await page.evaluate((classKeyword) => {
+    const numElements = Array.from(document.querySelectorAll(classKeyword));
     const numbers = numElements.map(element => parseInt(element.textContent, 10));
+
+    //처리
     const filteredNumbers = numbers.filter(number => number >= 10);
     const desiredLength = 24 + (24 - new Date().getHours());
-
     // 10 미만의 숫자를 0으로 채웁니다.
     while (filteredNumbers.length < desiredLength) filteredNumbers.push(0);
     // 배열의 길이가 원하는 길이보다 더 길다면 잘라냅니다.
     if (filteredNumbers.length > desiredLength) filteredNumbers.length = desiredLength;
+
     return filteredNumbers;
-  });
+  }, classKeyword);
+
   return PuppteerArray;
 };
-
-/**
- * 배열을 JSON 형식으로 변환하는 함수
- * @param {array} arr 
- */
-const changeJSON = (arr) => {
-  let data = JSON.stringify(arr); // '["Apple","Banana","Orange"]' // 배열 문자열
-  let data2 = JSON.parse(data);
-  return data2;
-}
