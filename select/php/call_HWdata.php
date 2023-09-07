@@ -19,8 +19,6 @@ else
       $response["exists"] = true;
       $response["temp"] = $row["temperature"];
       $response["hum"] = $row["humidity"];
-      $response["ph"] = $row["pH"];
-      $response["light"] = $row["light_grade"];
     } else {
       $response["exists"] = false;
     }

@@ -26,7 +26,7 @@ $(document).ready(function () {
       thisID = this.id;
       if ( event.target.id == thisID || event.target.id === "cont-h" || event.target.className === "shorts" ) {
         console.log(thisID + " Interval start");
-        if (thisID == "control") Interval = setInterval(() => { callChart("Y"); }, 3000);
+        if (thisID == "control") Interval = setInterval(() => { callChart("Y"); callGraph("Y");}, 3000);
         else if (thisID == "weather") Interval = setInterval(() => { callWeather("Y"); }, 3000);
         $(".contFrame").addClass("remove"); // 전체 OFF
         setTimeout(() => {
@@ -70,7 +70,7 @@ const myChart = new Chart(document.getElementById("myChart"), {
     labels: ["온도(℃)", "습도(%)"],
     datasets: [
       {
-        data: [20, 50],
+        data: [10, 50],
         backgroundColor: ["rgba(255, 99, 132, 0.8)", "rgba(54, 162, 235, 0.8)"],
         borderColor: ["rgb(255, 60, 102)", "rgb(23, 100, 215)"],
         borderWidth: 2,
@@ -86,10 +86,11 @@ const myChart = new Chart(document.getElementById("myChart"), {
     responsive: false,
     scales: {
       y: {
+        beginAtZero: true,
+        grace: '10%',
         ticks: {
           precision: 0, // 소수점 자릿수
           stepSize: 1, // 간격
-          beginAtZero: true,
         },
       },
     },
@@ -99,26 +100,44 @@ const myChart = new Chart(document.getElementById("myChart"), {
 const myGraph = new Chart(document.getElementById('myGraph'), {
     type: 'line',
     data: data = {
-        labels: ["03:00", "06:00", "09:00", "12:00", "15:00", "18:00", "21:00", "24:00"],
+        labels: ["A", "B", "C"],
         datasets: [{
-            label: "습도 변화량",
+            label: " 예상 습도 변화량 (%)",
             fill: true,
             lineTension: 0.4, // 지랄 정도
             backgroundColor: "rgba(75, 192, 192, 0.2)",
             borderColor: "rgba(75, 192, 192, 1)",
             borderWidth: 4,
-            data: [10, 15, 5, 20, 25, 15, 30, 35, 25],
+            data: [5, 10, 15, 5, 20, 25, 15, 30, 35, 25],
         }]
     },
     options: {
         plugins: {
-          tooltip: { enabled: false, },
+          legend: {
+            display: false,
+            align: 'start',
+            labels: {
+              font: { size: 20},
+              boxWidth: 25,
+              boxHeight: 15,
+            },
+            position: 'bottom'
+          },
+          tooltip: {
+            padding: 10,
+            titleFont: { size: 20 },
+            bodyFont: { size: 15 }
+          }
         },
         responsive: false,
         scales: {
             y: {
-                beginAtZero: true
+                beginAtZero: true,
+                grace: '5%'
             }
+        },
+        interaction: {
+          intersect: false
         }
     }
 });

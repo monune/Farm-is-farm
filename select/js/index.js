@@ -1,39 +1,6 @@
-// 데이터 호출 - 아직 쓸 일 없음
-function callData() {
-  const id = getCookie("userID");
-  $.ajax({
-    url: "php/call_HWdata.php",
-    type: "POST",
-    async: false,
-    data: { id: id },
-    success: function (data) {
-      $("#temp").val("온도: " + data.temp + " ℃");
-      $("#hum").val("습도: " + data.hum + " %");
-      $("#ph").val("수내 산성도: " + data.ph + " pH");
-      $("#led").val("밝기: " + data.light + " 단계"); // 1 ~ 3
-      $("#led_grade").val(data.light);
-    },
-    error: function () {
-      console.log("error");
-    },
-  });
-}
-
-// 쿠키 호출
-function getCookie(cookieName) {
-  const cookies = document.cookie.split(";");
-  for (let i = 0; i < cookies.length; i++) {
-    const cookie = cookies[i].trim();
-    if (cookie.startsWith(cookieName + "=")) {
-      return cookie.substring(cookieName.length + 1);
-    }
-  }
-  return null;
-}
-
 /**
- * 온습도 센서 값 가져오는 함수
- * @param {*} decide 새로고침 후 콘솔없이 활성화 'Y' or 'N'
+ * 온도, 습도 값 가져오는 함수
+ * @param {string} decide 새로고침 후 콘솔없이 활성화 'Y' or 'N'
  */
 function callChart(decide) {
   const id = getCookie("userID");
@@ -41,13 +8,12 @@ function callChart(decide) {
     url: "php/call_HWdata.php",
     type: "POST",
     async: false,
-    data: { id: id },
+    data: {  id: id },
     success: function (data) {
       if (decide === 'Y') console.log(data);
       $("#c-temp").val("Temperature: " + data.temp + " ℃");
       $("#c-hum").val("Humidity: " + data.hum + " %");
-
-      $("#prg").val(data.light);
+      
       const newData = [data.temp, data.hum];
       updateChart(myChart, newData);
     },
@@ -57,18 +23,43 @@ function callChart(decide) {
   });
 }
 
+/**
+ * DB에 저장된 예상 습도를 그래프에 전달
+ * @param {string} decide 새로고침 후 콘솔없이 활성화 'Y' or 'N'
+ */
+function callGraph(decide) {
+  $.ajax({
+  url: "php/call_nodeSystem.php",
+  type: "POST",
+  async: false,
+  data: { data: "graph" },
+  success: function (data) {
+    const responseTimes = JSON.parse(data.times);
+    const responseDocs = JSON.parse(data.docs);
+    if(decide === 'Y') {
+      console.log(responseTimes.data);
+      console.log(responseDocs.data);
+    }
+    updateChart(myGraph, responseTimes.data, responseDocs.data);
+  },
+  error: function (err) {
+    console.log("Err: " + err);
+  },
+});
+}
+
 const selectors = ['#w-ftp', '#w-wtr', '#w-hum', '#w-dir_spd', '#w-fd', '#w-sfd', '#w-uv', '#-ss'];
 const dataKeys = ['ftemp', 'mtr_water', 'hum', 'wind', 'fine', 'sp_fine', 'uvrays', 'sunset'];
-
 /**
  * Node.js에서 받아온 날씨 정보 사용
- * @param {string} decide console 출력 사용 여부
+ * @param {string} decide 새로고침 후 콘솔없이 활성화 'Y' or 'N'
  */
 function callWeather(decide) {
   $.ajax({
-  url: "php/call_nodeWeather.php",
+  url: "php/call_nodeSystem.php",
   type: "POST",
   async: false,
+  data: { data: "weather" },
   success: function (data) {
     if(decide === 'Y') console.log(data);
     $("#w-tp").html(data.temp);
@@ -102,12 +93,36 @@ var isEmpty = function(value){
   }
 };
 
+function loadWeather() {
+  let today = new Date();
+  let todayArr = ['일', '월', '화', '수', '목', '금', '토'];
+  $(".calendar").html(today.getFullYear() + "년 " + (today.getMonth() + 1) + "월 " + today.getDate() +"일 " + todayArr[today.getDay()] + "요일 입니다.");
+}
+
 /**
 * Chart.js 업데이트 해주는 함수
 * @param {string} selectChart 변경할 차트 선택
-* @param {array} newData 변경할 배열 정보
+* @param {array} newData 변경할 데이터 배열
+* @param {array} newLabels 변경할 레이블 배열
 */
-function updateChart(selectChart, newData) {
-   selectChart.data.datasets[0].data = newData;
-   selectChart.update();
+function updateChart(selectChart, newLabels, newData) {
+  if (!isEmpty(newData)) selectChart.data.datasets[0].data = newData;
+  if (!isEmpty(newLabels)) selectChart.data.labels = newLabels;
+  selectChart.update();
+}
+
+/**
+ * 쿠키 가져오는 함수
+ * @param {string} cookieName 
+ * @returns 
+ */
+function getCookie(cookieName) {
+  const cookies = document.cookie.split(";");
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    if (cookie.startsWith(cookieName + "=")) {
+      return cookie.substring(cookieName.length + 1);
+    }
+  }
+  return null;
 }
