@@ -5,7 +5,7 @@
 }
 
 body {
-  background: #e8fffd;
+  background: rgb(75, 213, 255);
 }
 
 a {
@@ -33,8 +33,8 @@ span {
 }
 
 .farm {
-  color: #3cff56;
-  -webkit-text-stroke: 1px #44e56f;
+  color: #00ff99;
+  -webkit-text-stroke: 1px #33894a;
 }
 
 .subtitle {
@@ -134,4 +134,20 @@ label {
 @font-face {
   font-family: 'dokdo';
   src: url('../font/EastSeaDokdo-Regular.ttf') format('truetype');
+}
+
+.b-div-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 650px;
+  height: 650px;
+  /* background: white; */
+  z-index: -100;
+}
+.b-div-box > div {
+  position: relative;
+  width: 650px;
+  height: 650px;
 }
