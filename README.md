@@ -1,36 +1,124 @@
 # Farm Is Farm
-![main](https://github.com/monune/farm-is-farm/assets/123826926/0c97aab0-1217-4c68-9fff-8f4aa9942c36)
 
-## 📖 Introduce
+![main](https://github.com/monune/farm-is-farm/assets/123826926/307b5069-1af0-4d1c-8b42-ed34a7f3842f)
 
-**농장팜니다 (Farm-is-Farm)** is a web service that allows you to control hydroponic smart farms.
 
-* Convenient hardware control 
-* Real-Time check weather conditions
-* Using Database
 
-## 💻 Display
+## Introduce
 
-기능을 설명합니다.
+<a href="https://en.wikipedia.org/wiki/HTML5"><img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white"></a>
+<a href="https://www.w3.org/TR/CSS/#css"><img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white"></a>
+<a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/"><img src="https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=flat-square&logo=JAVASCRIPT&logoColor=black"></a>
+<a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=PHP&logoColor=white"> </a>
 
-- **Sign in & Sign up**
-	- Compare login information in PHP.
-	- Compare user_id and user_password with login data in Database.
-	- User Information Registration Procedure.
-	
-- **SELECT the function you want**
-	- Select the panel to recall the function
-    - **SELECT,**  **CONTROL,**  **WEATHER,**  **USER** 
+농장FARM니다는 기존 스마트 팜의 설비를 재정비하고 원격 제어를 돕는 LAN server 기반의 웹 서비스 입니다.
 
-## 📚 MDP (Meister Development Project)
+
+
+## Function
+
+크롤링을 편하게 할 수 있게 함수를 만들었습니다.
+
+* app.js
+```javascript
+parsing(serchKeyword) {
+	//... 검색 코드
+	callPuppteer(serchKeyword, classKeyword);
+    updateDatabase(table, columns, values, callback);
+}
+
+// 데이터 갱신 타이밍 선택 가능
+setInterval(() => {
+  parsing(`날씨`);
+}, 10000);
+```
+
+---
+
+### parsing 
+
+날씨를 스크래핑해 저장하는 함수입니다. parsing 으로 가져올 수 있는 데이터는 다음과 같습니다.
+
+* Temperature
+* Filling temperature
+* Precipitation ( meteoric_water )
+* Humidity
+* Wind direction
+* Wind speed
+* PM ( fine_dust )
+* PM2.5 ( super_fine_dust )
+* Ultraviolet ( ultraviolet_rays )
+* Sunset
+* class
+
+```javascript
+// 사용한 데이터베이스 컬럼
+const weatherColumns = [ 
+    'temperature', 'filling_temperature', 'meteoric_water', 'humidity',
+    'wind_direction', 'wind_speed', 'fine_dust', 'super_fine_dust', 
+    'ultraviolet_rays', 'sunset', 'class' 
+  ];
+```
+
+---
+
+### callPuppteer
+
+puppteer 라이브러리를 사용한 크롤링 함수입니다.
+
+```javascript
+const callPuppetter = async (serchKeyword, classKeyword) => {  
+  const browser = await puppeteer.launch({ headless: "new" });
+  const page = await browser.newPage();
+  
+  // 미리 저장한 url과 serchKeyword를 인코딩해 조합합니다.
+  await page.goto(using_url + encodeURI(serchKeyword)); 
+
+  const PuppteerArray = await page.evaluate((classKeyword) => {
+    const numElements = Array.from(document.querySelectorAll(classKeyword));
+    const numbers = numElements.map(element => parseInt(element.textContent, 10));
+
+    // 크롤링 직후의 데이터는 classKeyword를 가진 클래스의 모든 정보를 가져오기 때문에 지저분합니다.
+    const flteredNumbers =  무작위 데이터;
+
+	// 추가적인 처리를 진행하고 반환
+    return filteredNumbers;
+  }, classKeyword);
+
+  return PuppteerArray;
+};
+```
+
+반환된 PuppteerArray 값은 변수에 저장할 수 있습니다.
+
+```javascript
+// callPuppetter 함수는 비동기식이기 때문에 await을 사용할 필요가 있습니다.
+const Example = await callPuppetter(serchKeyword, classKeyword);
+```
+
+---
+
+### updataDatabase 
+
+mySQL 라이브러리를 사용해 DB에 연결하고 데이터를 저장하는 함수입니다.
+
+```javascript
+// example
+updateDatabase('database.table', columns, values); // ..or
+updateDatabase('database.table', columns, values, 'function');
+```
+
+updataDatabase 함수는 콜백 기능을 추가했습니다. 
+
+코드 실행 후 콜백을 사용할지 말지 선택해 에러와 결과를 전달할 수 있습니다. 
+
+---
+
+### MDP (Meister Development Project)
 **'Meister Development Project'** is an annual team project at school.
 - 전공 동아리 활동
 - 프로젝트 팀 편성
 
 ## 🔖 Eat & Growth
-<a href="https://en.wikipedia.org/wiki/HTML5"><img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white"></a>
-<a href="https://www.w3.org/TR/CSS/#css"><img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white"></a>
-<a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/"><img src="https://img.shields.io/badge/JAVASCRIPT-F7DF1E?style=flat-square&logo=JAVASCRIPT&logoColor=black"></a>
-<a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=PHP&logoColor=white"> </a>
 - [MDP](http://intec.icehs.kr/sub/info.do?m=040101&s=intec)
 - [Node.js](https://nodejs.org/ko)
