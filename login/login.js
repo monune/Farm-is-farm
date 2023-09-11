@@ -1,6 +1,3 @@
-/**
- * 비밀번호 부호화
- */
 function showPassword() {
     // look password
     const checkbox = document.getElementById('checkObject');
@@ -18,9 +15,6 @@ function showPassword() {
     }
 }
 
-/**
- * 로그인 정보 검사
- */
 function LoginToMain() {
     var id = $("#login_id").val();
     var pw = $("#login_pw").val();

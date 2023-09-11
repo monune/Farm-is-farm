@@ -5,16 +5,27 @@
 }
 
 body {
+  background-color: var(--color-black);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: rgb(75, 213, 255);
+}
+
+form {
+  overflow: hidden;
+  justify-content: center;
 }
 
 a {
   display: block;
   text-decoration: none;
   margin: 50px auto 0;
+  width: 100px;
+  color: gray;
   font-size: 20px;
   font-family: 'maru';
-  color: gray;
   transition-duration: 0.3s;
 }
 a:hover {
@@ -32,6 +43,11 @@ span {
   font-family: 'maru';
 }
 
+input {
+  width: 350px;
+  margin: 8px auto 0;
+}
+
 .farm {
   color: #00ff99;
   -webkit-text-stroke: 1px #33894a;
@@ -46,21 +62,16 @@ span {
   transform: translateX(-50%);
 }
 
-.input-row, .input-row2{
+.input-row {
   position: relative;
 }
 
-.input-row > input {
+.input-row > input:not(#checkObject) {
   border: 1px solid black;
   border-radius: 5px;
   padding: 15px;
   font-size: 15px;
   background: white;
-}
-
-input {
-  width: 350px;
-  margin: 8px auto 0;
 }
 
 .input-row > input:focus {
@@ -74,13 +85,18 @@ input {
   font-size: 14px;
 }
 
+.check-box-row {
+  height: 0;
+  position: relative;
+}
+
 label {
   user-select: none;
   cursor: pointer;
   position: absolute;
-  padding: 10px;
-  top: 68px;
-  right: 112px;
+  padding: 13px;
+  right: 110px;
+  bottom: 0;
   color: black;
 }
 
@@ -143,11 +159,52 @@ label {
   transform: translate(-50%, -50%);
   width: 650px;
   height: 650px;
-  /* background: white; */
   z-index: -100;
 }
 .b-div-box > div {
   position: relative;
   width: 650px;
   height: 650px;
+}
+
+/* mobile */
+@media ( max-width: 768px ) {
+  span {
+    font-size: 65px;
+  }
+
+  .container {
+    float: right;
+    width: 380px;
+    height: 500px;
+  }
+
+  .subtitle {
+    top: 150px;
+    width: 100%;
+  }
+
+  .title-row {
+    padding: 50px 0;
+  }
+
+  #login_id, #login_pw {
+    width: 290px;
+  }
+
+  .input-row {
+    padding-top: 30px;
+  }
+
+  input.btn {
+    margin-top: 35px;
+  }
+  #sign_up {
+    margin-top: 25px;
+  }
+
+  label {
+    right: 50px;
+    bottom: 2px;
+  }
 }

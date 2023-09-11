@@ -16,40 +16,42 @@ p {
   font-size: 13px;
 }
 
+.title-row {
+  padding: 30px 0 !important;
+}
+
 .input-row2 {
-  padding-left: 50px;
+  position: relative;
+  padding: 0 50px;
 }
 
 .input-row2 > input {
   border: 1px solid black;
   border-radius: 5px;
-  padding: 15px;
-  margin-top: 22px;
-  width: 250px;
+  padding: 10px !important;
+  width: 100%;
   font-size: 15px;
   background: white;
-}
+  box-sizing: border-box;
+} 
 
+#user_id, #pw1 {
+  margin-top: 22px !important;
+}
 input#pw2 {
   margin-top: 5px;
 }
 
-input#user_nm {
-  margin-top: 20px;
-  width: 190px;
-}
-
-input.compare {
-  padding: 8px;
-  width: 100px;
-}
-
-input.compare:active, #isOn:active {
+input.compare:active, #isOn:active, #isOn2:active {
   box-shadow: 5px 5px 10px gainsboro  inset;
 }
 
 .i-comment {
   position: absolute;
+}
+
+.container {
+  height: 650px !important;
 }
 
 #isOn {
@@ -68,6 +70,16 @@ input.btn {
   margin: 30px auto 0;
 }
 
+#isOn2 {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 22px;
+  width: 100%; 
+  font-size: 15px;
+  background: white;
+} 
+
 @keyframes wave {
   from { transform: rotate(0deg); }
   from { transform: rotate(-360deg); }
@@ -81,4 +93,39 @@ input.btn {
 @font-face {
   font-family: 'maru';
   src: url('../../font/MaruBuri-Bold.ttf') format('truetype');
+}
+
+/* mobile 임뽈딴뜨가 아주 좋아요x*/
+@media ( max-width: 768px ) {
+  * {
+    box-sizing: border-box;
+  }
+
+  span, .farm {
+    font-size: 60px !important;
+    padding-top: 30px;
+  }
+
+  input, #isOn2 {
+    width: 360px !important;
+    margin-top: 10px !important;
+    padding: 10px !important;
+  } 
+
+  .title-row {
+    padding: 30px 0 15px !important;
+  }
+
+  .container {
+    height: 590px !important;
+  }
+
+  .input-row2 {
+    padding: 0 10px !important;
+  }
+
+  input.btn { 
+    width: 150px !important; 
+    margin-top: 25px !important; 
+  }
 }

@@ -4,13 +4,11 @@
 <head>
     <link rel="shortcut icon" href="/src/ico/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon-precomposed" href="/src/ico/android-chrome-192x192.png">
-    <link rel="stylesheet" href="login.css?abd">
-    <script src="login.js?a"></script>
+    <link rel="stylesheet" href="login.css?f">
+    <script src="login.js?f"></script>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="discription" content="no sold, right farm.">
-    <meta name="robots" content="농장팜니다, 농장, 팜니다, sold farm, no sold, right farm">
     <title>로그인</title>
 </head>
 
@@ -33,6 +31,8 @@
                 <!-- PW -->
                 <input type="password" name="password" id="login_pw" class="checkPassword"
                     placeholder=" 비밀번호" maxlength="20" size="30">
+            </div>
+            <div class="check-box-row">
                 <!-- TURN PW-->
                 <label for="checkObject" id="isOn" style="text-align: center;">켜기</label>
                 <input style="display: none;" type="checkbox" id="checkObject" onclick="showPassword()"><br>
@@ -42,25 +42,16 @@
                 <input type="submit" class="btn" onclick="LoginToMain()" value="로그인">
                 <input type="hidden" name="cnt" value="N">
                 <p id="login_txt" style="position: absolute; display: none; color: red;"></p>
-                <a href="signup/signup.html" style="display: block;">회원가입</a>
+                <a id="sign_up" href="signup/signup.html" style="display: block;">회원가입</a>
             </div>
         </div>
     </form>
-    <div class="b-div-box">
-        <div>
-            <div class="b-circle"></div>
-            <div class="b-circle"></div>
-            <div class="b-circle"></div>
-        </div>
-    </div>
 
     <script>
         // reset clipboard
         window.addEventListener("copy", (e) => {
             e.preventDefault();
             e.clipboardData.setData("Text", "");
-            // e.clipboardData.getData("Text");
-            // e.clipboardData.clearData("Text"); // 클립보드에 저장된 컨텐츠 삭제
         });
     </script>
 </body>

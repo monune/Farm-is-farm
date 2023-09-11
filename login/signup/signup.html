@@ -5,18 +5,21 @@
     <link rel="shortcut icon" href="/src/ico/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon-precomposed" href="/src/ico/android-chrome-192x192.png">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="signup.css?abd">
-    <link rel="stylesheet" href="../login.css?ad">
+    <link rel="stylesheet" href="signup.css?f">
+    <link rel="stylesheet" href="../login.css?f">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
     <!-- add jquery plugin -->
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="signup.js?11"></script>
+    <script src="signup.js?f"></script>
 </head>
 
 <body>
     <div class="container">
-        <h1 style="text-align: center;">회원<span class="farm">가입</span></h1>
+        <div class="title-row">
+            <span>회원</span>
+            <span class="farm">가입</span>
+        </div>
         <form action="account.php" method="post" onsubmit="return checkAccount()">
             <div class="input-row2">
                 <!-- USER NAME -->
@@ -31,15 +34,14 @@
                     <p id="i_res" class="i-comment"></p>
                     <input type="hidden" name="checked_id" value="">
                 <!-- 비밀번호 확인 -->
-                    <input type="password" id="pw1" name="password1" class="checkPassword_1"
-                        placeholder=" 비밀번호*" maxlength="16" size="28">
-                    <label for="checkObject" id="isOn" class="checkbox" style="text-align: center;">켜기</label>
-                    <input style="display: none;" type="checkbox" id="checkObject" onclick="showPassword()">
+                    <input type="password" id="pw1" name="password1" class="checkPassword_1" placeholder=" 비밀번호*" maxlength="16" size="28">
                 <!-- 비밀번호 재확인 --><br>
-                    <input type="password" id="pw2" name="password2" class="checkPassword_2"
-                        placeholder=" 비밀번호 재확인*" maxlength="16" size="28">
+                    <input type="password" id="pw2" name="password2" class="checkPassword_2" placeholder=" 비밀번호 재확인*" maxlength="16" size="28">
                     <p id="pw_res" class="i-comment"></p>
-                    <input type="hidden" name="checked_pw" value="">
+                    <input type="hidden" name="checked_pw" value=""> <br>
+                    <!-- <label for="checkObject" id="isOn" class="checkbox" style="text-align: center;">켜기</label>
+                    <input style="display: none;" type="checkbox" class="checkbox" id="checkObject" onclick="showPassword()"> -->
+                    <button id="isOn2">켜기</button>
             </div>
             <!-- SUBMIT BUTTON -->
             <div class="btn-row">
@@ -59,6 +61,7 @@
             // e.clipboardData.clearData("Text"); // 클립보드에 저장된 컨텐츠 삭제
         })
 
+        let value = 0;
         // Toggle show Checkbox
         function showPassword() {
             let isChecked = document.getElementById('checkObject').checked;
@@ -76,6 +79,22 @@
                 showsPW2[0].setAttribute("type", "password");
             }
         }
+
+        document.getElementById('isOn2').addEventListener("click", () => {
+            let showsPW1 = document.getElementsByClassName("checkPassword_1");
+            let showsPW2 = document.getElementsByClassName("checkPassword_2");
+            if (value == 0) {
+                document.getElementById('isOn2').innerText = "끄기";
+                showsPW1[0].setAttribute("type", "text");
+                showsPW2[0].setAttribute("type", "text");
+                value = 1;
+            } else if (value == 1){
+                document.getElementById('isOn2').innerText = '켜기';
+                showsPW1[0].setAttribute("type", "password");
+                showsPW2[0].setAttribute("type", "password");
+                value = 0;
+            }
+        });
     </script>
 </body>
 

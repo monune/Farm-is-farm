@@ -62,7 +62,7 @@ function checkPassword() {
         $("input[name=checked_pw]").val('N');
     } else {
         if (p1.length < 8) {
-            $("#pw_res").html("*비밀번호가 너무 짧습니다. 최소 8글자 이상, 16글자 미만으로 작성해주세요.");
+            $("#pw_res").html("*비밀번호가 너무 짧습니다.");
             $("#pw_res").css('color', 'red');
             $("input[name=checked_pw]").val('N');
         }
@@ -101,7 +101,7 @@ function checkAccount() {
             $("#pw_res").html("*비밀번호를 일치시켜주세요.");
             $("#pw_res").css('color', 'red');
         } else if (p1.length < 8 || p2.length < 8) {
-            $("#pw_res").html("*비밀번호가 너무 짧습니다. 최소 8글자 이상, 16글자 미만으로 작성해주세요.");
+            $("#pw_res").html("*비밀번호가 너무 짧습니다.");
             $("#pw_res").css('color', 'red');
         }
         return false;
