@@ -21,132 +21,146 @@ const axios = require('axios');
 const using_url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query="; // naver
 
 const getHTML = async (keyword) => {
-  try {
-    return await axios.get(using_url + encodeURI(keyword));
-  } catch (err) {
-    console.log(err);
-  }
+  	try {
+		return await axios.get(using_url + encodeURI(keyword));
+  	} catch (err) {
+		console.log(err);
+  	}
 };
-
-// parsing 성공 
-const parsing = async (serchKeyword) => {
-
-  const html = await getHTML(serchKeyword);
-  const $ = cheerio.load(html.data);
-
-  // Query 설정
-  const $weather = $(".status_wrap");
-  const temperature = $weather.find("._today .temperature_text strong:eq(0)").text();
-  const summaryList = $weather.find(".summary_list .sort").text();
-  const weatherData = [];
-
-  // Class 계산
-  const img = $weather.find("._today .weather_graphic .weather_main i").attr("class");
-  const textArray = img.split(" "); // 공백 제거
-  const imgClass = textArray[1].split("_"); // _ 제거
-
-  // 날씨 데이터 계산
-  for (let i = 0; i < 4; i++) {
-    const today = $weather.find(`li.item_today a:eq(${i})`).text().trim().split(" ");
-    weatherData.push(today[1]);
-  }
-
-  const splitSummry = summaryList.trim().split(" ");
-  const splitTemp = temperature.trim().split(" ");
-  const tempReplace = String(splitTemp[1]).replace(/^온도/, "");
-
-  const Summary = [];
-  if (splitSummry && splitSummry.length > 0) {
-    for (let i = 0; i < splitSummry.length; i++) {
-      if (splitSummry[i] && splitSummry[i].endsWith("°")) Summary[0] = splitSummry[i];
-      else if (splitSummry[i] && splitSummry[i].endsWith("mm")) Summary[1] = splitSummry[i];
-      else if (splitSummry[i] && splitSummry[i].endsWith("%")) Summary[2] = splitSummry[i];
-      else if (splitSummry[i] && splitSummry[i].endsWith("풍")) Summary[3] = splitSummry[i];
-      else if (splitSummry[i] && splitSummry[i].endsWith("m/s")) Summary[4] = splitSummry[i];
-    }
-  }
-
-  // 예상 습도 (시간) 가져오기
-  const today = new Date();
-  const soltArray = [];
-  const $dataItems = $(".humidity_graph_box .climate_box ");
-  for (let i = 0; i < 24 + (24 - today.getHours()); i++) {
-    const tarr = $dataItems.find(`.time_wrap .time span.text:eq(${i})`).text();
-    timeArray.push(tarr);
-  }
-  
-  const puppeteerResult = await callPuppetter(serchKeyword, "li.data .num");
-  console.log("---------------------------------------")
-  console.log(soltArray); // 시간대 나열
-  console.log(puppeteerResult); // 예상 습도 값
-
-  const weatherValues = [tempReplace, ...Summary.slice(0, 5), ...weatherData.slice(0, 4), imgClass[1]];
-  const weatherColumns = [ 
-    'temperature', 'filling_temperature', 'meteoric_water', 'humidity',
-    'wind_direction', 'wind_speed', 'fine_dust', 'super_fine_dust', 
-    'ultraviolet_rays', 'sunset', 'class' 
-  ];
-  
-  const humidityJsonData = JSON.stringify({ data: puppeteerResult });
-  const soltJsonData = JSON.stringify({ data: soltArray });
-  
-  // update Database
-  updateDatabase('iemh_team1.weather', weatherColumns, weatherValues);
-  updateDatabase('iemh_team1.realtime_humidity', ['docs'], [humidityJsonData]);
-  updateDatabase('iemh_team1.realtime_humidity', ['times'], [soltJsonData]);
-};
-
-setInterval(() => {
-  parsing(`날씨`);
-}, 10000);
 
 /**
- * 데이터베이스 업데이트하는  함수
+ * 전체 날씨 (날씨 정보, 예상 습도) 데이터를 가져오는 함수 (최상위)
+ * @param {string} serchKeyword 검색 키워드
+ */
+const parsing = async (serchKeyword) => {
+    const html = await getHTML(serchKeyword);
+    const $ = cheerio.load(html.data);
+
+    // Query 설정
+    const $weather = $(".status_wrap");
+    const temperature = $weather.find("._today .temperature_text strong:eq(0)").text();
+    const summaryList = $weather.find(".summary_list .sort").text();
+    const weatherData = [];
+
+  	// Class 계산
+  	const imgArr1 = $weather.find("._today .weather_graphic .weather_main i").attr("class");
+  	const imgArr2 = imgArr1.split(" "); // 공백 제거
+  	const weatherClass = imgArr2[1].split("_"); // _ 제거
+
+    // 날씨 데이터 계산
+	for (let i = 0; i < 4; i++) {
+		const today = $weather.find(`li.item_today a:eq(${i})`).text().trim().split(" ");
+		weatherData.push(today[1]);
+	}
+
+	const splitSummry = summaryList.trim().split(" ");
+	const splitTemp = temperature.trim().split(" ");
+	const tempReplace = String(splitTemp[1]).replace(/^온도/, "");
+
+	const Summary = [];
+	if (splitSummry && splitSummry.length > 0) {
+		for (let i = 0; i < splitSummry.length; i++) {
+		if (splitSummry[i] && splitSummry[i].endsWith("°")) Summary[0] = splitSummry[i];
+			else if (splitSummry[i] && splitSummry[i].endsWith("mm")) Summary[1] = splitSummry[i];
+			else if (splitSummry[i] && splitSummry[i].endsWith("%")) Summary[2] = splitSummry[i];
+			else if (splitSummry[i] && splitSummry[i].endsWith("풍")) Summary[3] = splitSummry[i];
+			else if (splitSummry[i] && splitSummry[i].endsWith("m/s")) Summary[4] = splitSummry[i];
+		}
+	}
+
+	// docs 가져오기
+	const puppeteerResult = await callPuppetter(serchKeyword, "li.data .num");
+	// times 가져오기
+	const loop = 24 + (24 - new Date().getHours());
+	const soltArray = await expectionHumidity(".humidity_graph_box .climate_box ", loop, `.time_wrap .time span.text`);
+
+	const weatherValues = [tempReplace, ...Summary.slice(0, 5), ...weatherData.slice(0, 4), weatherClass[1]];
+	const weatherColumns = [ 
+		'temperature', 'filling_temperature', 'meteoric_water', 'humidity',
+		'wind_direction', 'wind_speed', 'fine_dust', 'super_fine_dust', 
+		'ultraviolet_rays', 'sunset', 'class' 
+	];
+  
+	const humidityJsonData = JSON.stringify({ data: puppeteerResult }); // docs
+	const soltJsonData = JSON.stringify({ data: soltArray }); // times
+  
+	// update Database
+	updateDatabase('iemh_team1.weather', weatherColumns, weatherValues);
+	updateDatabase('iemh_team1.realtime_humidity', ['docs', 'times'], [humidityJsonData, soltJsonData], (err, result) => {
+		if (err) {
+			console.log(err);
+		} else { }
+	});
+};
+
+/**
+ * 복수 클래스를 가진 객체의 데이터를 저장하는 함수
+ * @param {string} serchKeyword 검색 키워드
+ * @param {string} selectHighClass 검색할 상위 클래스
+ * @param {int} loopCountValue 반복시켜 배열에 저장할 횟수
+ * @param {string} queryString Query문 내부에서 작성할 변수
+ */
+const expectionHumidity = async (selectHighClass, loopCountValue, queryString) => {
+	const html = await getHTML(`날씨`);
+	const $ = cheerio.load(html.data);
+	const pluralArray = [];
+	const $dataItems = $(selectHighClass);
+	for (let i = 0; i < loopCountValue; i++) {
+		const tarr = $dataItems.find(queryString + `:eq(${i})`).text(); // query문에 변수 쓰는 방법 알아보기
+		pluralArray.push(tarr);
+	}
+	return pluralArray;
+}
+
+const intervalCounter = 1000 * 60; // 1s = 1000
+
+setInterval(() => {
+	parsing(`날씨`);
+}, intervalCounter);
+
+/**
+ * 데이터베이스 업데이트하는 함수
  * @param {database_table} table 
  * @param {Array} columns 
  * @param {value} values 업데이트할 데이터
  * @param {boolean} callback 
  */
- function updateDatabase(table, columns, values, callback) {
-  const placeholders = columns.map(column => `${column} = ?`).join(', ');
-  const sql = `UPDATE ${table} SET ${placeholders}`;
-  connection.query(sql, values, (error, results) => {
-    if (error) {
-      console.log(error);
-    } else {
-      // success messege
-    }
-    if (typeof callback === 'function') {
-      callback(error, results);
-    }
-  });
+const updateDatabase = (table, columns, values, callback) => {
+	const placeholders = columns.map(column => `${column} = ?`).join(', ');
+	const sql = `UPDATE ${table} SET ${placeholders}`;
+	connection.query(sql, values, (error, results) => {
+		if (error) {
+			console.log(error);
+		} else {
+		// console.log("Table: " + table + ", Result: " + results);
+		}
+		if (typeof callback === 'function') {
+			callback(error, results);
+		}
+	});
 }
 
 /**
- * 원하는 정보를 검색하고 배열로 반환하는 함수입니다
+ * 원하는 정보를 검색하고 배열로 반환하는 함수입니다. 
  * @param {string} serchKeyword 검색할 키워드
  * @param {string} classKeyword 찾고싶은 클래스
- * @returns 
+ * @returns {array} 최대 다음날 습도 예상값 까지 반환
  */
 const callPuppetter = async (serchKeyword, classKeyword) => {  
-  const browser = await puppeteer.launch({ headless: "new" });
-  const page = await browser.newPage();
-  await page.goto(using_url + encodeURI(serchKeyword));
+	const browser = await puppeteer.launch({ headless: "new" });
+	const page = await browser.newPage();
+	await page.goto(using_url + encodeURI(serchKeyword));
+  
+	const PuppteerArray = await page.evaluate((classKeyword) => {
+		const numElements = Array.from(document.querySelectorAll(classKeyword));
+		const numbers = numElements.map(element => parseInt(element.textContent, 10));
+	
+		const filteredNumbers = numbers.filter(number => number >= 10);
+		const desiredLength = 24 + (24 - new Date().getHours());
+		while (filteredNumbers.length < desiredLength) filteredNumbers.push(0);
+		if (filteredNumbers.length > desiredLength) filteredNumbers.length = desiredLength;
 
-  const PuppteerArray = await page.evaluate((classKeyword) => {
-    const numElements = Array.from(document.querySelectorAll(classKeyword));
-    const numbers = numElements.map(element => parseInt(element.textContent, 10));
-
-    //처리
-    const filteredNumbers = numbers.filter(number => number >= 10);
-    const desiredLength = 24 + (24 - new Date().getHours());
-    // 10 미만의 숫자를 0으로 채웁니다.
-    while (filteredNumbers.length < desiredLength) filteredNumbers.push(0);
-    // 배열의 길이가 원하는 길이보다 더 길다면 잘라냅니다.
-    if (filteredNumbers.length > desiredLength) filteredNumbers.length = desiredLength;
-
-    return filteredNumbers;
-  }, classKeyword);
-
-  return PuppteerArray;
+		return filteredNumbers;
+	}, classKeyword);
+	return PuppteerArray;
 };
