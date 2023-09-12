@@ -7,7 +7,7 @@ $(document).ready(function () {
   $("#manu").click(function () {
     if (count == 0) { // 축소
       $(".link_name").css({ color: "transparent" });
-      $("#left_container").css({ "transition-duration": "0.8s", width: "77px", });
+      $("#left_container").css({ "transition-duration": "0.8s", width: "80px", });
       setTimeout(() => { $("#left_container").css("transition-duration", "0s"); }, 100);
       count = 1;
     } else { // 확장
@@ -18,7 +18,7 @@ $(document).ready(function () {
     }
   });
 
-  let Interval;
+  let Interval_A;
   let arrow_clickCount = 0;
   // 선택자 확장
   $(".contFrame").click(function (event) {
@@ -26,8 +26,14 @@ $(document).ready(function () {
       thisID = this.id;
       if ( event.target.id == thisID || event.target.id === "cont-h" || event.target.className === "shorts" ) {
         console.log(thisID + " Interval start");
-        if (thisID == "control") Interval = setInterval(() => { callChart("Y"); callGraph("Y");}, 3000);
-        else if (thisID == "weather") Interval = setInterval(() => { callWeather("Y"); }, 3000);
+        if (thisID == "control") {
+          Interval_A = setInterval(() => { 
+            ("Y"); 
+            callGraph("Y");
+          }, 60000);
+        }
+        else if (thisID == "weather") Interval = setInterval(() => { callWeather("Y"); }, 30000);
+        else if (thisID == "license") setTimeout(() => { licenseFadeIn() }, 1000);
         $(".contFrame").addClass("remove"); // 전체 OFF
         setTimeout(() => {
           $(".contFrame#" + thisID).addClass("move");
@@ -63,6 +69,18 @@ $(document).ready(function () {
     }, 1000);
   });
 });
+
+let licenseCount = 0;
+// 새로고침 후 1회용
+const licenseFadeIn = () => { 
+  if (licenseCount === 0) {
+    $(".l-box").css('display', 'block');
+    $(".l-box").addClass('fade-in');
+    licenseCount += 1;
+  }
+}
+
+
 
 const myChart = new Chart(document.getElementById("myChart"), {
   type: "bar",
@@ -100,15 +118,15 @@ const myChart = new Chart(document.getElementById("myChart"), {
 const myGraph = new Chart(document.getElementById('myGraph'), {
     type: 'line',
     data: data = {
-        labels: ["A", "B", "C"],
+        labels: ["null_A", "null_B", "null_C"],
         datasets: [{
             label: " 예상 습도 변화량 (%)",
             fill: true,
-            lineTension: 0.4, // 지랄 정도
+            lineTension: 0.2,
             backgroundColor: "rgba(75, 192, 192, 0.2)",
             borderColor: "rgba(75, 192, 192, 1)",
             borderWidth: 4,
-            data: [5, 10, 15, 5, 20, 25, 15, 30, 35, 25],
+            data: [40, 10, 20],
         }]
     },
     options: {
@@ -133,7 +151,7 @@ const myGraph = new Chart(document.getElementById('myGraph'), {
         scales: {
             y: {
                 beginAtZero: true,
-                grace: '5%'
+                grace: '25%'
             }
         },
         interaction: {
