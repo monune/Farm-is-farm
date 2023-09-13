@@ -17,27 +17,34 @@
 
 ## Function
 
-크롤링을 편하게 할 수 있게 함수를 만들었습니다.
 
 * app.js
 ```javascript
-parsing(serchKeyword) {
-	//... 검색 코드
-	callPuppteer(serchKeyword, classKeyword);
-    updateDatabase(table, columns, values, callback);
-}
+parsing(serchKeyword);
+
+callPuppteer(serchKeyword, classKeyword);
+
+updateDatabase(table, columns, values, callback);
 
 // 데이터 갱신 타이밍 선택 가능
 setInterval(() => {
   parsing(`날씨`);
-}, 10000);
+}, setInterval);
 ```
+
+callPuppteer 함수와 updateDatabase 함수는 parsing 함수 내부에서 호출되는 함수들입니다. 
+
+전체 동작은 parsing 함수 중심이며 실시간으로 날씨정보를 반환합니다.
+
+아래는 자세한 함수 설명입니다.
 
 ---
 
 ### parsing 
 
 날씨를 스크래핑해 저장하는 함수입니다. parsing 으로 가져올 수 있는 데이터는 다음과 같습니다.
+
+cheerio 노드 라이브러리를 사용해 데이터를 반환하고 반환된 데이터는 배열에 저장합니다.
 
 * Temperature
 * Filling temperature
@@ -94,13 +101,21 @@ const callPuppetter = async (serchKeyword, classKeyword) => {
 ```javascript
 // callPuppetter 함수는 비동기식이기 때문에 await을 사용할 필요가 있습니다.
 const Example = await callPuppetter(serchKeyword, classKeyword);
+
+const ExampleJSON = JSON.stringify({ data: Example });
+
+updateDatabase('YOUR_DB_IN_TABLE', ['COLUMNS'], [ ExampleJSON ] )
 ```
+
+동시에 다수의 데이터를 DB에 업데이트 할 수 있습니다. 
+
+단, 여러 테이블을 동시에 업데이트하기 위해선 함수를 반복해 사용해야 합니다.
 
 ---
 
 ### updataDatabase 
 
-mySQL 라이브러리를 사용해 DB에 연결하고 데이터를 저장하는 함수입니다.
+mySQL 노드 라이브러리를 사용해 DB에 연결하고 데이터를 저장하는 함수입니다.
 
 ```javascript
 // example
@@ -108,9 +123,8 @@ updateDatabase('database.table', columns, values); // ..or
 updateDatabase('database.table', columns, values, 'function');
 ```
 
-updataDatabase 함수는 콜백 기능을 추가했습니다. 
 
-코드 실행 후 콜백을 사용할지 말지 선택해 에러와 결과를 전달할 수 있습니다. 
+코드 실행 후 콜백할 수 있습니다.
 
 ---
 
