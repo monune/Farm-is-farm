@@ -1,24 +1,86 @@
+.w-data, #myChart, .c-wp, .weather-box, #w-ul {
+    border: 2px solid gainsboro;
+    border-radius: 10px;
+}
+
+.abs {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 body {
-    background: #ECECFF;
+    background: #0084ff;
 }
 
 h2 {
     margin: 15px 0 0 0; 
     font-size: 30px;
     color: black;
+    transition: 0.3s;
+}
+h2:hover {
+    font-size: 45px;
+}
+
+span {
+    margin: 0;
 }
 
 p {
+    margin: 0;
     color: black;
 }
 
-img {
+img:not(#img_w) {
+    width: 120px;
+    height: 120px;
     margin-top: 40px;
+    transition: 0.3s;
+}
+#img125 {
+    margin-top: 35px;
+}
+#img_w {
+    margin-top: -11px;
+    width: 170px;
+    height: 170px;
+    box-sizing: border-box;
 }
 
 li {
-    position: relative;
     list-style: none;
+}
+
+i {
+    margin: 6px 0 0 4px;
+    font-size: 25px;
+}
+
+a {
+    display: flex;
+    width: 150px;
+    color: black;
+    font-size: 16px;
+    font-family: Arial;
+    text-decoration: none;
+}
+
+a:focus:not(#manu > a) {
+    outline: none;
+}
+
+/* left sidebar css */
+#infomation {
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+    height: 70vh;
+}
+
+#infomation >  li {
+    position: relative;
     box-sizing: border-box;
     border-radius: 5px;
     padding: 5px;
@@ -30,31 +92,9 @@ li {
     user-select: none;
 }
 
-li:hover:not(#manu){
+#infomation > li:hover:not(#manu){
     color: white;
-    background: #c0c0ff;
-}
-
-i {
-    margin: 6px 0 0 4px;
-    font-size: 23px;
-}
-
-a {
-    display: flex;
-    width: 100px;
-    color: black;
-    font-size: 15px;
-    font-family: Arial;
-    text-decoration: none;
-}
-
-p {
-    margin: 0;
-} 
-
-a:focus:not(#manu > a) {
-    outline: none;
+    background: #0084ff;
 }
 
 #manu > a {
@@ -63,13 +103,9 @@ a:focus:not(#manu > a) {
 
 .link_name {
     display: none;
-    padding: 7px 0 0 20px;
+    padding: 8px 0 0 15px;
     width: 150px;
     transition-duration: 0.5s;
-}
-
-#img125 {
-    margin-top: 35px;
 }
 
 #container {
@@ -83,18 +119,12 @@ a:focus:not(#manu > a) {
     border-radius: 0 10px 10px 0;
     overflow: hidden;
     padding: 15px;
-    margin-right: 10px;
+    /* margin-right: 10px; */
     float: left;
     height: 100vh;
-    width: 77px;
+    width: 80px;
     background: white;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-
-#infomation {
-    position: relative;
-    box-sizing: border-box;
-    overflow: hidden;
+    /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
 }
 
 #right_container {
@@ -106,7 +136,7 @@ a:focus:not(#manu > a) {
     height: 100vh;
     width: 100%;
     float: right;
-    background: #ECECFF;
+    background: #0084ff;
 }
 
 #right_container > #middle {
@@ -115,28 +145,18 @@ a:focus:not(#manu > a) {
     justify-content: center;
     position: absolute;
     width: 1200px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
-#up {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    z-index: -10;
-}
-
+/* contFrame css */
 .contFrame {
     position: relative;
     text-align: center;
     border-radius: 10px;
     margin: 15px;
-    width: 500px;
+    width: 400px;
     height: 290px;
     background: white;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; */
     transition: .3s ease-out;
     z-index: 100;
 }
@@ -154,6 +174,7 @@ a:focus:not(#manu > a) {
     float: left;
 }
 
+/* move function css */
 .remove {
     visibility: hidden;
     opacity: 0;
@@ -183,100 +204,85 @@ a:focus:not(#manu > a) {
     transition: .3s ease-out;
 }
 
-#myChart{
-    position: absolute;
-    border: 2px solid gainsboro;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 0;
-    top: 50%;
-    left: 60px;
-    transform: translateY(-50%);
-    background: white;
-}
-
-.c-value-box {
-    border: 2px solid gainsboro;
-    border-radius: 10px;
-    padding: 15px;
-    height: 70px;
-    background: white;
-}
-input.c-value {
-    pointer-events: none;
-    border: 1px solid gray;
-    padding: 10px;
-    margin: 0 8px; 
-    width: 250px;
-    height: 40px;
-    font-size: 18px;
-    color: black;
-    background: white;
-}
-input.c-value:focus { outline: none; }
-#c-temp { background:rgba(255, 99, 133, 0.6); }
-#c-hum { background: rgba(54, 162, 235, 0.6); }
-#c-mean { background: rgba(75, 192, 192, 0.6); }
-
-
-.c-in-box {
-    float: right;
-    padding: 15px;
-    /* margin-top: 5px; */
-    width: 920px;
-    height: 660px;
-    background: white;
-}
-
-#myGraph {
-    border: 2px solid gainsboro;
-    border-radius: 10px;
-    padding: 10px;
-    margin-top: 15px;
-    top: 479px;
-    background: white;
-}
-
-.weather-box {
-    position: absolute;
-    border: 2px solid gainsboro;
-    border-radius: 10px;
-    width: 1195px;
-    height: 660px;
-    top: 50%;
-    left: 60px;
-    overflow: hidden;
-    transform: translateY(-50%);
-}
-
-.temp-box{
-    border-radius: 10px;
+/* page inner */
+.inner-box {
+    padding-left: 40px;
     width: 100%;
-    height: 635px;
+    height: 660px;
+    background: white;
+}
+
+/* C.HW in graph css */
+#myGraph, #myChart {
+    padding: 10px;
+    background: white;
+    overflow: hidden;
+}
+.c-wp { 
+    border-radius: 10px;
+    margin-top: 15px;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 100%;
+    z-index: 1000;
+}
+
+.c-wp::-webkit-scrollbar {
+    overflow: hidden;
+    border-radius: 10px;
+}
+.c-wp::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: gainsboro;
+    height: 5px;
+}
+.c-wrp::-webkit-scrollbar-track {
+    padding: 10px;
+}
+
+/* weather page css */
+.w-data {
+    text-align: left;
+    display: flex;
+    padding: 10px;
+    width: 100%;
+    height: 170px;
+}
+.w-data > * {
+    /* border: 1px solid black; */
+    height: 150px;
+}
+.w-data2 {
+    display: none;
+    padding-top: 80px;
+    float: right;
+    width: 100%;
 }
 
 #w-tp {
     padding: 20px;
-    font-size: 150px;
-    color: black;
+    width: 250px;
+    font-size: 110px;
     font-weight: bold;
 }
 
-#img_w {
-    width: 250px;
-    height: 250px;
+/* calendar css */
+#w-ul {
+    padding-bottom: 10px;
+    margin-left: 30px;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+#w-ul::-webkit-scrollbar { border: none; } 
+#w-ul::-webkit-scrollbar-thumb {
+    background: gainsboro;
 }
 
-.w-data {
-    float: left;
-    padding: 30px 0 0 80px;
-    width: 45%;
-}
-.w-data2 {
-    margin-top: 80px;
-    height: 430px;
-    float: right;
-    width: 55%;
+[class^="calendar"] {
+    padding-left: 15px;
+    padding-top: 10px;
+    font-size: 20px;
 }
 
 div[class^="w-data-l"] {
@@ -284,35 +290,64 @@ div[class^="w-data-l"] {
     justify-content: center;
 }
 
-div[class^="w-data"] > input[id^="w-"] {
-    border: none; 
-    user-select: none;
+/* div[class^="w-data-l"] > ul {
+    font-size: 0;
+} */
+
+li[id^="w-"] {
+    display: inline-block !important;
+}
+
+.w-data_inner {
+    position: relative;
     border-radius: 10px;
     text-align: center;
-    padding: 10px;
+    padding: 15px;
     margin: 20px;
-    width: 150px;
+    width: 170px;
     height: 130px;
-    font-weight: bold;  
-    font-size: 23px;
+    font-weight: bold;
     background: white;
 }
 
-#w-ftp {
-    background: lightskyblue;
+span.w-text {
+    position: absolute;
+    overflow: hidden;
+    line-height: 45px;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    font-size: 25px;
+    color: black;
+    transform: translate(-50%, -50%);
 }
-#w-wtr {
-    background: #bcbcff;
+
+#w-ftp > div {
+    background: #F266AB;
 }
-#w-hum, #w-ss {
-    background: #FEFCDA;
+#w-wtr > div{
+    background: #00C4FF;
 }
-#w-dir_spd {
-    background: aquamarine;
+#w-hum > div {
+    background: #ffe17e;
 }
-#w-fd, #w-sfd {
-    background: #EBF7FF;
+#w-dir_spd > div{
+    background: #45FFCA;
 }
-#w-uv { 
-    background: #EBFAE8;
+#w-fd > div {
+    background: #E3F4F4;
+}
+#w-sfd > div{
+    background: #EADBC8;
+}
+#w-uv > div{ 
+    background: #9D44C0;
+}
+#w-ss > div {
+    background: #F79327;
+}
+
+@font-face {
+    font-family: 'maru';
+    src: url('/src/font/MaruBuri-Bold.ttf') format('truetype');
 }

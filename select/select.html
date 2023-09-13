@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon-precomposed" href="/src/ico/android-chrome-192x192.png">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/index.css?f">
-    <link rel="stylesheet" href="css/select.css?dd">
+    <link rel="stylesheet" href="css/select.css?add">
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,25 +23,25 @@
                         <i class='bx bx-menu'></i>
                     </a>
                 </li>
-                <li onclick="console.log('사용자 소개')">
+                <li onclick="console.log('사용자')">
                     <a href="#" aria-label="user button">
                         <i class='bx bx-user-pin'></i>
-                        <span class="link_name">User</span>
+                        <span class="link_name">USER</span>
                     </a>
                 </li>
                 <li onclick="console.log('프로젝트 소개')">
                     <a href="#" aria-label="project infomation button">
                         <i class='bx bx-outline'></i>
-                        <span class="link_name">Project</span>
+                        <span class="link_name">PROJECT</span>
                     </a>
                 </li>
                 <li onclick="checkSession()">
                     <a href="#" aria-label="check session button">
                         <i class='bx bx-time'></i>
-                        <span class="link_name">Session</span>
+                        <span class="link_name">SESSION</span>
                     </a>
                 </li>
-                <li onclick="window.open('https://github.com/monune/farm-is-farm')">
+                <li onclick="goGit()">
                     <a href="#" aria-label="go github">
                         <i class='bx bxl-github'></i>
                         <span class="link_name">GitHub</span>
@@ -50,126 +50,201 @@
                 <li>
                     <a href="#" onclick="logOut()" aria-label="log out button">
                         <i class="bx bx-log-out"></i>
-                        <span class="link_name">Logout</span>
+                        <span class="link_name">LOG OUT</span>
                     </a>
                 </li>
             </div>
         </div>
         <div id="right_container">
-            <div id="middle">
-                <div id="up">
-                    <!-- 식물 정보 확인 -->
-                    <div id="select" class="contFrame">
-                        <div class="shorts">
-                            <img width="120" height="120" src="icon/img1.png" alt="null">
-                            <h2 id="cont-h">SELECT</h2>
-                            <p id="cont-p">식물 정보 확인</p>
+            <div id="middle" class="abs">
+                <!-- 식물 정보 검색 -->
+                <div id="select" class="c contFrame">
+                    <div class="shorts">
+                        <img width="120" height="120" src="icon/img1.webp" alt="null">
+                        <h2 id="cont-h">PLANT SEARCH</h2>
+                        <p id="cont-p">식물 정보 검색</p>
+                    </div>
+                    <div class="longs remove">
+                        <i class='bx bx-arrow-back'></i>
+                        <div class="s-value-box">
+                            <div class="s-inner-box">
+                                <input type="text" id="s-i">
+                                <button type="button" onclick="callPlantInfomation()">검색</button>
+                            </div>
+                            <input type="text" placeholder="계">
+                            <input type="text" placeholder="문">
+                            <input type="text" placeholder="강">
+                            <input type="text" placeholder="목">
+                            <input type="text" placeholder="과">
+                            <input type="text" placeholder="속">
                         </div>
-                        <div class="longs remove">
-                            <i class='bx bx-arrow-back'></i>
+                        <div>
+                            검색창 검색버튼
+                
+                            목(과) 체크박스 (조건 검색)
+                
+                             검색
+                            나무 > 나무:분류 로 검색 > 사이트에 a 링크 다수
+                            정확한 이름 > 정확한 페이지 이동 내부 요소 검색
+                
+                
+                            식물 이름이나 정보 검색하면 그거에 맞춰서 php로 페이지 열고
+                            로딩시간 주고 그동안 백엔드(nodejs)에서 DB로 데이터 불러오고 검색된 페이지에 정보를 전부 표시
+                            <br><br>
+                            소형 스마트 팜 기준
+                            {
+                                "Kingdom": "",  
+                                "Division": "",
+                                "Class": "",
+                                "Order": "",
+                                "Family": "",
+                                "Genus": "",
+                                "Species": ""
+                              }
+                              계 문 강 목 과 속 종
                         </div>
                     </div>
-                    <!-- 하드웨어 현황 -->
-                    <div id="control" class="contFrame">
-                        <div class="shorts">
-                            <img width="120" height="120" src="icon/img2.png" alt="contrl">
-                            <h2 id="cont-h">CONTROL</h2>
-                            <p id="cont-p">하드웨어 동작 현황</p>
-                        </div>
-                        <div class="longs remove">
-                            <i class='bx bx-arrow-back'></i>
-                            <canvas id="myChart" width="280" height="630"></canvas>
-                            <div class="c-in-box">
-                                <div class="c-value-box">
-                                    <input type="text" class="c-value" id="c-temp" placeholder="Temperature" disabled>
-                                    <input type="text" class="c-value" id="c-hum" placeholder="Humidity" disabled>
-                                    <input type="text" class="c-value" id="c-mean" placeholder="Mean" disabled>
-                                </div><canvas id="myGraph" width="890" height="320"></canvas>
+                </div>
+
+                <!-- 하드웨어 현황 -->
+                <div id="control" class="contFrame">
+                    <div class="shorts">
+                        <img width="120" height="120" src="icon/img2.webp" alt="contrl">
+                        <h2 id="cont-h">CURRENT HW</h2>
+                        <p id="cont-p">하드웨어 동작 현황</p>
+                    </div>
+                    <div class="longs remove">
+                        <i class='bx bx-arrow-back'></i>
+                        <div class="inner-box">
+                            <canvas id="myChart" style="width: 100%; height: 140px;"></canvas>
+                            <div class="c-wp">
+                                <canvas id="myGraph" width="1700" height="360"></canvas>
                             </div>
                         </div>
                     </div>
-                    <!-- 모터 제어 -->
-                    <!-- <div id="water" class="contFrame">
-                        <div class="shorts">
-                            <img width="120" height="120" src="icon/img3.png" alt="water">
-                            <h2 id="cont-h">MOTOR</h2>
-                            <p id="cont-p">수중 모터 작동 현황</p>
-                        </div>
-                        <div class="longs remove">
-                            <i class='bx bx-arrow-back'></i>rrr
-                        </div>
-                    </div> -->
-                    <!-- 오늘의 날씨 크롤링 -->
-                    <div id="weather" class="contFrame">
-                        <div class="shorts">
-                            <img id="img125" ewidth="125" height="125" src="icon/img4.png" alt="weather">
-                            <h2 id="cont-h">WEATHER</h2>
-                            <p id="cont-p">오늘의 날씨</p>
-                        </div>
-                        <div class="longs remove">
-                            <i class='bx bx-arrow-back'></i>
-                            <div class="weather-box">
-                                <div class="w-data">
-                                    <p id="w-tp">NN.n°</p>
-                                    <p class="calendar" style="font-size: 25px;">yyyy년 mm월 dd일 n요일 입니다.</p>
-                                    <img id="img_w" src="svg/icon_flat_wt7.svg" alt="weather">
+                </div>
+            
+                <!-- 날씨 확인 -->
+                <div id="weather" class="contFrame">
+                    <div class="shorts">
+                        <img id="img125" ewidth="125" height="125" src="icon/img3.webp" alt="weather">
+                        <h2 id="cont-h">WEATHER</h2>
+                        <p id="cont-p">오늘의 날씨</p>
+                    </div>
+                    <div class="longs remove">
+                        <i class='bx bx-arrow-back'></i>
+                        <div class="inner-box">
+                            <div class="w-data">
+                                <div id="f-lup"> <!-- font location up -->
+                                    <div id="f-m" style="margin-top: -3px;"> <!-- font margin -->
+                                        <span id="w-tp">29.8°</span>
+                                    </div>
                                 </div>
-                                <div class="w-data2" style="pointer-events: none;">
-                                    <div class="w-data-l1">
-                                        <input type="text" id="w-ftp" placeholder="체감온도">
-                                        <input type="text" id="w-wtr" placeholder="강수량">
-                                        <input type="text" id="w-hum" placeholder="습도">
-                                    </div>
-                                    <div class="w-data-l2">
-                                        <input type="text" id="w-dir_spd" placeholder="풍향/풍속">
-                                        <input type="text" id="w-fd" placeholder="미세">
-                                        <input type="text" id="w-sfd" placeholder="초미세">
-                                    </div>
-                                    <div class="w-data-l3">
-                                        <input type="text" id="w-uv" placeholder="자외선">
-                                        <input type="text" id="w-ss" placeholder="일몰">
-                                    </div>
+                                <img id="img_w" src="svg/icon_flat_wt7.svg" alt="weather">
+                                <ul id="w-ul"></ul>
+                            </div>
+                            <div class="w-data2">
+                                <div class="w-data-l1">
+                                    <ul>
+                                        <li id="w-ftp">
+                                            <div class="w-data_inner">
+                                                <span class="w-text">체감 온도</span>
+                                            </div>
+                                        </li>
+                                        <li id="w-wtr">
+                                            <div class="w-data_inner">
+                                                <span class="w-text">강수량</span>
+                                            </div>
+                                        </li>
+                                        <li id="w-hum">
+                                            <div class="w-data_inner">
+                                                <span class="w-text">외부 습도</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="w-data-l2">
+                                    <ul>
+                                        <li id="w-dir_spd">
+                                            <div class="w-data_inner">
+                                                <span class="w-text">풍향 / 풍속</span>
+                                            </div>
+                                        </li>
+                                        <li id="w-fd">
+                                            <div class="w-data_inner">
+                                                <span class="w-text">미세먼지</span>
+                                            </div>
+                                        </li>
+                                        <li id="w-sfd">
+                                            <div class="w-data_inner">
+                                                <span class="w-text">초미세먼지</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="w-data-l3">
+                                    <ul>
+                                        <li id="w-uv">
+                                            <div class="w-data_inner">
+                                                <span class="w-text">자외선</span>
+                                            </div>
+                                        </li>
+                                        <li id="w-ss">
+                                            <div class="w-data_inner">
+                                                <span class="w-text">일몰 시간</span>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- 소개 -->
-                    <!-- <div id="introduce" class="contFrame">
-                        <div class="shorts">
-                            <img id="img125" width="125" height="125" src="icon/img5.png" alt="introduce">
-                            <h2 id="cont-h">INTRODUCE</h2>
-                            <p id="cont-p">프로젝트 소개</p>
-                        </div>
-                        <div class="longs remove">
-                            <i class='bx bx-arrow-back'></i>
-                        </div>
-                    </div> -->
-                    <!-- 사용자 정보 -->
-                    <div id="user" class="contFrame">
-                        <div class="shorts">
-                            <img width="120" height="120" src="icon/img6.png" alt="user">
-                            <h2 id="cont-h">USER</h2>
-                            <p id="cont-p">사용자 정보</p>
-                        </div>
-                        <div class="longs remove">
-                            <i class='bx bx-arrow-back'></i>ID, 식물 정보, 등등
-                        </div>
+                </div>
+                
+                <!-- 시간 예약 LED 시간 설정 -->
+                <div id="light" class="contFrame">
+                    <div class="shorts">
+                        <img id="img125" width="125" height="125" src="icon/img5.webp" alt="user">
+                        <h2 id="cont-h">LED CONTROL</h2>
+                        <p id="cont-p">밝기 조절 &nbsp; | &nbsp; 시간 예약</p>
+                    </div>
+                    <div class="longs remove">
+                        <i class='bx bx-arrow-back'></i>시간 설정
+                    </div>
+                </div>
+
+                <!-- 기능 설명 -->
+                <div id="manual" class="contFrame">
+                    <div class="shorts">
+                        <img id="img125" width="125" height="125" src="icon/img4.webp" alt="user">
+                        <h2 id="cont-h">SYS MANUAL</h2>
+                        <p id="cont-p">기능 설명</p>
+                    </div>
+                    <div class="longs remove">
+                        <i class='bx bx-arrow-back'></i>ID, 라이센스, 등등
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script src="js/index.js?dd"></script>
-    <script src="js/client.js?dd"></script>
+    <script src="js/client.js?ddd"></script>
     <script src="js/session.js?f"></script>
-    <script>
+    <script type="text/javascript">
         window.onload = function () {
-            let today = new Date();
-            let todayArr = ['일', '월', '화', '수', '목', '금', '토'];
-            callChart('N');
-            callWeather('N');
-            $(".calendar").html(today.getFullYear() + "년 " + (today.getMonth() + 1) + "월 " + today.getDate() +"일 " + todayArr[today.getDay()] + "요일 입니다.");
+            try {
+                middleWidthCompare(); 
+                callChart();
+                callWeather();
+                callGraph();
+                console.log("성공적으로 실행했습니다.");
+            }
+            catch(err) {
+                console.log(err);
+            }
         }
+
+        function goGit() { window.open('https://github.com/monune/farm-is-farm'); }
     </script>
 </body>
 
