@@ -18,7 +18,7 @@ $(document).ready(function () {
     }
   });
 
-  let Interval_A;
+  let Interval;
   let arrow_clickCount = 0;
   // 선택자 확장
   $(".contFrame").click(function (event) {
@@ -27,13 +27,12 @@ $(document).ready(function () {
       if ( event.target.id == thisID || event.target.id === "cont-h" || event.target.className === "shorts" ) {
         console.log(thisID + " Interval start");
         if (thisID == "control") {
-          Interval_A = setInterval(() => { 
-            ("Y"); 
+          Interval = setInterval(() => { 
+            callChart("Y"); 
             callGraph("Y");
-          }, 60000);
+          }, 1000);
         }
-        else if (thisID == "weather") Interval = setInterval(() => { callWeather("Y"); }, 30000);
-        else if (thisID == "license") setTimeout(() => { licenseFadeIn() }, 1000);
+        else if (thisID == "weather") Interval = setInterval(() => { callWeather("Y"); }, 1000);
         $(".contFrame").addClass("remove"); // 전체 OFF
         setTimeout(() => {
           $(".contFrame#" + thisID).addClass("move");
@@ -70,18 +69,6 @@ $(document).ready(function () {
   });
 });
 
-let licenseCount = 0;
-// 새로고침 후 1회용
-const licenseFadeIn = () => { 
-  if (licenseCount === 0) {
-    $(".l-box").css('display', 'block');
-    $(".l-box").addClass('fade-in');
-    licenseCount += 1;
-  }
-}
-
-
-
 const myChart = new Chart(document.getElementById("myChart"), {
   type: "bar",
   data: {
@@ -89,29 +76,43 @@ const myChart = new Chart(document.getElementById("myChart"), {
     datasets: [
       {
         data: [10, 50],
-        backgroundColor: ["rgba(255, 99, 132, 0.8)", "rgba(54, 162, 235, 0.8)"],
+        backgroundColor: ["rgba(255, 99, 132, 0.6)", "rgba(54, 162, 235, 0.6)"],
         borderColor: ["rgb(255, 60, 102)", "rgb(23, 100, 215)"],
         borderWidth: 2,
-        barThickness: 80,
+        barThickness: 30,
       },
     ],
   },
   options: {
+    indexAxis: 'y', // 수평 그래프
     plugins: {
       legend: { display: false, },
-      tooltip: { enabled: false, },
+      tooltip: {
+        padding: 10,
+        titleFont: { size: 20 },
+        bodyFont: { size: 15 }
+      }
     },
     responsive: false,
     scales: {
       y: {
         beginAtZero: true,
-        grace: '10%',
         ticks: {
           precision: 0, // 소수점 자릿수
           stepSize: 1, // 간격
-        },
+          font: { size: 17 }  
+        }
       },
+      x: {
+        ticks: {
+          font: { size: 17}
+        },
+        grace: '10%'
+      }
     },
+    interaction: {
+      intersect: false
+    }
   },
 });
 
@@ -151,7 +152,19 @@ const myGraph = new Chart(document.getElementById('myGraph'), {
         scales: {
             y: {
                 beginAtZero: true,
-                grace: '25%'
+                grace: '25%',
+                ticks: {
+                  font: {
+                    size: 15
+                  }
+                }
+            }, 
+            x: {
+              ticks: {
+                font: {
+                  size: 17
+                }
+              }
             }
         },
         interaction: {
@@ -159,3 +172,20 @@ const myGraph = new Chart(document.getElementById('myGraph'), {
         }
     }
 });
+
+const middleWidthCompare = () => {
+  let middleWidth = 0;
+  const idArray = ["select", "control", "weather", "manual", "light"];
+  for (let i = 0; i < idArray.length; i++) {
+      const element = document.getElementById(idArray[i]);
+      if (element) {
+          const compare = window.getComputedStyle(element).getPropertyValue("display");
+          if (compare === 'block') middleWidth += 1;
+      }
+  }
+  if (middleWidth > 4) {
+      $("#middle").css('width', "1300px");
+  } else {
+      $("#middle").css('width', "1200px");
+  }
+}

@@ -2,6 +2,8 @@
  * 온도, 습도 값 가져오는 함수
  * @param {string} decide 새로고침 후 콘솔없이 활성화 'Y' or 'N'
  */
+let chartC = 0;
+const chartLabels = ["온도(℃)", "습도(%)"];
 const callChart = (decide) => {
   const id = getCookie("userID");
   $.ajax({
@@ -10,16 +12,20 @@ const callChart = (decide) => {
     async: false,
     data: {  id: id },
     success: function (data) {
-      if (decide === 'Y') console.log(data);
-      $("#c-temp").val("Temperature: " + data.temp + " ℃");
-      $("#c-hum").val("Humidity: " + data.hum + " %");
-      
+      if (decide === 'Y') {
+        chartC += 1;
+        if (chartC % 30 == 0) console.log(data);
+      }
       const newData = [data.temp, data.hum];
-      updateChart(myChart, newData);
+      try {
+        updateChart(myChart, chartLabels, newData);
+      } catch (err) {
+        console.log("UpdateError: " + err);
+      }
     },
-    error: function () {
-      console.log("error");
-    },
+    error: function (err) {
+      console.log("AJAX Error: " + err);
+    }
   });
 }
 
@@ -27,6 +33,7 @@ const callChart = (decide) => {
  * DB에 저장된 예상 습도를 그래프에 전달
  * @param {string} decide 새로고침 후 콘솔없이 활성화 'Y' or 'N'
  */
+let graphC = 0;
 const callGraph = (decide) => {
   $.ajax({
   url: "php/call_nodeSystem.php",
@@ -37,13 +44,20 @@ const callGraph = (decide) => {
     const responseTimes = JSON.parse(data.times);
     const responseDocs = JSON.parse(data.docs);
     if(decide === 'Y') {
-      console.log(responseTimes.data);
-      console.log(responseDocs.data);
+      graphC += 1;
+      if (graphC % 30 == 0) {
+        console.log(responseTimes.data);
+        console.log(responseDocs.data);
+      }
     }
-    updateChart(myGraph, responseTimes.data, responseDocs.data);
+    try {
+      updateChart(myGraph, responseTimes.data, responseDocs.data);
+    } catch(err) {
+      console.log("UpdateError: " + err);
+    }
   },
   error: function (err) {
-    console.log("Err: " + err);
+    console.log("AJAX Error: " + err);
   }
   });
 }
@@ -66,24 +80,28 @@ const callWeather = (decide) => {
       $("#w-tp").html(data.temp);
       $('#img_w').attr("src", "svg/icon_flat_" + data.class + ".svg"); 
     
-      for (let i = 0; i < selectors.length; i++) {
-        const selector = selectors[i] + "> div > span";
-        if (selectors[i] == '#w-dir_spd') $(selector).html(selectorsInfo[i] + "<br>" + data.wind_dir + ", " + data.wind_spd); //데이터 동시 사용
-        else if (isEmpty(data[dataKeys[i]])) {
-          $(selectors[i] + "> div").css('width', '50');
-          $(selector).css('display', 'none');
-        } else {
-          $(selector).html(selectorsInfo[i] + "<br>" +  data[dataKeys[i]]);
-          setTimeout(() => {
-            $(selectors[i] + "> div").css('width', '170');
-            $(selector).css('display', 'block');
-          }, 100);
+      try {
+        for (let i = 0; i < selectors.length; i++) {
+          const selector = selectors[i] + "> div > span";
+          if (selectors[i] == '#w-dir_spd') $(selector).html(selectorsInfo[i] + "<br>" + data.wind_dir + ", " + data.wind_spd); //데이터 동시 사용
+          else if (isEmpty(data[dataKeys[i]])) {
+            $(selectors[i] + "> div").css('width', '50');
+            $(selector).css('display', 'none');
+          } else {
+            $(selector).html(selectorsInfo[i] + "<br>" +  data[dataKeys[i]]);
+            setTimeout(() => {
+              $(selectors[i] + "> div").css('width', '170');
+              $(selector).css('display', 'block');
+            }, 100);
+          }
         }
+      } catch (err) {
+        console.log("Weather Data Error: " + err);
       }
     },
     error: function (err) {
-      console.log("Err: " + err);
-    },
+      console.log("AJAX Error: " + err);
+    }
   });
 }
 
@@ -127,17 +145,16 @@ const searchPlantData = (plant) => {
       console.log(data);
     },
     error: function (err) {
-      console.log("Err: " + err);
-    },
+      console.log("AJAX Error: " + err);
+    }
   });
 }
-// 식물 데이터 호출
 
+// 식물 데이터 호출
 const callPlantInfomation = () => {
   const plant = document.getElementById('s-i').value;
   searchPlantData(plant);
 }
-
 
 /**
  * 쿠키 가져오는 함수
