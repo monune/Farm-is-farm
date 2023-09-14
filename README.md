@@ -1,32 +1,6 @@
-# Farm Is Farm
+# 🙏 Farm Is Farm
 
 농장FARM니다는 기존 스마트 팜의 설비를 재정비하고 원격 제어를 돕는 AJAX 기반 통신 웹 서비스 입니다.
-
-## sort Introduce
-
-* app.js
-```javascript
-parsing(serchKeyword);
-
-callPuppteer(serchKeyword, classKeyword);
-
-updateDatabase(table, columns, values, callback);
-
-// 데이터 갱신 타이밍 선택 가능
-setInterval(() => {
-  parsing(`날씨`);
-}, setInterval);
-```
-
-callPuppteer 함수와 updateDatabase 함수는 parsing 함수 내부에서 호출되는 함수들입니다. 
-
-parsing 함수 중심의 비동기 함수를 사용했으며, 비동기 중첩 문제는 await / asnyc 로 완화시켰습니다.
-
-모든 동작은 데이터베이스 중심의 정보교환이며 실시간 파트도 존재합니다.
-
-아래는 페이지에 따른 기능 설명입니다.
-
-
 
 ---
 
@@ -54,7 +28,7 @@ ___
 
 실시간 정보를 기록하기위해 설정한 시간마다 데이터베이스에서 정보를 호출합니다.
 
-- index.js
+#### weather function
 
 ```javascript
 const callWeather = () => {
@@ -86,31 +60,52 @@ const callWeather = () => {
 
 이후 isEmpty() 함수로 null 값을 제거하고나면 웹사이트에 직접 데이터를 적용시킬 수 있습니다.
 
-- call_nodeSystem.php
+call_nodeSystem.php 로 보낸 분류데이터를 통해 사용할 데이터베이스를 정하고 weather DB에서 정보를 가져옵니다.
 
-```php
-$response["ftemp"] = $row["filling_temperature"];
-$response["temp"] = $row["temperature"];
-$response["mtr_water"] = $row["meteoric_water"];
-$response["hum"] = $row["humidity"];
-$response["wind_dir"] = $row["wind_direction"];
-$response["wind_spd"] = $row["wind_speed"];
-$response["fine"] = $row["fine_dust"];
-$response["sp_fine"] = $row["super_fine_dust"];
-$response["uvrays"] = $row["ultraviolet_rays"];
-$response["sunset"] = $row["sunset"];
-$response["class"] = $row["class"];
+
+#### console function
+
+데이터를 좀더 쉽게 관리하기 위해 함수를 추가했습니다.
+
+```javascript
+addNewLine();
+printConsole(select, array);
+clearConsole();
 ```
-
-AJAX에서 보낸 분류 데이터로 사용할 데이터베이스를 정하고 weather DB에서 정보를 가져옵니다.
-
+- addNewLine()
+	- 새로운 라인을 추가하는 함수입니다.
+- printConsole()
+	- addNewLine() 으로 추가한 라인에 데이터를 집어넣는 함수입니다.
+- clearConsole()
+	- 말 그대로 모든 콘솔 라인과 정보를 제거하는 함수입니다.
 
 ___
 
 
 ### Node.Js Back Server
+* app.js
+```javascript
+parsing(serchKeyword);
 
-#### parsing 
+callPuppteer(serchKeyword, classKeyword);
+
+updateDatabase(table, columns, values, callback);
+
+// 데이터 갱신 타이밍 선택 가능
+setInterval(() => {
+  parsing(`날씨`);
+}, setInterval);
+```
+
+callPuppteer 함수와 updateDatabase 함수는 parsing 함수 내부에서 호출되는 함수들입니다. 
+
+parsing 함수 중심의 비동기 함수를 사용했으며, 비동기 중첩 문제는 await / asnyc 로 완화시켰습니다.
+
+모든 동작은 데이터베이스 중심의 정보교환이며 실시간 파트도 존재합니다.
+
+아래는 페이지에 따른 기능 설명입니다.
+
+#### 1. parsing 
 
 날씨를 스크래핑해 저장하는 함수입니다. parsing 으로 가져올 수 있는 데이터는 다음과 같습니다.
 
@@ -139,7 +134,7 @@ const weatherColumns = [
 
 ---
 
-### callPuppteer
+### 2. callPuppteer
 
 puppteer 라이브러리를 사용한 크롤링 함수입니다.
 
@@ -183,7 +178,7 @@ updateDatabase('YOUR_DB_IN_TABLE', ['COLUMNS'], [ ExampleJSON ] )
 
 ---
 
-### updataDatabase 
+### 3. updataDatabase 
 
 mySQL 노드 라이브러리를 사용해 DB에 연결하고 데이터를 저장하는 함수입니다.
 
