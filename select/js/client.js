@@ -28,11 +28,11 @@ $(document).ready(function () {
         console.log(thisID + " Interval start");
         if (thisID == "control") {
           Interval = setInterval(() => { 
-            callChart("Y"); 
-            callGraph("Y");
-          }, 1000);
+            callChart(); 
+            callGraph();
+          }, 10000);
         }
-        else if (thisID == "weather") Interval = setInterval(() => { callWeather("Y"); }, 1000);
+        else if (thisID == "weather") Interval = setInterval(() => { callWeather(); }, 3000);
         $(".contFrame").addClass("remove"); // 전체 OFF
         setTimeout(() => {
           $(".contFrame#" + thisID).addClass("move");
@@ -172,20 +172,3 @@ const myGraph = new Chart(document.getElementById('myGraph'), {
         }
     }
 });
-
-const middleWidthCompare = () => {
-  let middleWidth = 0;
-  const idArray = ["select", "control", "weather", "manual", "light"];
-  for (let i = 0; i < idArray.length; i++) {
-      const element = document.getElementById(idArray[i]);
-      if (element) {
-          const compare = window.getComputedStyle(element).getPropertyValue("display");
-          if (compare === 'block') middleWidth += 1;
-      }
-  }
-  if (middleWidth > 4) {
-      $("#middle").css('width', "1300px");
-  } else {
-      $("#middle").css('width', "1200px");
-  }
-}
