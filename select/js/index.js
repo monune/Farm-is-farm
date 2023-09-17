@@ -10,12 +10,16 @@ const callChart = () => {
     url: "php/call_HWdata.php",
     type: "POST",
     async: false,
-    data: {  id: id },
+    data: {
+      id: id,
+      data: "hardware"
+    },
     success: function (data) {
       if (chartC % 30 == 0) {
         console.log(data);
         chartC += 1;
       } else  chartC += 1;
+      $("#c-data-left").append("<span class='abs c-water-grade'>물의 세기<br>" + data.water + "단계</span>");
       const newData = [data.temp, data.hum];
       try {
         updateChart(myChart, chartLabels, newData);
@@ -105,16 +109,18 @@ const callWeather = () => {
       try {
         for (let i = 0; i < selectors.length; i++) {
           const selector = selectors[i] + "> span";
+          const dataValues = '<span class="w-text2">' + selectorsInfo[i] + '</span>';
           if (isEmpty(data[dataKeys[i]]) == false) {
-            $(selector).html(selectorsInfo[i] + "<br>" +  data[dataKeys[i]]);
+            $(selector).html(dataValues + "<br>" +  data[dataKeys[i]]);
           } else {
-            $(selector).html(selectorsInfo[i] + "<br>" +  "- -");
+            $(selector).html(dataValues + "<br>" +  "- -");
           }
         }
       } catch (err) {
         console.log("Weather Data Error: " + err);
 	    }
 
+      // 날씨 정보 출력
       if (data.fine || sp_fine === "좋음") {
 
       } else if (data.fine || sp_fine === "보통") {
@@ -202,6 +208,7 @@ const goCommand = () => {
         var dynamicFunction = new Function('return ' + userInput);
         var result = dynamicFunction();
         console.log(result);
+        document.getElementById('w-command').value = '';
         addNewLine();
         $(".calendar_" + calendarCount).html(sysTime() + userInput + " 을 성공적으로 실행했습니다. ");
         calendarCount += 1;
@@ -273,13 +280,76 @@ const getCookie = (cookieName) => {
   return null;
 }
 
-function once(fn, context) { 
-  let result;
-  return function() { 
-      if (fn) {
-          result = fn.apply(context || this, arguments);
-          fn = null;
+const callTime = () => {
+  const id = getCookie("userID");
+  $.ajax({
+    url: "php/call_HWdata.php",
+    type: "POST",
+    async: false,
+    data: {
+      id: id,
+      data: "hardware",
+    },
+    success: function (data) {
+      const jsonObject = JSON.parse(data.time);
+      const array = [jsonObject.start, jsonObject.end];
+      // 시, 분, 시, 분으로 변환
+      const organizedArray = array.reduce((result, item) => { // [11, 22, 33, 44]
+        const segments = item.split(':');
+        result.push(...segments);
+        return result;
+      }, []);
+      
+      for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 2; j++) {
+          $(`#panels_${i * 2 + j + 1}`).val(organizedArray[i][j]);
+        }
       }
-      return result;
-  };
+
+      // 현재 시간
+      const td = new Date();
+      const currentHours = td.getHours();
+      const currentMinutes = td.getMinutes();
+      
+      // JS 배열 구조 분해를 사용한 값 저장
+      const timeValues = [];
+      for (let i = 0; i < organizedArray.length; i++) timeValues.push(parseInt(organizedArray[i]));
+      const [startHours, startMinutes, endHours, endMinutes] = timeValues;
+
+      // 시간 비교
+      const isWithinRange =
+        (currentHours > startHours || (currentHours === startHours && currentMinutes >= startMinutes)) &&
+        (currentHours < endHours || (currentHours === endHours && currentMinutes <= endMinutes));
+      
+        // 비교 결과
+      if (isWithinRange) {
+        changeLightgrade(1);
+      } else {
+        changeLightgrade(0);
+      }
+    },
+    error: function (err) {
+      console.log("AJAX Error: " + err);
+    }
+  });
+}
+
+const changeLightgrade = (value) => {
+  const id = getCookie("userID");
+  $.ajax({
+    url: "php/call_HWdata.php",
+    type: "POST",
+    async: false,
+    data: {
+      id: id,
+      data: "light",
+      value: value
+    },
+    success: function (data) {
+      console.log(data);
+    },
+    error: function (err) {
+      console.log("AJAX Error: " + err);
+    }
+  });
 }

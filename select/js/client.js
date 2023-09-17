@@ -3,7 +3,7 @@ let click = 0; // 1: on, else: off
 var thisID = "";
 
 // 사이드 슬라이더 동작
-$(document).ready(function () {
+$(function () {
   $("#manu").click(function () {
     if (count == 0) { // 축소
       $(".link_name").css({ color: "transparent" });
@@ -26,13 +26,18 @@ $(document).ready(function () {
       thisID = this.id;
       if ( event.target.id == thisID || event.target.id === "cont-h" || event.target.className === "shorts" ) {
         console.log(thisID + " Interval start");
-        if (thisID == "control") {
+        if (thisID === "control") {
           Interval = setInterval(() => { 
             callChart(); 
             callGraph();
           }, 10000);
         }
-        else if (thisID == "weather") Interval = setInterval(() => { callWeather(); }, 3000);
+        else if (thisID === "weather") Interval = setInterval(() => { callWeather(); }, 10000);
+        else if (thisID === "light") {
+          Interval = setInterval(() => {
+            callTime();
+          }, 10000);
+        }
         $(".contFrame").addClass("remove"); // 전체 OFF
         setTimeout(() => {
           $(".contFrame#" + thisID).addClass("move");
@@ -76,15 +81,15 @@ const myChart = new Chart(document.getElementById("myChart"), {
     datasets: [
       {
         data: [10, 50],
-        backgroundColor: ["rgba(255, 99, 132, 0.6)", "rgba(54, 162, 235, 0.6)"],
-        borderColor: ["rgb(255, 60, 102)", "rgb(23, 100, 215)"],
-        borderWidth: 2,
-        barThickness: 30,
+        backgroundColor: ["rgba(255, 46, 133, 0.6)", "rgba(54, 162, 235, 0.6)"],
+        borderColor: ["rgb(210, 60, 93)", "rgb(23, 100, 215)"],
+        borderWidth: 4,
+        barThickness: 70,
       },
     ],
   },
   options: {
-    indexAxis: 'y', // 수평 그래프
+    // indexAxis: 'y', // 수평 그래프
     plugins: {
       legend: { display: false, },
       tooltip: {
@@ -124,9 +129,9 @@ const myGraph = new Chart(document.getElementById('myGraph'), {
             label: " 예상 습도 변화량 (%)",
             fill: true,
             lineTension: 0.2,
-            backgroundColor: "rgba(75, 192, 192, 0.2)",
-            borderColor: "rgba(75, 192, 192, 1)",
-            borderWidth: 4,
+            backgroundColor: "rgb(0, 132, 255, 0.6)",
+            borderColor: "rgb(23, 100, 215, 0.8)",
+            borderWidth: 5,
             data: [40, 10, 20],
         }]
     },
@@ -172,3 +177,18 @@ const myGraph = new Chart(document.getElementById('myGraph'), {
         }
     }
 });
+
+let colonCount = 0;
+const countColon = () => {
+  $(".colon > span").css("color", colonCount === 0 ? "black" : "white");
+  colonCount = 1 - colonCount;
+};
+
+const addWave = () => {
+  const newLi = $('<div class="wave"></div>');
+  $('#c-data-left').append(newLi);
+}
+
+const goGit = () => {
+  window.open('https://github.com/monune/farm-is-farm');
+}

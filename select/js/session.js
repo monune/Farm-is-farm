@@ -76,22 +76,8 @@ function compareSession(buttonID) {
       var sessionExpirationTime = new Date(sessionExpirationString).getTime();
       var currentTime = new Date().getTime();
 
-        // 세션이 존재할 경우
       if (currentTime < sessionExpirationTime) {
-        if (buttonID === "f1") {
-          window.location.href = "function_1.html"; // 식물 정보 탐색
-        } else if (buttonID === "f2") {
-          window.location.href = "function_2.html"; // 하드웨어 동작 현황
-        } else if (buttonID === "f3") {
-          window.location.href = "function_3.html"; // 수중 모터 작동 현황
-        } else if (buttonID === "f4") {
-          window.location.href = "function_4.html";
-        } else if (buttonID === "f5") {
-          // window.location.href = "function_5.html";
-        } else if (buttonID === "f6") {
-          // window.location.href = "function_6.html"; 
-          // 프로젝트 & 팀원 소개
-        }
+        // 세션이 존재할 경우
       } else {
         alert("세션이 만료되었습니다. \n로그인 화면으로 돌아갑니다.");
         window.location.href = "http://211.254.214.74:8081";

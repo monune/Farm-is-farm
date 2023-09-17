@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon-precomposed" href="/src/ico/android-chrome-192x192.png">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/index.css?f">
-    <link rel="stylesheet" href="css/select.css?add">
+    <link rel="stylesheet" href="css/select.css?da">
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -110,15 +110,29 @@
                 <div id="control" class="contFrame">
                     <div class="shorts">
                         <img width="120" height="120" src="icon/img2.webp" alt="contrl">
-                        <h2 id="cont-h">CURRENT HW</h2>
+                        <h2 id="cont-h">CURRENT HARDWARE</h2>
                         <p id="cont-p">하드웨어 동작 현황</p>
                     </div>
                     <div class="longs remove">
                         <i class='bx bx-arrow-back'></i>
                         <div class="inner-box">
-                            <canvas id="myChart" style="width: 100%; height: 140px;"></canvas>
-                            <div class="c-wp">
-                                <canvas id="myGraph" width="1700" height="360"></canvas>
+                            <div id="c-top-box">
+                                <div id="c-data-left" class="border"></div>
+                                <div id="c-data-right" class="blue">
+                                    <div class="c-water-box abs">
+                                        <input type="text" id="c-water">
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="c-bottom-box">
+                                <div id="c-data-left">
+                                    <canvas id="myChart" class="border" style="width: 100%; height: 100%"></canvas>
+                                </div>
+                                <div id="c-data-right" class="border">
+                                    <div id="c-graph-box">
+                                        <canvas id="myGraph" style="width: 1700px; height: 100%;"></canvas>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -128,73 +142,29 @@
                 <div id="weather" class="contFrame">
                     <div class="shorts">
                         <img id="img125" ewidth="125" height="125" src="icon/img3.webp" alt="weather">
-                        <h2 id="cont-h">WEATHER</h2>
+                        <h2 id="cont-h">TODAY WEATHER</h2>
                         <p id="cont-p">오늘의 날씨</p>
                     </div>
                     <div class="longs remove">
                         <i class='bx bx-arrow-back'></i>
                         <div class="inner-box">
-                            <div class="w-data">
-                                <div id="f-lup"> <!-- font location up -->
-                                    <div id="f-m" style="margin-top: -3px;"> <!-- font margin -->
+                            <div class="w-data border">
+                                <div >
+                                    <div style="margin-top: -3px;">
                                         <span id="w-tp">29.8°</span>
                                     </div>
                                 </div>
                                 <img id="img_w" src="svg/icon_flat_wt7.svg" alt="weather">
-                                <ul id="w-ul"></ul>
                             </div>
+                            
                             <div class="w-data2">
-                                <div class="w-data-l1">
-                                    <ul>
-                                        <li id="w-ftp">
-                                            <div class="w-data_inner">
-                                                <span class="w-text">체감 온도</span>
-                                            </div>
-                                        </li>
-                                        <li id="w-wtr">
-                                            <div class="w-data_inner">
-                                                <span class="w-text">강수량</span>
-                                            </div>
-                                        </li>
-                                        <li id="w-hum">
-                                            <div class="w-data_inner">
-                                                <span class="w-text">외부 습도</span>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                <div id="w-grid-box">
+                                    <div id="w-grid"></div>
                                 </div>
-                                <div class="w-data-l2">
-                                    <ul>
-                                        <li id="w-dir_spd">
-                                            <div class="w-data_inner">
-                                                <span class="w-text">풍향 / 풍속</span>
-                                            </div>
-                                        </li>
-                                        <li id="w-fd">
-                                            <div class="w-data_inner">
-                                                <span class="w-text">미세먼지</span>
-                                            </div>
-                                        </li>
-                                        <li id="w-sfd">
-                                            <div class="w-data_inner">
-                                                <span class="w-text">초미세먼지</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="w-data-l3">
-                                    <ul>
-                                        <li id="w-uv">
-                                            <div class="w-data_inner">
-                                                <span class="w-text">자외선</span>
-                                            </div>
-                                        </li>
-                                        <li id="w-ss">
-                                            <div class="w-data_inner">
-                                                <span class="w-text">일몰 시간</span>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                <div id="w-console-box" class="border"> 
+                                    <ul id="w-console"></ul>
+                                    <input type="text" id="w-command">
+                                    <button id="w-command-btn" onclick="goCommand()">실행</button>
                                 </div>
                             </div>
                         </div>
@@ -209,7 +179,20 @@
                         <p id="cont-p">밝기 조절 &nbsp; | &nbsp; 시간 예약</p>
                     </div>
                     <div class="longs remove">
-                        <i class='bx bx-arrow-back'></i>시간 설정
+                        <i class='bx bx-arrow-back'></i>
+                        <div class="inner-box">
+                            <div class="l-line"></div>
+                            <div class="l-panels-box">
+                                <div class="l-left-box"></div>
+                                <div class="l-right-box"></div>
+                            </div>
+                            <div class="l-btn-box">
+                                <div class="l-left-box btn-left"></div>
+                                <div class="l-right-box btn-right"></div>
+                            </div>
+                            <div class="l-console border"><ul></ul></div>
+                            <button onclick="updateLightTime()" class="l-time border">UPDATE</button>
+                        </div>
                     </div>
                 </div>
 
@@ -217,34 +200,45 @@
                 <div id="manual" class="contFrame">
                     <div class="shorts">
                         <img id="img125" width="125" height="125" src="icon/img4.webp" alt="user">
-                        <h2 id="cont-h">SYS MANUAL</h2>
+                        <h2 id="cont-h">SYSTEM MANUAL</h2>
                         <p id="cont-p">기능 설명</p>
                     </div>
                     <div class="longs remove">
-                        <i class='bx bx-arrow-back'></i>ID, 라이센스, 등등
+                        <i class='bx bx-arrow-back'></i>
+                        살짝 깃허브 readme 형식 느낌으로 <br>
+                        - 기능 1 <br> 설명 <br>
+                        - 기능 2 <br> 설명 <br>
+                        - 기능 3 <br> 설명 <br>
+                        이런느낌으로
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="js/index.js?dd"></script>
+    <script src="js/index.js?ddd"></script>
     <script src="js/client.js?ddd"></script>
-    <script src="js/session.js?f"></script>
+    <script src="js/add.js?ddd"></script>
+    <script src="js/session.js?ff"></script>
     <script type="text/javascript">
         window.onload = function () {
             try {
-                middleWidthCompare(); 
                 callChart();
                 callWeather();
                 callGraph();
+                callTime();
+                for (let i=0; i<3; i++) {
+                    addWave();
+                }
+                setInterval(() => {
+                    countColon();
+                }, 1000);
                 console.log("성공적으로 실행했습니다.");
             }
             catch(err) {
                 console.log(err);
             }
         }
-
-        function goGit() { window.open('https://github.com/monune/farm-is-farm'); }
+    
     </script>
 </body>
 
