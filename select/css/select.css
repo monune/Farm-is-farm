@@ -1,4 +1,4 @@
-.w-data, #myChart, .c-wp, .weather-box, #w-ul {
+.border {
     border: 2px solid gainsboro;
     border-radius: 10px;
 }
@@ -10,6 +10,12 @@
     transform: translate(-50%, -50%);
 }
 
+.blue {
+    border-radius: 10px;
+    position: relative;
+    background: linear-gradient(to right, #0095ff, #0066ff, #004cff);
+}
+
 body {
     background: #0084ff;
 }
@@ -19,9 +25,6 @@ h2 {
     font-size: 30px;
     color: black;
     transition: 0.3s;
-}
-h2:hover {
-    font-size: 45px;
 }
 
 span {
@@ -144,7 +147,7 @@ a:focus:not(#manu > a) {
     flex-wrap: wrap;
     justify-content: center;
     position: absolute;
-    width: 1200px;
+    width: 1300px;
 }
 
 /* contFrame css */
@@ -218,26 +221,104 @@ a:focus:not(#manu > a) {
     background: white;
     overflow: hidden;
 }
-.c-wp { 
+
+#c-top-box {
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 250px;
+}
+
+#c-bottom-box {
+    margin-top: 10px;
+    width: 100%;
+    height: 400px;
+}
+
+#c-data-left {
+    float: left;
+    position: relative;
+    overflow: hidden;
+    width: calc(28% - 10px);
+    height: 100%;
+}
+#c-data-right {
+    float: right;
+    overflow: hidden;
+    width: 72%;
+    height: 100%;
+}
+
+#c-graph-box { 
     border-radius: 10px;
-    margin-top: 15px;
     overflow-y: hidden;
     overflow-x: scroll;
     width: 100%;
-    z-index: 1000;
+    height: 100%;
+}
+#c-graph-box::-webkit-scrollbar { height: 20px; }
+#c-graph-box::-webkit-scrollbar-thumb { background: gainsboro; }
+
+.wave {
+    position: absolute;
+    border-radius: 35%;
+    width: 335px;
+    height: 345px;
+    top: -150px;
+    background: #19d5ff82;
+    animation: rotate 5s infinite linear;
+    z-index: 3;
+}
+.wave:nth-last-of-type(2) {
+    top: -140px;
+    width: 340px;
+    height: 350px;
+    background: #1990ff48;
+    animation: rotate 5.7s infinite linear;
+    z-index: 2;
+}
+.wave:nth-last-of-type(3) {
+    width: 345px;
+    height: 355px;
+    top: -130px;
+    background: #2b00ff82;
+    animation: rotate 6.4s infinite linear;
+    z-index: 1;
 }
 
-.c-wp::-webkit-scrollbar {
-    overflow: hidden;
-    border-radius: 10px;
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
-.c-wp::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: gainsboro;
-    height: 5px;
+
+.c-water-grade {
+    /* border: 1px solid black; */
+    width: 100%;
+    top: calc(50% - 3px);
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    z-index: 10;
 }
-.c-wrp::-webkit-scrollbar-track {
+.c-water-box {  
+    border: 3px solid white;
+    border-radius: 12px;
+    width: 60%;
+    background: white;
+}
+#c-water {
+    border: 3px solid black;
+    border-radius: 10px;
     padding: 10px;
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+}
+#c-water:focus {
+    outline: none;
 }
 
 /* weather page css */
@@ -249,34 +330,84 @@ a:focus:not(#manu > a) {
     height: 170px;
 }
 .w-data > * {
-    /* border: 1px solid black; */
     height: 150px;
 }
-.w-data2 {
-    display: none;
-    padding-top: 80px;
-    float: right;
+
+.w-info-box {
+    margin-left: 30px;
+    padding: 10px;
     width: 100%;
 }
 
-#w-tp {
-    padding: 20px;
-    width: 250px;
-    font-size: 110px;
-    font-weight: bold;
+.w-data2 {
+    width: 100%;
+    margin-top: 10px;
+    height: 480px;
+}
+
+#w-grid-box, #w-console-box {
+    height: 480px;
+}
+
+#w-grid-box {
+    float: left;
+    overflow: hidden;
+    width: 510px;
 }
 
 /* calendar css */
-#w-ul {
-    padding-bottom: 10px;
-    margin-left: 30px;
-    width: 100%;
+#w-console-box {
+    position: relative;
+    float: right;
+    overflow: hidden;
+    width: 675px;
+    height: 480px;
+}
+
+#w-console {
+    border-bottom: 2px solid gainsboro;
+    text-align: left;
     overflow-y: scroll;
     overflow-x: hidden;
+    width: 100%;    
+    height: 420px;
+    background: white;
 }
-#w-ul::-webkit-scrollbar { border: none; } 
-#w-ul::-webkit-scrollbar-thumb {
+#w-console::-webkit-scrollbar { border: none; } 
+#w-console::-webkit-scrollbar-thumb { background: gainsboro; }
+
+#w-command {
+    border: none;
+    outline: none; 
+    float: left;
+    padding: 5px 5px 5px 10px;
+    width: 80%;
+    height: 60px;
+    font-size: 25px;
+}
+#w-command-btn {
+    border: none;
+    width: 20%;
+    float: right;
+    height: 60px;
+    font-size: 25px;
+    font-weight: bold;
     background: gainsboro;
+}
+.w-command-btn:active {
+    background: #c8c6c6;
+}
+
+#w-grid {
+    gap: 15px;
+    grid-template-columns: repeat(3, 150px);
+    border-radius: 10px;
+    text-align:center;
+    display: grid;
+    padding: 15px;
+    width: 100%;    
+    height: 100%;
+    background: linear-gradient(to bottom, #0084ff, #005eff);
 }
 
 [class^="calendar"] {
@@ -285,29 +416,15 @@ a:focus:not(#manu > a) {
     font-size: 20px;
 }
 
-div[class^="w-data-l"] {
-    display: flex;
-    justify-content: center;
-}
-
-/* div[class^="w-data-l"] > ul {
-    font-size: 0;
-} */
-
-li[id^="w-"] {
-    display: inline-block !important;
-}
-
 .w-data_inner {
-    position: relative;
     border-radius: 10px;
-    text-align: center;
-    padding: 15px;
-    margin: 20px;
-    width: 170px;
-    height: 130px;
-    font-weight: bold;
+    position: relative;
+    transition: 0.3s;
     background: white;
+    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; */
+}
+.w-data_inner:hover {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
 span.w-text {
@@ -317,37 +434,178 @@ span.w-text {
     top: 50%;
     left: 50%;
     width: 100%;
+    font-weight: bold;
     font-size: 25px;
     color: black;
     transform: translate(-50%, -50%);
 }
 
-#w-ftp > div {
-    background: #F266AB;
+span.w-text2 {
+    color: #005eff;
 }
-#w-wtr > div{
-    background: #00C4FF;
+
+#w-tp {
+    padding: 20px;
+    width: 250px;
+    font-size: 110px;
+    font-weight: bold;
 }
-#w-hum > div {
-    background: #ffe17e;
+
+.l-panels-box {
+    border: none;
+    border-radius: 10px;
+    margin-top: 3px;
+    width: 100%;
+    height: 380px;
+    background: linear-gradient(to bottom, #0099ff, #0084ff);
 }
-#w-dir_spd > div{
-    background: #45FFCA;
+.l-line {
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    top: 20px;
+    right: 70px;
+    width: 1100px;
+    height: 50px;
+    background: white;
 }
-#w-fd > div {
-    background: #E3F4F4;
+.l-line::after {
+    position: relative;
+    top: -17px;
+    left: 10px;
+    content: "|||||||||||||||||||||||||||||||||||";
+    height: 100px;
+    letter-spacing: 20px;
+    color: #afafaf;
+    font-size: 52px;
+    font-weight: bold;
+    font-family: 'oswald';
 }
-#w-sfd > div{
-    background: #EADBC8;
+
+input.l-panels {
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    padding-bottom: 15px;
+    margin: 5px;
+    width: 110px;
+    height: 200px;
+    font-size: 170px;
+    font-family: 'oswald';
+    background: white;
 }
-#w-uv > div{ 
-    background: #9D44C0;
+.colon {
+    position: relative;
+    border-radius: 10px;
+    margin: 5px;
+    width: 50px;
+    height: 200px;   
+    font-size: 170px;
+    background: white;
 }
-#w-ss > div {
-    background: #F79327;
+.colon > span {
+    position: absolute;
+    height: 100px;
+    top: -50px;
+    right: 11px;
+    font-family: 'oswald';
 }
+
+.l-left-box, .l-right-box {
+    padding: 110px 20px 0 20px;
+    display: flex;
+    width: 580px;
+    height: 310px;  
+}
+
+.l-left-box {
+    justify-content: left;
+    float: left;
+}
+.l-right-box {
+    justify-content: right;
+    float: right;
+}
+
+.l-btn-box {
+    border-radius: 10px;
+    padding: 0 20px;
+    margin-top: 10px;
+    height: 70px;
+    background: #0084ff;
+}
+.l-btn-box > div {
+    display: grid;
+    gap: 6px;
+    grid-template-columns: 115px 115px 50px 115px 115px;
+    justify-content: center;
+    padding: 0;
+    width: 540px;
+    height: 50px;
+}
+
+.l-console {
+    float: left;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 0 15px;
+    margin-top: 10px;
+    width: 1000px;
+    height: 180px;
+}
+.l-console::-webkit-scrollbar { border: none; } 
+.l-console::-webkit-scrollbar-thumb { background: gainsboro; }
+
+.l-console > ul > li{
+    margin-bottom: 5px;
+    font-size: 20px;
+    text-align: left;
+}
+
+[id^="panel_"] {
+    border: none;
+    border-radius: 0 15px 15px 0;
+    margin-top: 10px;
+    height: 50px;
+    font-size: 25px;
+    color: gainsboro;
+    background: white;
+}
+
+button.l-time {
+    float: right;
+    border-radius: 10px;
+    margin-top: 10px;
+    width: 185px;
+    height: 180px;
+    color: #0084ff;
+    font-weight: bold;
+    font-size: 25px;
+    background: white;
+}
+
+[id^="panel_"]:active, .l-time:active {
+    color: gray;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
+.btn-left {
+    /* margin-left: 20px; */
+}
+
+.btn-right {
+    /* margin-right: 20px; */
+}
+
+#panel_1, #panel_3, #panel_5, #panel_7 {
+    border-radius: 15px 0 0 15px;
+}
+#panel_3, #panel_7 { grid-column: 4; }
 
 @font-face {
     font-family: 'maru';
     src: url('/src/font/MaruBuri-Bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'oswald';
+    src: url('/src/font/Oswald-Light.ttf');
 }
