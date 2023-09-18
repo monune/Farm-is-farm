@@ -1,25 +1,63 @@
 # 🙏 Farm Is Farm
 
-농장FARM니다는 기존 스마트 팜의 설비를 재정비하고 원격 제어를 돕는 AJAX 기반 통신 웹 서비스 입니다.
+농장FARM니다는 기존 스마트 팜의 설비를 재정비하고 원격 제어를 돕는 AJAX 기법 기반의 웹 서비스 입니다.
+
 
 ---
 
-### PLANT SEARCH PAGE
+### 📈 HARDWARE PAGE
 
-식물 데이터와 관련된 파트입니다.
+**HARDWARE**는 ATMEGA128를 통해 얻은 센서의 값을 실시간으로 불러들이는 페이지입니다.
 
-(설명)
+라즈베리파이가 블루투스 통신으로 전달받은 데이터를 DB에 계속 넣어주면서 계속 새로운 정보를 받을 수 있습니다.
 
----
+- 습도에 따라 변경하는 모터 값 확인 가능
+- 실시간 온도, 습도 데이터 호출
+- 모레까지의 예상 습도 데이터 호출
 
-### CURRENT HARDWARE PAGE
-스마트 팜의 실시간 상태와 관련된 파트입니다.
 
-(설명)
+```javascript
+const callWeather = () => {
+if (!isEmpty(lastArray)) {
+    for (let i=1; i <= nextArray.length-1; i++) {
+        if (lastArray[i] != nextArray[i]) {
+            const changedValue = [selectorsID[i], lastArray[i], nextArray[i]];
+            printConsole('change', changedValue);
+            lastArray[i] = nextArray[i];
+        }
+    }
+}
+  
+if (trigger) {
+    printConsole('date');
+    lastArray = nextArray;
+    trigger = false;
+}
+
+try {
+    for (let i = 0; i < selectors.length; i++) {
+        const selector = selectors[i] + "> span";
+        const dataValues = '<span class="w-text2">' + selectorsInfo[i] + '</span>';
+        if (isEmpty(data[dataKeys[i]]) == false) {
+            $(selector).html(dataValues + "<br>" +  data[dataKeys[i]]);
+        } else {
+            $(selector).html(dataValues + "<br>" +  "- -");
+        }
+    }
+} catch (err) {
+    console.log("Weather Data Error: " + err);
+}
+}
+```
+
+대표적으로 **callWeather()** 함수는 변경된 데이터를 과거 데이터와 비교하고 변경점을 알려주는 함수입니다.
+
+**AJAX** 기법으로 데이터를 주고받으며 동적인 웹페이지를 만들 수 있습니다.
+
 
 ___
 
-### WEATHER PAGE
+### 💦 WEATHER PAGE
 
 실시간 날씨 정보와 관련된 파트입니다. 주요 기능은 N개 입니다.
 
@@ -28,7 +66,7 @@ ___
 
 실시간 정보를 기록하기위해 설정한 시간마다 데이터베이스에서 정보를 호출합니다.
 
-#### weather function
+#### 🌈 weather function
 
 ```javascript
 const callWeather = () => {
@@ -63,7 +101,7 @@ const callWeather = () => {
 call_nodeSystem.php 로 보낸 분류데이터를 통해 사용할 데이터베이스를 정하고 weather DB에서 정보를 가져옵니다.
 
 
-#### console function
+#### 📃 console function 
 
 데이터를 좀더 쉽게 관리하기 위해 함수를 추가했습니다.
 
@@ -81,8 +119,44 @@ clearConsole();
 
 ___
 
+### 💡 LED CONTROL PAGE
 
-### Node.Js Back Server
+가장 최근(!!)에 추가된 **LED CONTROL** (이하 LCON)은 타이머 기능으로 LED를 제어할 수 있습니다.
+
+```javascript
+const organizedArray = array.reduce((result, item) => { // [11, 22, 33, 44]
+    const segments = item.split(':');
+    result.push(...segments);
+    return result;
+  }, []);
+  if (callSet === 1) {
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 2; j++) {
+        $(`#panels_${i * 2 + j + 1}`).val(organizedArray[i][j]);
+      }
+    }
+  }
+
+  // 현재 시간
+  const td = new Date();
+  const currentHours = td.getHours();
+  const currentMinutes = td.getMinutes();
+  
+  // JS 배열 구조 분해를 사용한 값 저장
+  const timeValues = [];
+  for (let i = 0; i < organizedArray.length; i++) timeValues.push(parseInt(organizedArray[i]));
+  const [startHours, startMinutes, endHours, endMinutes] = timeValues;
+
+  // 시간 비교
+  const isWithinRange =
+    (currentHours > startHours || (currentHours === startHours && currentMinutes >= startMinutes)) &&
+    (currentHours < endHours || (currentHours === endHours && currentMinutes <= endMinutes));
+```
+
+isWithinRange 을 사용해 현재 LED의 상태를 정하고 DB에 저장해 하드웨어 서버(라즈베리파이 작동)에서 사용할 수 있습니다.
+
+---
+### ✅ Node.Js Back Server
 * app.js
 ```javascript
 parsing(serchKeyword);
@@ -105,7 +179,7 @@ parsing 함수 중심의 비동기 함수를 사용했으며, 비동기 중첩 �
 
 아래는 페이지에 따른 기능 설명입니다.
 
-#### 1. parsing 
+#### 1. 🌊 parsing 
 
 날씨를 스크래핑해 저장하는 함수입니다. parsing 으로 가져올 수 있는 데이터는 다음과 같습니다.
 
@@ -134,7 +208,7 @@ const weatherColumns = [
 
 ---
 
-### 2. callPuppteer
+### 2. 🌊 callPuppteer
 
 puppteer 라이브러리를 사용한 크롤링 함수입니다.
 
@@ -178,7 +252,7 @@ updateDatabase('YOUR_DB_IN_TABLE', ['COLUMNS'], [ ExampleJSON ] )
 
 ---
 
-### 3. updataDatabase 
+### 3. 💾 updataDatabase 
 
 mySQL 노드 라이브러리를 사용해 DB에 연결하고 데이터를 저장하는 함수입니다.
 
@@ -207,3 +281,4 @@ updateDatabase('database.table', columns, values, 'function');
 
 - [MDP](http://intec.icehs.kr/sub/info.do?m=040101&s=intec)
 - [Node.js](https://nodejs.org/ko)
+- 야호 끝이다 (2023.4 ~ 2023.9)
