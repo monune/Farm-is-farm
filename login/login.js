@@ -89,8 +89,8 @@ function getCookie(cookieName) {
 // 세션 시작
 var sessionTimeout;
 function startSession() {
-    // var time = 3 * 24 * 60 * 60 * 1000; // 3일 (밀리초 위)
-    var time = 1000 * 60 * 10;
+    var time = 3 * 24 * 60 * 60 * 1000; // 3일 (밀리초 위)
+    // var time = 1000 * 10;
     var currentTime = new Date().getTime();
     var sessionExpirationTime = currentTime + time;
     var sessionExpirationString = new Date(sessionExpirationTime).toUTCString();
