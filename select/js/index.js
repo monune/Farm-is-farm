@@ -347,7 +347,8 @@ const changeLightgrade = (value) => {
       value: value
     },
     success: function (data) {
-      console.log(data);
+      // console.log(data);
+      // 성공 메시지
     },
     error: function (err) {
       console.log("AJAX Error: " + err);

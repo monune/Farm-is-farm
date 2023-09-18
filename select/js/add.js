@@ -132,6 +132,7 @@ $(function() {
         for (let i=1; i<9; i++) {
             timer[i-1] = $("#panels_" + i).val();
         }
+        time = [timer[0] +""+ timer[1] +":"+ timer[2] +""+ timer[3], timer[4] +""+ timer[5] +":"+ timer[6] +""+ timer[7]];
     }, 1000);
 });
 
@@ -153,6 +154,8 @@ const updateLightTime = () => {
             array: timeJSON
         },
         success: function (data) {
+            console.log(time);
+            console.log(timer);
             const newLi = $('<li><p class="console_' + lightConsoleCount +'"></p></li>');
             $('.l-console > ul').append(newLi);
             $(".console_" + lightConsoleCount).html(sysTime() + "LED 예약시간 변경에 성공했습니다. TIME: " + time[0] + " to " + time[1]);
