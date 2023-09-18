@@ -51,6 +51,16 @@ $(function() {
         $("#w-grid").append(arr);
     }
     
+    const partName = ["하드웨어", "소프트웨어", "기구설계", "웹 개발"];
+    const partMen = ["김성모, 김우중", "김성모, 김우중, 우현성", "김진안, 장민석", "우현성"];
+    for (let i=1; i <= 4; i++) {
+        const partbar = '<div class="t-partbar-'+i+'"> <div class="part-'+ i +'">'+ partName[i-1] +'</div> <p>'+ partMen[i-1] +'</p> </div>'
+        $("#t-project").append(partbar);
+    }
+
+    const partuser = '<div class="t-partbar"> <div class="part-user">ID</div> <p>'+ getCookie("userID") +'</p> </div>'
+    $("#t-user").append(partuser);
+
     const updateLightStart = () => {
         for (let i=1; i<5; i++) {
             $("#panels_" + i).val(timer[i-1]);

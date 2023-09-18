@@ -75,7 +75,6 @@ $(function () {
 
   $("#left-li-1").mouseover(function () {
     $("#t-user").css("display", "block");
-    $("#t-user").html("현재 서비스를 이용하고 있는 사용자의 정보를 확인할 수 있습니다." + "<br>현재 이용중인 사용자 ID: " + getCookie("userID"));
   });
   $("#left-li-1").mouseout(function () {
     $("#t-user").css("display", "none");

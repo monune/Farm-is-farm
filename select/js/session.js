@@ -1,5 +1,6 @@
-window.onload = function () {
+$(function() {
   var cookies = document.cookie.split(";");
+  console.log(cookies);
   for (var i = 0; i < cookies.length; i++) {
     var cookie = cookies[i].trim();
     if (cookie.indexOf("sessionExpiration=") === 0) {
@@ -13,6 +14,7 @@ window.onload = function () {
       if (currentTime < sessionExpirationTime) {
         // 세션 만료 시간까지 남은 시간 계산
         var time = sessionExpirationTime - currentTime;
+        
         setTimeout(function () {
           alert("세션이 만료되었습니다. 로그인 화면으로 돌아갑니다.");
           window.location.href = "http://211.254.214.74:8081";
@@ -21,9 +23,9 @@ window.onload = function () {
       break;
     }
   }
-};
+});
 
-function checkSession() {
+const checkSession = () => {
   var cookies = document.cookie.split(";");
   for (var i = 0; i < cookies.length; i++) {
     var cookie = cookies[i].trim();
@@ -56,7 +58,7 @@ function checkSession() {
         remainingTime += sec + "초";
         alert("남은 시간: " + remainingTime);
       } else {
-        alert("세션이 만료되었습니다.");  
+        alert("세션이 만료되었습니다. \n로그인 화면으로 돌아갑니다.");
         window.location.href = "http://211.254.214.74:8081";
       }
       return;
@@ -66,7 +68,7 @@ function checkSession() {
 }
 
 // 페이지 이동할 경우 세션이 존재하는가.
-function compareSession(buttonID) {
+const compareSession = (buttonID) => {
   var cookies = document.cookie.split(";");
   for (var i = 0; i < cookies.length; i++) {
     var cookie = cookies[i].trim();
@@ -90,7 +92,7 @@ function compareSession(buttonID) {
   window.location.href = "http://211.254.214.74:8081";
 }
 
-function logOut() {
+const logOut = () => {
   deleteCookie("userID");
   document.cookie =
     "sessionExpiration=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -98,11 +100,6 @@ function logOut() {
   window.location.href = "http://211.254.214.74:8081";
 }
 
-function getBack() {
-  alert("이전 화면으로 돌아갑니다.");
-  window.location.href = "/src/select/select.html";
-}
-
-function deleteCookie(name) {
+const deleteCookie = (name) => {
   document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
