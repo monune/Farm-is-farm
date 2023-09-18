@@ -1,5 +1,6 @@
 
-let time = ["00:00","00:00"];
+let time = ["00:00","00:00"]; // 결과 값
+let timer = [0, 0, 0, 0, 0, 0, 0, 0];
 
 $(function() {
     const panels = '.l-panels-box';
@@ -50,7 +51,6 @@ $(function() {
         $("#w-grid").append(arr);
     }
     
-    let timer = [0, 0, 0, 0, 0, 0, 0, 0];
     const updateLightStart = () => {
         for (let i=1; i<5; i++) {
             $("#panels_" + i).val(timer[i-1]);
@@ -127,6 +127,12 @@ $(function() {
         }
         updateLightEnd();
     });
+
+    setTimeout(() => {
+        for (let i=1; i<9; i++) {
+            timer[i-1] = $("#panels_" + i).val();
+        }
+    }, 1000);
 });
 
 let lightConsoleCount = 0;

@@ -4,7 +4,7 @@ var thisID = "";
 
 // 사이드 슬라이더 동작
 $(function () {
-  $("#manu").click(function () {
+  $("#left-li-0").click(function () {
     if (count == 0) { // 축소
       $(".link_name").css({ color: "transparent" });
       $("#left_container").css({ "transition-duration": "0.8s", width: "80px", });
@@ -38,14 +38,14 @@ $(function () {
             callTime();
           }, 10000);
         }
-        $(".contFrame").addClass("remove"); // 전체 OFF
+        $(".contFrame").addClass("remove");
         setTimeout(() => {
           $(".contFrame#" + thisID).addClass("move");
           $(".shorts").addClass("remove");
           setTimeout(() => {
             $(".contFrame#" + thisID).removeClass("remove");
             $(".longs").removeClass("remove");
-          }, 500); // remove하면서 부드러운 출력
+          }, 500);
         }, 800);
         click = 1;
         arrow_clickCount = 0;
@@ -72,6 +72,25 @@ $(function () {
       $(".shorts").removeClass("remove");
     }, 1000);
   });
+
+  $("#left-li-1").mouseover(function () {
+    $("#t-user").css("display", "block");
+    $("#t-user").html("현재 서비스를 이용하고 있는 사용자의 정보를 확인할 수 있습니다." + "<br>현재 이용중인 사용자 ID: " + getCookie("userID"));
+  });
+  $("#left-li-1").mouseout(function () {
+    $("#t-user").css("display", "none");
+  });
+
+  $("#left-li-2").mouseover(function () {
+    $("#t-project").css("display", "block");
+  });
+  $("#left-li-2").mouseout(function () {
+    $("#t-project").css("display", "none");
+  });
+
+  $(".s-comment-box-1").html("현재 작동 중인 농장의 상태를<br> 확인할 수 있습니다.");
+  $(".s-comment-box-2").html("실시간으로 환경 정보를 확인할 수 있습니다.");
+  $(".s-comment-box-3").html("LED의 ON/OFF 시간을 제어할 수 있습니다.");
 });
 
 const myChart = new Chart(document.getElementById("myChart"), {

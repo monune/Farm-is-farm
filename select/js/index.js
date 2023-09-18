@@ -280,7 +280,7 @@ const getCookie = (cookieName) => {
   return null;
 }
 
-const callTime = () => {
+const callTime = (callSet) => {
   const id = getCookie("userID");
   $.ajax({
     url: "php/call_HWdata.php",
@@ -299,10 +299,11 @@ const callTime = () => {
         result.push(...segments);
         return result;
       }, []);
-      
-      for (let i = 0; i < 4; i++) {
-        for (let j = 0; j < 2; j++) {
-          $(`#panels_${i * 2 + j + 1}`).val(organizedArray[i][j]);
+      if (callSet === 1) {
+        for (let i = 0; i < 4; i++) {
+          for (let j = 0; j < 2; j++) {
+            $(`#panels_${i * 2 + j + 1}`).val(organizedArray[i][j]);
+          }
         }
       }
 

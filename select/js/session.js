@@ -56,7 +56,8 @@ function checkSession() {
         remainingTime += sec + "초";
         alert("남은 시간: " + remainingTime);
       } else {
-        alert("세션이 만료되었습니다.");
+        alert("세션이 만료되었습니다.");  
+        window.location.href = "http://211.254.214.74:8081";
       }
       return;
     }
