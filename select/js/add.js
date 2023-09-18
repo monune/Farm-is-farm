@@ -51,6 +51,12 @@ $(function() {
         $("#w-grid").append(arr);
     }
     
+
+    // sidebar comment -- user
+    const partuser = '<div class="t-partbar"> <div class="part-user">ID</div> <p>'+ getCookie("userID") +'</p> </div>'
+    $("#t-user").append(partuser);
+
+    // sidebar comment -- project
     const partName = ["하드웨어", "소프트웨어", "기구설계", "웹 개발"];
     const partMen = ["김성모, 김우중", "김성모, 김우중, 우현성", "김진안, 장민석", "우현성"];
     for (let i=1; i <= 4; i++) {
@@ -58,8 +64,9 @@ $(function() {
         $("#t-project").append(partbar);
     }
 
-    const partuser = '<div class="t-partbar"> <div class="part-user">ID</div> <p>'+ getCookie("userID") +'</p> </div>'
-    $("#t-user").append(partuser);
+    // sidebar comment -- session
+    const partsession = '<div class="t-partbar"> <div class="part-session">Session</div> <p>남은 로그인 시간 입니다.</p> </div>';;
+    $("#t-session").append(partsession);
 
     const updateLightStart = () => {
         for (let i=1; i<5; i++) {

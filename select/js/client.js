@@ -87,9 +87,16 @@ $(function () {
     $("#t-project").css("display", "none");
   });
 
-  $(".s-comment-box-1").html("현재 작동 중인 농장의 상태를<br> 확인할 수 있습니다.");
-  $(".s-comment-box-2").html("실시간으로 환경 정보를 확인할 수 있습니다.");
-  $(".s-comment-box-3").html("LED의 ON/OFF 시간을 제어할 수 있습니다.");
+  $("#left-li-3").mouseover(function () {
+    $("#t-session").css("display", "block");
+  });
+  $("#left-li-3").mouseout(function () {
+    $("#t-session").css("display", "none");
+  });
+
+  $(".s-comment-box-1 > span").html("현재 작동 중인 농장의 상태를<br> 확인할 수 있습니다.");
+  $(".s-comment-box-2 > span").html("실시간으로 환경 정보를 확인할 수 있습니다.");
+  $(".s-comment-box-3 > span").html("LED의 ON/OFF 시간을 제어할 수 있습니다.");
 });
 
 const myChart = new Chart(document.getElementById("myChart"), {
@@ -98,16 +105,16 @@ const myChart = new Chart(document.getElementById("myChart"), {
     labels: ["온도(℃)", "습도(%)"],
     datasets: [
       {
-        data: [10, 50],
+        data: [100, 20],
         backgroundColor: ["rgba(255, 46, 133, 0.6)", "rgba(54, 162, 235, 0.6)"],
         borderColor: ["rgb(210, 60, 93)", "rgb(23, 100, 215)"],
         borderWidth: 4,
-        barThickness: 70,
+        barThickness: 40,
       },
     ],
   },
   options: {
-    // indexAxis: 'y', // 수평 그래프
+    indexAxis: 'y', // 수평 그래프
     plugins: {
       legend: { display: false, },
       tooltip: {

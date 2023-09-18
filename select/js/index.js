@@ -119,15 +119,6 @@ const callWeather = () => {
       } catch (err) {
         console.log("Weather Data Error: " + err);
 	    }
-
-      // 날씨 정보 출력
-      if (data.fine || sp_fine === "좋음") {
-
-      } else if (data.fine || sp_fine === "보통") {
-
-      } else {
-        
-      }
     },
     error: function (err) {
       console.log("AJAX Error: " + err);
