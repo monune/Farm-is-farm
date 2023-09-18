@@ -18,30 +18,30 @@
     <div id="container">
         <div id="left_container">
             <div id="infomation">
-                <li id="manu" style="width: 45px;">
+                <li id="left-li-0" style="width: 45px;">
                     <a href="#" aria-label="manu button">
                         <i class='bx bx-menu'></i>
                     </a>
                 </li>
-                <li onclick="console.log('사용자')">
+                <li id="left-li-1">
                     <a href="#" aria-label="user button">
                         <i class='bx bx-user-pin'></i>
                         <span class="link_name">USER</span>
                     </a>
                 </li>
-                <li onclick="console.log('프로젝트 소개')">
+                <li id="left-li-2">
                     <a href="#" aria-label="project infomation button">
                         <i class='bx bx-outline'></i>
                         <span class="link_name">PROJECT</span>
                     </a>
                 </li>
-                <li onclick="checkSession()">
+                <li id="left-li-3" onclick="checkSession()">
                     <a href="#" aria-label="check session button">
                         <i class='bx bx-time'></i>
                         <span class="link_name">SESSION</span>
                     </a>
                 </li>
-                <li onclick="goGit()">
+                <li id="left-li-4" onclick="goGit()">
                     <a href="#" aria-label="go github">
                         <i class='bx bxl-github'></i>
                         <span class="link_name">GitHub</span>
@@ -55,10 +55,20 @@
                 </li>
             </div>
         </div>
+        <div id="tooltip">
+            <div id="t-user"></div>
+            <div id="t-project">
+                <h1>농장FARM니다 DEV'S</h1>
+                <p>• <span class="t-text">하드웨어:</span> 김성모, 김우중</p>
+                <p>• <span class="t-text t-text-2">소프트웨어:</span> 김성모, 우현성</p>
+                <p>• <span class="t-text t-text-3">기구 설계:</span> 김진안, 장민석</p>
+                <p>• <span class="t-text t-text-4">웹 제작:</span> 우현성</p>
+            </div>
+        </div>
         <div id="right_container">
             <div id="middle" class="abs">
-                <!-- 식물 정보 검색 -->
-                <div id="select" class="c contFrame">
+                <!-- 식물 정보 검색 따흐흑--> 
+                <!-- <div id="select" class="c contFrame">
                     <div class="shorts">
                         <img width="120" height="120" src="icon/img1.webp" alt="null">
                         <h2 id="cont-h">PLANT SEARCH</h2>
@@ -66,45 +76,8 @@
                     </div>
                     <div class="longs remove">
                         <i class='bx bx-arrow-back'></i>
-                        <div class="s-value-box">
-                            <div class="s-inner-box">
-                                <input type="text" id="s-i">
-                                <button type="button" onclick="callPlantInfomation()">검색</button>
-                            </div>
-                            <input type="text" placeholder="계">
-                            <input type="text" placeholder="문">
-                            <input type="text" placeholder="강">
-                            <input type="text" placeholder="목">
-                            <input type="text" placeholder="과">
-                            <input type="text" placeholder="속">
-                        </div>
-                        <div>
-                            검색창 검색버튼
-                
-                            목(과) 체크박스 (조건 검색)
-                
-                             검색
-                            나무 > 나무:분류 로 검색 > 사이트에 a 링크 다수
-                            정확한 이름 > 정확한 페이지 이동 내부 요소 검색
-                
-                
-                            식물 이름이나 정보 검색하면 그거에 맞춰서 php로 페이지 열고
-                            로딩시간 주고 그동안 백엔드(nodejs)에서 DB로 데이터 불러오고 검색된 페이지에 정보를 전부 표시
-                            <br><br>
-                            소형 스마트 팜 기준
-                            {
-                                "Kingdom": "",  
-                                "Division": "",
-                                "Class": "",
-                                "Order": "",
-                                "Family": "",
-                                "Genus": "",
-                                "Species": ""
-                              }
-                              계 문 강 목 과 속 종
-                        </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- 하드웨어 현황 -->
                 <div id="control" class="contFrame">
@@ -195,23 +168,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- 기능 설명 -->
-                <div id="manual" class="contFrame">
-                    <div class="shorts">
-                        <img id="img125" width="125" height="125" src="icon/img4.webp" alt="user">
-                        <h2 id="cont-h">SYSTEM MANUAL</h2>
-                        <p id="cont-p">기능 설명</p>
-                    </div>
-                    <div class="longs remove">
-                        <i class='bx bx-arrow-back'></i>
-                        살짝 깃허브 readme 형식 느낌으로 <br>
-                        - 기능 1 <br> 설명 <br>
-                        - 기능 2 <br> 설명 <br>
-                        - 기능 3 <br> 설명 <br>
-                        이런느낌으로
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -238,7 +194,10 @@
                 console.log(err);
             }
         }
-    
+        const viewUser = () => {
+            const id = getCookie("userID");
+            console.log(id);
+        }
     </script>
 </body>
 
