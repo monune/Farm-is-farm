@@ -281,4 +281,4 @@ updateDatabase('database.table', columns, values, 'function');
 
 - [MDP](http://intec.icehs.kr/sub/info.do?m=040101&s=intec)
 - [Node.js](https://nodejs.org/ko)
-- 야호 끝이다 (2023.4 ~ 2023.9)
+- 야호 끝이다 (2023.4.?? ~ 2023.9.25)
