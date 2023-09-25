@@ -19,7 +19,7 @@ const callChart = () => {
         console.log(data);
         chartC += 1;
       } else  chartC += 1;
-      $("#c-data-left").append("<span class='abs c-water-grade'>물의 세기<br>" + data.water + "단계</span>");
+      $(".c-water-grade").html("물의 세기<br>" + data.water + "단계");
       const newData = [data.temp, data.hum];
       try {
         updateChart(myChart, chartLabels, newData);
@@ -186,7 +186,7 @@ const sysTime = () => {
   const seconds = String(now.getSeconds()).padStart(2, '0');
   return `[${hours}:${minutes}:${seconds}] `;
 }
-
+let consoleMessage;
 /**
  * input#w-command에 입력된 값을 실행하는 코드
  */
@@ -201,12 +201,40 @@ const goCommand = () => {
         console.log(result);
         document.getElementById('w-command').value = '';
         addNewLine();
-        $(".calendar_" + calendarCount).html(sysTime() + userInput + " 을 성공적으로 실행했습니다. ");
+        $(".calendar_" + calendarCount).html(sysTime() + userInput + " 을 성공적으로 실행했습니다.");
         calendarCount += 1;
       } catch (err) {
-        console.log("Error: " + err);
+        addNewLine();
+        $(".calendar_" + calendarCount).html(sysTime() + userInput);
       }
+      saveToData(sysTime() + userInput); // 저장
+      console.log(sysTime() + userInput);
   }
+}
+
+const saveToData = (text) => {
+  const id = getCookie("userID");
+  $.ajax({
+    url: "php/call_HWdata.php",
+    type: "POST",
+    async: false,
+    data: {
+      id: id,
+      data: "save",
+      string: text,
+    },
+    success: function (data) {
+      if (data === 'success') {
+        console.log("저장 성공");
+      } else if (data === 'false') {
+        console.log("저장 실패");
+      }
+      console.log(data);
+    },
+    error: function (err) {
+      console.log("AJAX Error: " + err);
+    },
+  });
 }
 
 /**
@@ -345,4 +373,9 @@ const changeLightgrade = (value) => {
       console.log("AJAX Error: " + err);
     }
   });
+}
+
+const viewUser = () => {
+  const id = getCookie("userID");
+  console.log(id);
 }

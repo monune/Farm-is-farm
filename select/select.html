@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon-precomposed" href="/src/ico/android-chrome-192x192.png">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="css/index.css?f">
-    <link rel="stylesheet" href="css/select.css?f">
+    <link rel="stylesheet" href="css/select.css?dd">
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,125 +61,141 @@
             <div id="t-session"></div>
         </div>
         <div id="right_container">
-            <div id="middle" class="abs">
-                <!-- 식물 정보 검색 따흐흑--> 
-                <!-- <div id="select" class="c contFrame">
-                    <div class="shorts">
-                        <img width="120" height="120" src="icon/img1.webp" alt="null">
-                        <h2 id="cont-h">PLANT SEARCH</h2>
-                        <p id="cont-p">식물 정보 검색</p>
-                    </div>
-                    <div class="longs remove">
-                        <i class='bx bx-arrow-back'></i>
-                    </div>
-                </div> -->
-
-                <!-- 하드웨어 현황 -->
-                <div id="control" class="contFrame">
-                    <div class="shorts">
-                        <div class="s-top-box-1"><i class='bx bx-objects-vertical-bottom'></i></div>
-                        <div>
-                            <h2 id="cont-h">HARDWARE</h2>
-                            <p id="cont-p">하드웨어 동작 현황</p>
-                            <div class="s-comment-box-1">
-                                <span></span>
-                            </div>
+            <div id="middle-box" class="abs">
+                <div id="middle">
+                    <!-- 식물 정보 검색 따흐흑--> 
+                    <!-- <div id="select" class="c contFrame">
+                        <div class="shorts">
+                            <img width="120" height="120" src="icon/img1.webp" alt="null">
+                            <h2 id="cont-h">PLANT SEARCH</h2>
+                            <p id="cont-p">식물 정보 검색</p>
                         </div>
-                    </div>
-                    <div class="longs remove">
-                        <i class='bx bx-arrow-back'></i>
-                        <div class="inner-box">
-                            <div id="c-top-box">
-                                <div id="c-data-left" class="border"></div>
-                                <div id="c-data-right">
-                                </div>
-                            </div>
-                            <div id="c-bottom-box">
-                                <canvas id="myChart" class="border" width="1200px" height="130px"></canvas>
-                                <div id="c-graph-box">
-                                    <canvas id="myGraph" class="border" width="1200px" height="250px"></canvas>
+                        <div class="longs remove">
+                            <i class='bx bx-arrow-back'></i>
+                        </div>
+                    </div> -->
+    
+                    <!-- 하드웨어 현황 -->
+                    <div id="control" class="contFrame">
+                        <div class="shorts">
+                            <div class="s-top-box-1"><i class='bx bx-objects-vertical-bottom'></i></div>
+                            <div>
+                                <h2 id="cont-h">HARDWARE</h2>
+                                <p id="cont-p">하드웨어 동작 현황</p>
+                                <div class="s-comment-box-1">
+                                    <span></span>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            
-                <!-- 날씨 확인 -->
-                <div id="weather" class="contFrame">
-                    <div class="shorts">
-                        <div class="s-top-box-2"><i class='bx bx-cloud cloud'></i></div>
-                        <div>
-                            <h2 id="cont-h">WEATHER</h2>
-                            <p id="cont-p">오늘의 날씨</p>
-                            <div class="s-comment-box-2">
-                                <span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="longs remove">
-                        <i class='bx bx-arrow-back'></i>
-                        <div class="inner-box">
-                            <div class="w-data border">
-                                <div >
-                                    <div style="margin-top: -3px;">
-                                        <span id="w-tp">29.8°</span>
+                        <div class="longs remove">
+                            <i class='bx bx-arrow-back'></i>
+                            <div class="inner-box">
+                                <div id="c-top-box">
+                                    <div id="c-data-left" class="border">
+                                        <span class='abs c-water-grade'>
+                                            물의 세기<br> 
+                                            0 단계
+                                        </span>
+                                    </div>
+                                    <div id="c-data-right">
                                     </div>
                                 </div>
-                                <img id="img_w" src="svg/icon_flat_wt7.svg" alt="weather">
-                            </div>
-                            
-                            <div class="w-data2">
-                                <div id="w-grid-box">
-                                    <div id="w-grid"></div>
-                                </div>
-                                <div id="w-console-box" class="border"> 
-                                    <ul id="w-console"></ul>
-                                    <input type="text" id="w-command">
-                                    <button id="w-command-btn" onclick="goCommand()">실행</button>
+                                <div id="c-bottom-box">
+                                    <div id="c-chart-box">
+                                        <canvas id="myChart" class="border" width="1200px" height="130px"></canvas>    
+                                    </div>
+                                    <div id="c-graph-box">
+                                        <canvas id="myGraph" class="border" width="1200px" height="250px"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 
-                <!-- 시간 예약 LED 시간 설정 -->
-                <div id="light" class="contFrame">
-                    <div class="shorts">
-                        <div class="s-top-box-3"><i class='bx bx-calendar-exclamation'></i></div>
-                        <div>
-                            <h2 id="cont-h">LED TIMER</h2>
-                            <p id="cont-p">LED 시간 제어</p>
-                            <div class="s-comment-box-3">
-                                <span></span>
+                    <!-- 날씨 확인 -->
+                    <div id="weather" class="contFrame">
+                        <div class="shorts">
+                            <div class="s-top-box-2"><i class='bx bx-cloud cloud'></i></div>
+                            <div>
+                                <h2 id="cont-h">WEATHER</h2>
+                                <p id="cont-p">오늘의 날씨</p>
+                                <div class="s-comment-box-2">
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="longs remove">
+                            <i class='bx bx-arrow-back'></i>
+                            <div class="inner-box">
+                                <div class="w-data border">
+                                    <div >
+                                        <div style="margin-top: -3px;">
+                                            <span id="w-tp">29.8°</span>
+                                        </div>
+                                    </div>
+                                    <img id="img_w" src="svg/icon_flat_wt7.svg" alt="weather">
+                                </div>
+                                
+                                <div class="w-data2">
+                                    <div id="w-grid-box">
+                                        <div id="w-grid"></div>
+                                    </div>
+                                    <div id="w-console-box" class="border"> 
+                                        <ul id="w-console"></ul>
+                                        <input type="text" id="w-command">
+                                        <button id="w-command-btn" onclick="goCommand()">실행</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="longs remove">
-                        <i class='bx bx-arrow-back'></i>
-                        <div class="inner-box">
-                            <div class="l-line"></div>
-                            <div class="l-panels-box">
-                                <div class="l-left-box"></div>
-                                <div class="l-right-box"></div>
+                    
+                    <!-- 시간 예약 LED 시간 설정 -->
+                    <div id="light" class="contFrame">
+                        <div class="shorts">
+                            <div class="s-top-box-3"><i class='bx bx-calendar-exclamation'></i></div>
+                            <div>
+                                <h2 id="cont-h">LED TIMER</h2>
+                                <p id="cont-p">LED 시간 제어</p>
+                                <div class="s-comment-box-3">
+                                    <span></span>
+                                </div>
                             </div>
-                            <div class="l-btn-box">
-                                <div class="l-left-box btn-left"></div>
-                                <div class="l-right-box btn-right"></div>
-                            </div>
-                            <div class="l-console border"><ul></ul></div>
-                            <button onclick="updateLightTime()" class="l-time border">UPDATE</button>
                         </div>
+                        <div class="longs remove">
+                            <i class='bx bx-arrow-back'></i>
+                            <div class="inner-box">
+                                <div class="l-line"></div>
+                                <div class="l-panels-box">
+                                    <div class="l-left-box"></div>
+                                    <div class="l-right-box"></div>
+                                </div>
+                                <div class="l-btn-box">
+                                    <div class="l-left-box btn-left"></div>
+                                    <div class="l-right-box btn-right"></div>
+                                </div>
+                                <div class="l-console border"><ul></ul></div>
+                                <button onclick="updateLightTime()" class="l-time border">UPDATE</button>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+                <div id ="media-button-row">
+                    <div class="media-line">
+                        <button id="left-btn">◀</button>
+                        <button id="right-btn">▶</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="js/index.js?d"></script>
+    <script src="js/index.js?f1"></script>
     <script src="js/client.js?f"></script>
-    <script src="js/add.js?dd"></script>
-    <script src="js/session.js?f"></script>
+    <script src="js/add.js?f"></script>
+    <script src="js/session.js?f1"></script>
     <script type="text/javascript">
-        window.onload = function () {
+        $(function () {
             try {
                 callChart();
                 callWeather();
@@ -196,11 +212,66 @@
             catch(err) {
                 console.log(err);
             }
+        });
+        
+        if ($(window).width() < 1000) {
+            $("#weather").css("display", "none");
+            $("#light").css("display", "none");
         }
-        const viewUser = () => {
-            const id = getCookie("userID");
-            console.log(id);
-        }
+
+        // media button
+        let mediaCount = 0;
+        $("#left-btn").click(function () {
+            console.log("left");
+            if (mediaCount != 0){
+                if (mediaCount == 1) {
+                    $("#weather").css("display", "none");
+                    $("#control").css("display", "block");
+                }
+                else if (mediaCount == 2) {
+                    $("#weather").css("display", "block");
+                    $("#light").css("display", "none");
+                }
+                mediaCount -= 1;
+            }
+        });
+        
+        $("#right-btn").click(function () {
+            console.log("right");
+            if (mediaCount != 2){
+                if (mediaCount == 0) {
+                    $("#weather").css("display", "block");
+                    $("#control").css("display", "none");
+                }
+                else if (mediaCount == 1) {
+                    $("#weather").css("display", "none");
+                    $("#light").css("display", "block");
+                }
+                mediaCount += 1;
+            }
+        });
+        
+        let screenWidth = 0;
+        $( window ).resize(function() {
+            screenWidth = $(window).width();
+            $("#weather").css("display", "block");
+            $("#control").css("display", "block");
+            $("#light").css("display", "block");
+            if (screenWidth < 1000) {    
+                $("#media-button-row").removeClass("remove");
+                if (mediaCount === 0) {
+                    $("#weather").css("display", "none");
+                    $("#light").css("display", "none");
+                } else if (mediaCount === 1) {
+                    $("#control").css("display", "none");
+                    $("#light").css("display", "none");
+                } else if (mediaCount === 2) {
+                    $("#control").css("display", "none");
+                    $("#weather").css("display", "none");
+                }
+            }
+        });
+        
     </script>
 </body>
 

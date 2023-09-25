@@ -39,6 +39,7 @@ $(function () {
           }, 10000);
         }
         $(".contFrame").addClass("remove");
+        $("#media-button-row").addClass("remove");
         setTimeout(() => {
           $(".contFrame#" + thisID).addClass("move");
           $(".shorts").addClass("remove");
@@ -68,6 +69,9 @@ $(function () {
     $(".longs").addClass("remove");
     setTimeout(() => { $(".contFrame").removeClass("move"); }, 500);
     setTimeout(() => {
+      if ($(window).width() < 1001 ) {
+        $("#media-button-row").removeClass("remove");
+      }
       $(".contFrame").removeClass("remove");
       $(".shorts").removeClass("remove");
     }, 1000);

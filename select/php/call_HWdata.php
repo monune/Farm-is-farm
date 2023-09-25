@@ -5,6 +5,7 @@ $id = $_POST["id"];
 $data = $_POST["data"];
 $post_array = $_POST["array"];
 $post_value = $_POST["value"];
+$post_string = $_POST["string"];
 
 if (empty($id) || empty($data)) {
     echo "false"; 
@@ -42,6 +43,19 @@ if (empty($id) || empty($data)) {
         } else {
             echo "SQL 실행 실패: " . $sql . "<br>" . $conn->error;
         }
+	} else if ($data === "save") {
+		$filename = '../data/weatherData.txt';
+		$file = fopen($filename, 'a'); // 'a'는 파일 끝에 추가하는 모드
+		
+		if ($file) {
+			fwrite($file, $post_string . PHP_EOL); // PHP_EOL은 줄 바꿈 문자
+		
+			fclose($file);
+		
+			echo 'success';
+		} else {
+			echo 'false';
+		}
 	}
 	$conn->close();
 } ?>

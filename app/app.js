@@ -1,6 +1,3 @@
-// netstat -ano | findstr :<PORT_NUMBER>
-// taskkill /PID <PID> /F
-
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -15,10 +12,12 @@ const connection = mysql.init();
 
 mysql.db_open(connection);
 const puppeteer = require('puppeteer'); // 아아 나의 구원자
-const cheerio = require('cheerio');     // 
+const cheerio = require('cheerio');
 const axios = require('axios');
+const fs = require('fs'); // 콘솔 작성
 
 const using_url = "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query="; // naver
+let saveWeatherLog = '';
 
 const getHTML = async (keyword) => {
 	try {
@@ -116,6 +115,7 @@ const expectionHumidity = async (selectHighClass, loopCountValue, queryString) =
 const intervalCounter = 1000 * 60; // 1s = 1000
 setInterval(() => {
 	parsing(`날씨`);
+	// saveLogToFile('savedWeatherInfo.txt', saveWeatherLog);
 }, intervalCounter);
 
 /**
@@ -141,7 +141,7 @@ const updateDatabase = (table, columns, values) => {
 };
 
 /**
- * 원하는 정보를 검색하고 배열로 반환하는 함수입니다. 
+ * 원하는 정보를 검색하고 배열로 반환하는 Puppetter 노드 라이브러리를 사용한 함수입니다. 
  * @param {string} serchKeyword 검색할 키워드
  * @param {string} classKeyword 찾고싶은 클래스
  * @returns {array} 최대 다음날 습도 예상값 까지 반환
@@ -165,3 +165,27 @@ const callPuppetter = async (serchKeyword, classKeyword) => {
 	await browser.close(); // 브라우저 인스턴스 제거
 	return PuppteerArray;
 };
+
+/**
+ * 작성된 환경 기록을 저장하는 코드입니다.
+ * @param {string} filename 저장할 파일 이름
+ * @param {string} text 새로운 열에 기록할 정보
+ */
+const saveLogToFile = (filename, text) => {
+	fs.readFile(filename, 'utf8', (err, data) => {
+	  	if (err) {
+			console.error(err);
+			return callback(err);
+	  	}
+		
+	  	const newText = data + '\n' + text;
+	  	fs.writeFile(filename, newText, 'utf8', (err) => {
+			if (err) {
+			  console.error(err);
+			  return callback(err);
+			}
+		
+			console.log('텍스트가 성공적으로 작성되었습니다.');
+	  	});
+	});
+}
